@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomePage">
+    tools:context=".home_page.HomePage">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/cerberus_logo"
@@ -100,27 +100,6 @@
         app:layout_constraintEnd_toEndOf="@id/events_btn"
         app:layout_constraintStart_toStartOf="@id/events_btn"
         app:layout_constraintTop_toTopOf="@id/employees_label" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/notifications_btn"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="35dp"
-        android:src="@drawable/inbox"
-        app:layout_constraintEnd_toStartOf="@id/locations_btn"
-        app:layout_constraintStart_toEndOf="@id/employees_btn"
-        app:layout_constraintTop_toBottomOf="@id/events_btn" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/inbox_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Inbox"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@id/events_btn"
-        app:layout_constraintStart_toStartOf="@id/events_btn"
-        app:layout_constraintTop_toBottomOf="@id/notifications_btn" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/logOut_btn"
