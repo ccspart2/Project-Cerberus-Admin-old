@@ -6,13 +6,10 @@ interface HomePageContract {
 
     interface HomePageView {
         fun populateUser(): User
-        fun NavEmployees()
-        fun NavEvents()
-        fun NavLocations()
-        fun LogOut()
+
     }
 
     interface HomePagePresenter {
-        fun retreiveUserInfo()
+        fun retrieveUserInfo()
     }
 }
