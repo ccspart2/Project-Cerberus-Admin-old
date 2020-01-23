@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Project Cerberus Admin</string>
     <string name="employees_label">Employees</string>
+    <string name="see_all_employees_item_name_placeholder">Employee Name</string>
 </resources>
