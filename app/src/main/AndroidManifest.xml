@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".See_All_Employees.SeeAllEmployees"
+            android:name=".See_All_Employees.SeeAllEmployeesView"
             android:screenOrientation="landscape" />
         <activity
             android:name=".home_page.HomePage"

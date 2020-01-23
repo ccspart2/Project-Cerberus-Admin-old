@@ -6,7 +6,6 @@ interface HomePageContract {
 
     interface HomePageView {
         fun populateUser(): User
-
     }
 
     interface HomePagePresenter {

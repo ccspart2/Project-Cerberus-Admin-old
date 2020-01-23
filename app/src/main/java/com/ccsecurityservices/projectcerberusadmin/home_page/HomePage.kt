@@ -2,16 +2,13 @@ package com.ccsecurityservices.projectcerberusadmin.home_page
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.ccsecurityservices.projectcerberusadmin.Data_Items.User
 import com.ccsecurityservices.projectcerberusadmin.R
-import com.ccsecurityservices.projectcerberusadmin.See_All_Employees.SeeAllEmployees
+import com.ccsecurityservices.projectcerberusadmin.See_All_Employees.SeeAllEmployeesView
+import kotlinx.android.synthetic.main.home_page.*
 
 class HomePage : AppCompatActivity(), HomePageContract.HomePageView {
-
-    private lateinit var employeesBTN: ImageView
 
     private lateinit var homePagePresenter: HomePagePresenter
 
@@ -20,9 +17,8 @@ class HomePage : AppCompatActivity(), HomePageContract.HomePageView {
         setContentView(R.layout.home_page)
 
         homePagePresenter = HomePagePresenter(this)
-        employeesBTN = findViewById(R.id.employees_btn)
 
-        employeesBTN.setOnClickListener {
+        employees_btn.setOnClickListener {
             navigateOutHomePage(it.id)
         }
     }
@@ -30,7 +26,7 @@ class HomePage : AppCompatActivity(), HomePageContract.HomePageView {
     private fun navigateOutHomePage(viewID: Int) {
         when (viewID) {
             R.id.employees_btn -> {
-                val navIntent = Intent(this, SeeAllEmployees::class.java)
+                val navIntent = Intent(this, SeeAllEmployeesView::class.java)
                 startActivity(navIntent)
             }
             R.id.events_btn -> {
