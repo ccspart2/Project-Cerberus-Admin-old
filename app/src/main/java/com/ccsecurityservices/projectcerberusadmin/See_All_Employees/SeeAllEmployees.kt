@@ -8,6 +8,6 @@ class SeeAllEmployees : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.see_all_employees_view)
+        setContentView(R.layout.see_all_employees)
     }
 }
