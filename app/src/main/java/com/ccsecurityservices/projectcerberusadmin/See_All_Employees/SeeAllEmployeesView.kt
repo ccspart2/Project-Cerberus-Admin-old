@@ -1,9 +1,11 @@
 package com.ccsecurityservices.projectcerberusadmin.See_All_Employees
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ccsecurityservices.projectcerberusadmin.Add_New_Employee.AddNewEmployeeView
 import com.ccsecurityservices.projectcerberusadmin.R
 import kotlinx.android.synthetic.main.see_all_employees.*
 
@@ -25,10 +27,15 @@ class SeeAllEmployeesView : AppCompatActivity(), SeeAllEmployeesContract.SeeAllE
         allEmployeesRV.adapter = adapter
 
         //Dummy Add Employees for Cloud Testing
-        addEmployeesBTN.setOnClickListener{
-            Toast.makeText(this,"Me tocaste!",Toast.LENGTH_LONG).show()
-            seeAllEmployeesPresenter.dummyAddCloudEmployee()
+//        addEmployeesBTN.setOnClickListener{
+//            Toast.makeText(this,"Me tocaste!",Toast.LENGTH_LONG).show()
+//            seeAllEmployeesPresenter.dummyAddCloudEmployee()
+//
+//        }
 
+        addEmployeesBTN.setOnClickListener {
+            val navIntent = Intent(this, AddNewEmployeeView::class.java)
+            startActivity(navIntent)
         }
     }
 

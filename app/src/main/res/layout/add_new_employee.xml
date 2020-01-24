@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Add_New_Employee.AddNewEmployeeView">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/cerberus_logo"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="50dp"
+        android:src="@drawable/cerberus_logo_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/addEmployeesLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_employee_label"
+        android:textSize="@dimen/standard_view_label_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/cerberus_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/cerberus_logo" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/add_employee_first_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/Add_Employee_first_name_label_text"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addEmployeesLabel" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/add_employee_first_name_Edit_Text"
+        android:layout_width="@dimen/edit_text_default_width"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:hint="@string/add_employee_first_name_placeholder"
+        android:inputType="textPersonName"
+        app:layout_constraintBaseline_toBaselineOf="@id/add_employee_first_name_label"
+        app:layout_constraintStart_toEndOf="@id/add_employee_first_name_label" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/add_employee_last_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/add_employee_last_name_label_text"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="@id/add_employee_first_name_label"
+        app:layout_constraintTop_toBottomOf="@id/add_employee_first_name_label" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/add_employee_last_name_Edit_Text"
+        android:layout_width="@dimen/edit_text_default_width"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:hint="@string/add_employee_last_name_placeholder"
+        android:inputType="textPersonName"
+        app:layout_constraintBaseline_toBaselineOf="@id/add_employee_last_name_label"
+        app:layout_constraintStart_toEndOf="@id/add_employee_last_name_label" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/add_employee_email_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/add_employee_email_label_text"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="@id/add_employee_last_name_label"
+        app:layout_constraintTop_toBottomOf="@id/add_employee_last_name_label" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/add_employee_email_Edit_Text"
+        android:layout_width="@dimen/edit_text_default_width"
+        android:layout_height="wrap_content"
+        android:hint="@string/add_employees_email_placeholder"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBaseline_toBaselineOf="@id/add_employee_email_label"
+        app:layout_constraintStart_toStartOf="@id/add_employee_last_name_Edit_Text" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/add_employee_phone_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/add_employee_phone_label_text"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="@id/add_employee_email_label"
+        app:layout_constraintTop_toBottomOf="@id/add_employee_email_label" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/add_employee_phone_Edit_Text"
+        android:layout_width="@dimen/edit_text_default_width"
+        android:layout_height="wrap_content"
+        android:hint="@string/add_employees_phone_placeholder"
+        android:inputType="phone"
+        app:layout_constraintBaseline_toBaselineOf="@id/add_employee_phone_label"
+        app:layout_constraintStart_toStartOf="@id/add_employee_last_name_Edit_Text" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/add_employee_administrator_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:checked="false"
+        app:layout_constraintStart_toStartOf="@id/add_employee_phone_Edit_Text"
+        app:layout_constraintTop_toBottomOf="@id/add_employee_phone_Edit_Text" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/add_employee_administrator_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/add_employee_administrator_label"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@id/add_employee_administrator_switch"
+        app:layout_constraintStart_toEndOf="@id/add_employee_administrator_switch" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/add_employee_BTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="#ffffff"
+        android:text="@string/add_employee_BTN_text"
+        android:textColor="@color/Default_text_color"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/add_employee_administrator_label" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

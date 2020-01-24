@@ -2,4 +2,15 @@
     <string name="app_name">Project Cerberus Admin</string>
     <string name="employees_label">Employees</string>
     <string name="see_all_employees_item_name_placeholder">Employee Name</string>
+    <string name="add_employee_label">New Employee</string>
+    <string name="Add_Employee_first_name_label_text">First Name:</string>
+    <string name="add_employee_first_name_placeholder">Juan</string>
+    <string name="add_employee_last_name_label_text">Last Name:</string>
+    <string name="add_employee_last_name_placeholder">Del Pueblo</string>
+    <string name="add_employee_email_label_text">Email:</string>
+    <string name="add_employees_email_placeholder">employee@ccsecurityservices.com</string>
+    <string name="add_employee_phone_label_text">Phone Number:</string>
+    <string name="add_employees_phone_placeholder">787-799-8686</string>
+    <string name="add_employee_administrator_label">Administrator</string>
+    <string name="add_employee_BTN_text">Add Employee</string>
 </resources>
