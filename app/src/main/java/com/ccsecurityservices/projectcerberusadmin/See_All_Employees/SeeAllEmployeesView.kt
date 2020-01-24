@@ -1,6 +1,7 @@
 package com.ccsecurityservices.projectcerberusadmin.See_All_Employees
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ccsecurityservices.projectcerberusadmin.R
@@ -22,6 +23,13 @@ class SeeAllEmployeesView : AppCompatActivity(), SeeAllEmployeesContract.SeeAllE
 
         val adapter = SeeAllEmployeesAdapter(seeAllEmployeesPresenter)
         allEmployeesRV.adapter = adapter
+
+        //Dummy Add Employees for Cloud Testing
+        addEmployeesBTN.setOnClickListener{
+            Toast.makeText(this,"Me tocaste!",Toast.LENGTH_LONG).show()
+            seeAllEmployeesPresenter.dummyAddCloudEmployee()
+
+        }
     }
 
     override fun updateList() {

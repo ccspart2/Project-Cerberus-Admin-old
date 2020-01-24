@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "981637949704",
+    "firebase_url": "https://project-cerberus-6ffeb.firebaseio.com",
+    "project_id": "project-cerberus-6ffeb",
+    "storage_bucket": "project-cerberus-6ffeb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981637949704:android:c68939b63def8e7aeca4bd",
+        "android_client_info": {
+          "package_name": "com.ccsecurityservices.projectcerberusadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "981637949704-eg9i8b5reui18pknpcdff74so8ssc3q0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ccsecurityservices.projectcerberusadmin",
+            "certificate_hash": "330eaaaba7949d9cdd5af0c50c5f5c9628b04978"
+          }
+        },
+        {
+          "client_id": "981637949704-inghmp59jk92l2rt502g1ldabtkmdsd5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCN90RCcv8R3cXCq_TE9jyW7Qb2tW__PVE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "981637949704-inghmp59jk92l2rt502g1ldabtkmdsd5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

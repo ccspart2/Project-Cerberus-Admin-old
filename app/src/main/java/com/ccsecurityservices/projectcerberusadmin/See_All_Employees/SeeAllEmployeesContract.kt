@@ -6,6 +6,6 @@ interface SeeAllEmployeesContract {
         fun updateList()
     }
     interface SeeAllEmployeesPresenter {
-        fun getList()
+        fun getEmployeeList()
     }
 }
