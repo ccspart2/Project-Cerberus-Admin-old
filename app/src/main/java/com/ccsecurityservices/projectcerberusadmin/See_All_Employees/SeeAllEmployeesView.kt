@@ -2,7 +2,6 @@ package com.ccsecurityservices.projectcerberusadmin.See_All_Employees
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ccsecurityservices.projectcerberusadmin.Add_New_Employee.AddNewEmployeeView
@@ -33,7 +32,7 @@ class SeeAllEmployeesView : AppCompatActivity(), SeeAllEmployeesContract.SeeAllE
 //
 //        }
 
-        addEmployeesBTN.setOnClickListener {
+        addEmployeesNAV_BTN.setOnClickListener {
             val navIntent = Intent(this, AddNewEmployeeView::class.java)
             startActivity(navIntent)
         }
