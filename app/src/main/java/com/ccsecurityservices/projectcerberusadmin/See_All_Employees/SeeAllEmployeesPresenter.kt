@@ -29,7 +29,7 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesContract.SeeAllE
         val dummyEMP = Employees(
             "1", "Charlie1", "Castro",
             "ccspart2@gmail.com", true, "787-509-1818", null,
-            null, null, null, true, true
+            null, false
         )
         mDatabaseReference.push().setValue(dummyEMP)
     }

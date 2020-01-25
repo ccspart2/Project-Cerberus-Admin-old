@@ -1,16 +1,17 @@
 package com.ccsecurityservices.projectcerberusadmin.Add_New_Employee
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import com.ccsecurityservices.projectcerberusadmin.R
+import com.ccsecurityservices.projectcerberusadmin.See_All_Employees.SeeAllEmployeesView
 import kotlinx.android.synthetic.main.add_new_employee.*
 import kotlinx.android.synthetic.main.see_all_employees.*
 
 class AddNewEmployeeView : AppCompatActivity(), AddNewEmployeeContract.AddNewEmployeeView {
 
-    private lateinit var addEmployeeBTN : Button
     private lateinit var addNewEmployeePresenter: AddNewEmployeePresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,8 +19,6 @@ class AddNewEmployeeView : AppCompatActivity(), AddNewEmployeeContract.AddNewEmp
         setContentView(R.layout.add_new_employee)
 
         addNewEmployeePresenter = AddNewEmployeePresenter(this)
-
-
 
         add_employee_BTN.setOnClickListener {
             addNewEmployeePresenter.addEmployee(
@@ -35,9 +34,12 @@ class AddNewEmployeeView : AppCompatActivity(), AddNewEmployeeContract.AddNewEmp
     override fun navBacktoSeeAllEmployees() {
         Toast.makeText(
             this,
-            "Tus credenciales estan Bien!!!!!",
+            "The employee as successfully created.",
             Toast.LENGTH_LONG
-        ).show()    }
+        ).show()
+        val navIntent = Intent(this, SeeAllEmployeesView::class.java)
+        startActivity(navIntent)
+    }
 
     override fun showFailMessage() {
         Toast.makeText(
@@ -45,5 +47,14 @@ class AddNewEmployeeView : AppCompatActivity(), AddNewEmployeeContract.AddNewEmp
             "Some of the credentials are not valid. Please verify and try again",
             Toast.LENGTH_LONG
         ).show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        add_employee_first_name_Edit_Text.setText("")
+        add_employee_last_name_Edit_Text.setText("")
+        add_employee_email_Edit_Text.setText("")
+        add_employee_phone_Edit_Text.setText("")
+        add_employee_administrator_switch.isChecked = false
     }
 }

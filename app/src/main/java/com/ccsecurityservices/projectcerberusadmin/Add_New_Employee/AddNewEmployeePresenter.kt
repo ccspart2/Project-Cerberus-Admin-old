@@ -1,5 +1,8 @@
 package com.ccsecurityservices.projectcerberusadmin.Add_New_Employee
 
+import com.ccsecurityservices.projectcerberusadmin.Data_Items.Employees
+import com.google.android.gms.tasks.Task
+import com.google.firebase.database.FirebaseDatabase
 import java.util.regex.Pattern
 
 class AddNewEmployeePresenter(private val view: AddNewEmployeeContract.AddNewEmployeeView) :
@@ -33,12 +36,33 @@ class AddNewEmployeePresenter(private val view: AddNewEmployeeContract.AddNewEmp
         this.lastName = lastName.trim()
         this.email = email.trim()
         this.phone = phone.trim()
-        
+
         if (validateFields()) {
+            val employee = Employees(
+                null,
+                this.firstName,
+                this.lastName,
+                this.email,
+                Admin,
+                this.phone,
+                null,
+                null,
+                false
+            )
+
+            uploadEmployeeToFireBase(employee)
             view.navBacktoSeeAllEmployees()
+
         } else {
             view.showFailMessage()
         }
+    }
+
+    private fun uploadEmployeeToFireBase(employee: Employees) {
+        val db = FirebaseDatabase.getInstance().reference
+        val id = db.push().key
+        employee.ID = id
+        db.child("employees").child(id!!).setValue(employee)
     }
 
     private fun validateFields(): Boolean {
