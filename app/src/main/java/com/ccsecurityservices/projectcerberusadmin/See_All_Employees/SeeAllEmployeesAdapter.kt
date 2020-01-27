@@ -27,11 +27,23 @@ class SeeAllEmployeesAdapter(private val seeAllEmployeesPresenter: SeeAllEmploye
     }
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        var currentEmployee: Employees? = null
+        var currentPosition: Int = 0
+
+        init {
+            itemView.setOnClickListener {
+                seeAllEmployeesPresenter.setupNavToEmployeeDetails(currentEmployee)
+            }
+        }
+
         fun setData(employee: Employees?, position: Int) {
             if (employee != null) {
                 val fullName = "${employee.firstName} ${employee.lastName}"
                 itemView.see_all_employees_item_name_label.text = fullName
             }
+            this.currentEmployee = employee
+            this.currentPosition = position
         }
     }
 }

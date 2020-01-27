@@ -52,4 +52,8 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesContract.SeeAllE
 
         employeesReference.addChildEventListener(mChildEventListener)
     }
+
+    fun setupNavToEmployeeDetails(currentEmployee: Employees?) {
+        view.navToEmployeeDetails(currentEmployee!!)
+    }
 }

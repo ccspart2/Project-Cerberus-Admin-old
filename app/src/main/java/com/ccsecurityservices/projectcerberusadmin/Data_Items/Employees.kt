@@ -1,5 +1,7 @@
 package com.ccsecurityservices.projectcerberusadmin.Data_Items
 
+import java.io.Serializable
+
 data class Employees(
 
     var id: String = "",
@@ -11,7 +13,7 @@ data class Employees(
     var photoId: String = "",
     var ranking: Int = 0,
     var hasApp: Boolean = false
-)
+) : Serializable
 
 
 //object DummyEmployees {

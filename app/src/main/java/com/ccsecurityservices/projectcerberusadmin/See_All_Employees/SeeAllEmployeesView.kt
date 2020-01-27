@@ -5,8 +5,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ccsecurityservices.projectcerberusadmin.Add_New_Employee.AddNewEmployeeView
+import com.ccsecurityservices.projectcerberusadmin.Data_Items.Employees
 import com.ccsecurityservices.projectcerberusadmin.R
+import com.ccsecurityservices.projectcerberusadmin.see_employees_details.SeeEmployeesDetailsView
 import kotlinx.android.synthetic.main.see_all_employees.*
+import java.io.Serializable
 
 class SeeAllEmployeesView : AppCompatActivity(), SeeAllEmployeesContract.SeeAllEmployeesView {
 
@@ -35,5 +38,11 @@ class SeeAllEmployeesView : AppCompatActivity(), SeeAllEmployeesContract.SeeAllE
 
     override fun updateList() {
         adapter.notifyDataSetChanged()
+    }
+
+    override fun navToEmployeeDetails(emp: Employees) {
+        val navIntent = Intent(this, SeeEmployeesDetailsView::class.java)
+        navIntent.putExtra("employee_details", emp as Serializable)
+        startActivity(navIntent)
     }
 }
