@@ -1,16 +1,17 @@
 package com.ccsecurityservices.projectcerberusadmin.See_All_Employees
 
-import com.ccsecurityservices.projectcerberusadmin.Data_Items.DummyEmployees
 import com.ccsecurityservices.projectcerberusadmin.Data_Items.Employees
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 
 class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesContract.SeeAllEmployeesView) :
     SeeAllEmployeesContract.SeeAllEmployeesPresenter {
 
-    private val items: MutableList<Employees> = DummyEmployees.dEmployees.toMutableList()
+    private val items: MutableList<Employees> = mutableListOf()
 
-    private val mFireBaseDatabase = FirebaseDatabase.getInstance()
-    private val mDatabaseReference = mFireBaseDatabase.reference.child("employees")
+    private lateinit var mFireBaseDatabase : FirebaseDatabase
+    private lateinit var employeesReference : DatabaseReference
+    private lateinit var mChildEventListener: ChildEventListener
+
 
     fun numberOfItems(): Int {
         return items.size
@@ -21,16 +22,34 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesContract.SeeAllE
     }
 
     override fun getEmployeeList() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
-    fun dummyAddCloudEmployee() {
+        mFireBaseDatabase = FirebaseDatabase.getInstance()
+        employeesReference = mFireBaseDatabase.reference.child("employees")
 
-        val dummyEMP = Employees(
-            "1", "Charlie1", "Castro",
-            "ccspart2@gmail.com", true, "787-509-1818", null,
-            null, false
-        )
-        mDatabaseReference.push().setValue(dummyEMP)
+        mChildEventListener = object : ChildEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+                p0.message
+            }
+
+            override fun onChildMoved(p0: DataSnapshot, p1: String?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onChildChanged(data: DataSnapshot, p1: String?) {
+
+            }
+
+            override fun onChildAdded(data: DataSnapshot, p1: String?) {
+                val emp = data.getValue(Employees::class.java)
+                items.add(emp!!)
+                view.updateList()
+            }
+
+            override fun onChildRemoved(p0: DataSnapshot) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        }
+
+        employeesReference.addChildEventListener(mChildEventListener)
     }
 }

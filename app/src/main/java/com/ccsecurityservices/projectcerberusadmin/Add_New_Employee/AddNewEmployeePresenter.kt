@@ -39,14 +39,14 @@ class AddNewEmployeePresenter(private val view: AddNewEmployeeContract.AddNewEmp
 
         if (validateFields()) {
             val employee = Employees(
-                null,
+                "",
                 this.firstName,
                 this.lastName,
                 this.email,
                 Admin,
                 this.phone,
-                null,
-                null,
+                "",
+                0,
                 false
             )
 
@@ -61,7 +61,7 @@ class AddNewEmployeePresenter(private val view: AddNewEmployeeContract.AddNewEmp
     private fun uploadEmployeeToFireBase(employee: Employees) {
         val db = FirebaseDatabase.getInstance().reference
         val id = db.push().key
-        employee.ID = id
+        employee.id = id!!
         db.child("employees").child(id!!).setValue(employee)
     }
 

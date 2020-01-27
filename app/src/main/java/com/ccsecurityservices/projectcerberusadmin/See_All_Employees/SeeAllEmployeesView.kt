@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.see_all_employees.*
 class SeeAllEmployeesView : AppCompatActivity(), SeeAllEmployeesContract.SeeAllEmployeesView {
 
     private lateinit var seeAllEmployeesPresenter: SeeAllEmployeesPresenter
+    private lateinit var adapter : SeeAllEmployeesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,23 +23,17 @@ class SeeAllEmployeesView : AppCompatActivity(), SeeAllEmployeesContract.SeeAllE
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         allEmployeesRV.layoutManager = layoutManager
 
-        val adapter = SeeAllEmployeesAdapter(seeAllEmployeesPresenter)
+        adapter = SeeAllEmployeesAdapter(seeAllEmployeesPresenter)
         allEmployeesRV.adapter = adapter
-
-        //Dummy Add Employees for Cloud Testing
-//        addEmployeesBTN.setOnClickListener{
-//            Toast.makeText(this,"Me tocaste!",Toast.LENGTH_LONG).show()
-//            seeAllEmployeesPresenter.dummyAddCloudEmployee()
-//
-//        }
 
         addEmployeesNAV_BTN.setOnClickListener {
             val navIntent = Intent(this, AddNewEmployeeView::class.java)
             startActivity(navIntent)
         }
+         seeAllEmployeesPresenter.getEmployeeList()
     }
 
     override fun updateList() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        adapter.notifyDataSetChanged()
     }
 }
