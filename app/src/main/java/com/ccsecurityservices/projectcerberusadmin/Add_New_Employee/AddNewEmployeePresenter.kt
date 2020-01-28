@@ -59,7 +59,7 @@ class AddNewEmployeePresenter(private val view: AddNewEmployeeContract.AddNewEmp
     }
 
     private fun formatPhone(): String {
-        return if (!this.phone.contains('(')|| !this.phone.contains('-')) {
+        return if (!this.phone.contains('(') || !this.phone.contains('-')) {
             PhoneNumberUtils.formatNumber(this.phone)
         } else {
             this.phone
