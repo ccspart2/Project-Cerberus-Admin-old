@@ -3,4 +3,5 @@
     <dimen name="standard_view_label_text_size">30sp</dimen>
     <dimen name="standard_list_item_height">100dp</dimen>
     <dimen name="edit_text_default_width">400dp</dimen>
+    <dimen name="standard_text_view_font_size">25sp</dimen>
 </resources>

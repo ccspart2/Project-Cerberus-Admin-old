@@ -13,4 +13,6 @@
     <string name="add_employees_phone_placeholder">787-799-8686</string>
     <string name="add_employee_administrator_label">Administrator</string>
     <string name="add_employee_BTN_text">Add Employee</string>
+    <string name="see_employees_details_erase_BTN_text">Erase Employee</string>
+    <string name="see_employees_details_edit_BTN_text">Edit Information</string>
 </resources>

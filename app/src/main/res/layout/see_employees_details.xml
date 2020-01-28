@@ -6,4 +6,103 @@
     android:layout_height="match_parent"
     tools:context=".see_employees_details.SeeEmployeesDetailsView">
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/cerberus_logo"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="50dp"
+        android:src="@drawable/cerberus_logo_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/see_employee_details_profile_pic"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="75dp"
+        android:src="@drawable/profile_placeholder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/see_employee_details_name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Name: Charlie Castro"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/see_employee_details_profile_pic" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/see_employee_details_phone_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Phone Number: 787-509-1818"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/see_employee_details_name_text_view" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/see_employee_details_email_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Email: Charlie.Castro@upr.edu"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/see_employee_details_phone_text_view" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/see_employee_details_admin_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Employee Status: Employee"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/see_employee_details_email_text_view" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/see_employee_details_hasApp_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Registered: YES"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/see_employee_details_admin_text_view" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/see_employee_details_eraseEmployeeBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:text="@string/see_employees_details_erase_BTN_text"
+        android:textColor="@color/standard_red"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/see_employee_details_editEmployeeBTN" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/see_employee_details_editEmployeeBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:text="@string/see_employees_details_edit_BTN_text"
+        android:textColor="@color/Default_text_color"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/see_employee_details_eraseEmployeeBTN"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
