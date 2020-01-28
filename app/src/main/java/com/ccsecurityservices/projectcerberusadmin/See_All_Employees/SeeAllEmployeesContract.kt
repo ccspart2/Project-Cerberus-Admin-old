@@ -1,12 +1,12 @@
 package com.ccsecurityservices.projectcerberusadmin.See_All_Employees
 
-import com.ccsecurityservices.projectcerberusadmin.Data_Items.Employees
+import com.ccsecurityservices.projectcerberusadmin.Data_Items.Employee
 
 interface SeeAllEmployeesContract {
 
     interface SeeAllEmployeesView {
         fun updateList()
-        fun navToEmployeeDetails(emp : Employees)
+        fun navToEmployeeDetails(emp : Employee)
     }
     interface SeeAllEmployeesPresenter {
         fun getEmployeeList()

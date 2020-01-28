@@ -1,12 +1,12 @@
 package com.ccsecurityservices.projectcerberusadmin.See_All_Employees
 
-import com.ccsecurityservices.projectcerberusadmin.Data_Items.Employees
+import com.ccsecurityservices.projectcerberusadmin.Data_Items.Employee
 import com.google.firebase.database.*
 
 class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesContract.SeeAllEmployeesView) :
     SeeAllEmployeesContract.SeeAllEmployeesPresenter {
 
-    private val items: MutableList<Employees> = mutableListOf()
+    private val items: MutableList<Employee> = mutableListOf()
 
     private lateinit var mFireBaseDatabase : FirebaseDatabase
     private lateinit var employeesReference : DatabaseReference
@@ -17,7 +17,7 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesContract.SeeAllE
         return items.size
     }
 
-    fun getEmployee(position: Int): Employees? {
+    fun getEmployee(position: Int): Employee? {
         return items[position]
     }
 
@@ -40,7 +40,7 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesContract.SeeAllE
             }
 
             override fun onChildAdded(data: DataSnapshot, p1: String?) {
-                val emp = data.getValue(Employees::class.java)
+                val emp = data.getValue(Employee::class.java)
                 items.add(emp!!)
                 sortEmps()
                 view.updateList()
@@ -58,7 +58,7 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesContract.SeeAllE
         items.sortBy { it.firstName + it.lastName }
     }
 
-    fun setupNavToEmployeeDetails(currentEmployee: Employees?) {
+    fun setupNavToEmployeeDetails(currentEmployee: Employee?) {
         view.navToEmployeeDetails(currentEmployee!!)
     }
 }

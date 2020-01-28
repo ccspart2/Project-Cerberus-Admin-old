@@ -15,4 +15,9 @@
     <string name="add_employee_BTN_text">Add Employee</string>
     <string name="see_employees_details_erase_BTN_text">Erase Employee</string>
     <string name="see_employees_details_edit_BTN_text">Edit Information</string>
+    <string name="see_employee_details_name_text_placeholder">Name: </string>
+    <string name="see_employee_details_phone_text_placeholder">Phone Number: </string>
+    <string name="see_employee_details_email_text_placeholder">Email: </string>
+    <string name="see_employee_details_admin_text_placeholder">Employee Status: </string>
+    <string name="see_employee_details_hasApp_text_placeholder">Registered: </string>
 </resources>
