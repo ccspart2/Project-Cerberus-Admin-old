@@ -10,7 +10,7 @@ class SeeEmployeesDetailsView : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.see_employees_details_layout)
+        setContentView(R.layout.see_employees_details)
 
         val currentEmployee = intent.extras!!.get("employee_details") as Employees
 

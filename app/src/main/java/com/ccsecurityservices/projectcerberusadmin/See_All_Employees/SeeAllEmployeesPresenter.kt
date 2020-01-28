@@ -42,6 +42,7 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesContract.SeeAllE
             override fun onChildAdded(data: DataSnapshot, p1: String?) {
                 val emp = data.getValue(Employees::class.java)
                 items.add(emp!!)
+                sortEmps()
                 view.updateList()
             }
 
@@ -51,6 +52,10 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesContract.SeeAllE
         }
 
         employeesReference.addChildEventListener(mChildEventListener)
+    }
+
+    private fun sortEmps() {
+        items.sortBy { it.firstName + it.lastName }
     }
 
     fun setupNavToEmployeeDetails(currentEmployee: Employees?) {
