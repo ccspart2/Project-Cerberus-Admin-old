@@ -34,7 +34,7 @@ class AddNewEmployeeView : AppCompatActivity(), AddNewEmployeeContract.AddNewEmp
     override fun navBacktoSeeAllEmployees() {
         Toast.makeText(
             this,
-            "The employee as successfully created.",
+            "The employee was successfully created.",
             Toast.LENGTH_LONG
         ).show()
         val navIntent = Intent(this, SeeAllEmployeesView::class.java)
