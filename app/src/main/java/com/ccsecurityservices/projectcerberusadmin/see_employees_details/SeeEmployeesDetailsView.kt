@@ -86,17 +86,8 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
         Glide.with(this).load(imageUrl).into(imageView);
     }
 
-    override fun showProfilePicMsg(msgCode: Boolean) {
-        if (msgCode) {
-            Toast.makeText(this, "The Profile Picture was Successfully Uploaded", Toast.LENGTH_LONG)
-                .show()
-        } else {
-            Toast.makeText(
-                this,
-                "An Error occurred trying to upload. Please try later.",
-                Toast.LENGTH_LONG
-            ).show()
-        }
+    override fun showToastMessages(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

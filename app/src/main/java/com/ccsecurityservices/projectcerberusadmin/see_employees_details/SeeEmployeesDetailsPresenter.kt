@@ -5,7 +5,6 @@ import com.ccsecurityservices.projectcerberusadmin.Data_Items.Employee
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 
 
 class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
@@ -14,13 +13,15 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
     private lateinit var currentEmployee: Employee
 
     private var mFireBaseStorage: FirebaseStorage = FirebaseStorage.getInstance()
-    private lateinit var employeeProfilePhotoStorageReference: StorageReference
-
     private var mFireBaseDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
+
     private lateinit var currentEmployeeReference: DatabaseReference
 
     private fun deleteProfilePic() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val profilePicsReference = mFireBaseStorage.reference
+            .child("employees_profile_pictures")
+            .child("${this.currentEmployee.firstName}.${this.currentEmployee.lastName}")
+        profilePicsReference.delete()
     }
 
     private fun updateUrlInEmployeeRecord(photoURL: String) {
@@ -30,6 +31,14 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
             .child("photoId")
 
         currentEmployeeReference.setValue(photoURL)
+    }
+
+    private fun deleteEmployeeDBEntry() {
+        currentEmployeeReference =
+            mFireBaseDatabase.reference.child("employees").child(currentEmployee.id)
+        currentEmployeeReference.removeValue().addOnSuccessListener(view) {
+            view.deleteResult(true)
+        }
     }
 
     override fun retrieveEmployeeObject(EMP: Employee) {
@@ -42,13 +51,13 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
     }
 
     override fun deleteEmployee() {
-
-        //deleteProfilePic()
-
-        currentEmployeeReference =
-            mFireBaseDatabase.reference.child("employees").child(currentEmployee.id)
-        currentEmployeeReference.removeValue().addOnSuccessListener(view) {
-            view.deleteResult(true)
+        if (!this.currentEmployee.adminRights) {
+            deleteProfilePic()
+            deleteEmployeeDBEntry()
+        }
+        else
+        {
+            view.showToastMessages("The employee is an administrator. Please confirm with leadership for approval.")
         }
     }
 
@@ -59,9 +68,6 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
     override fun createIntentForProfilePic(): Intent {
 
         val intent = Intent(Intent.ACTION_GET_CONTENT)
-        employeeProfilePhotoStorageReference =
-            mFireBaseStorage.reference.child("employees_profile_pictures")
-
         intent.type = "image/jpeg"
         intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true)
         return intent
@@ -72,10 +78,11 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
         val selectedImageUri = data!!.data
 
         //Get a reference to store file at employees_profile_pictures/<FILENAME>
-        val photoRef =
-            employeeProfilePhotoStorageReference.child(selectedImageUri!!.lastPathSegment!!)
+        val photoRef = mFireBaseStorage.reference
+            .child("employees_profile_pictures")
+            .child("${this.currentEmployee.firstName}.${this.currentEmployee.lastName}")
 
-        val uploadTask = photoRef.putFile(selectedImageUri)
+        val uploadTask = photoRef.putFile(selectedImageUri!!)
 
         uploadTask.continueWithTask { task ->
             if (!task.isSuccessful) {
@@ -87,9 +94,9 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
         }.addOnCompleteListener(view) { task ->
             if (task.isSuccessful) {
                 updateUrlInEmployeeRecord(task.result!!.toString())
-                view.showProfilePicMsg(true)
+                view.showToastMessages("The Profile Picture was Successfully Uploaded.")
             } else {
-                view.showProfilePicMsg(false)
+                view.showToastMessages("An Error occurred trying to upload. Please try later.")
             }
         }
         view.updateProfilePicFromPicker(selectedImageUri)

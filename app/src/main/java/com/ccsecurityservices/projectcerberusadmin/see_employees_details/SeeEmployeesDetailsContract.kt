@@ -8,17 +8,17 @@ interface SeeEmployeesDetailsContract {
 
     interface SeeEmployeesDetailsView {
         fun populateFields(EMP: Employee)
-        fun deleteResult(result : Boolean)
+        fun deleteResult(result: Boolean)
         fun updateProfilePicFromPicker(uri: Uri?)
-        fun downloadPic(imageUrl : String)
-        fun showProfilePicMsg(msgCode : Boolean)
+        fun downloadPic(imageUrl: String)
+        fun showToastMessages(msg: String)
     }
 
     interface SeeEmployeesDetailsPresenter {
         fun retrieveEmployeeObject(EMP: Employee)
         fun deleteEmployee()
         fun prepareForEdit(): Employee
-        fun createIntentForProfilePic() : Intent
+        fun createIntentForProfilePic(): Intent
         fun retrieveProfilePic(data: Intent?)
     }
 }

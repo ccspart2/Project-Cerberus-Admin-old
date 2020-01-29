@@ -13,9 +13,9 @@ class AddNewEmployeePresenter(private val view: AddNewEmployeeContract.AddNewEmp
         const val PHONE_REGEX =
             "^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$"
 
-        const val FIRST_NAME_REGEX = "[A-Z][a-zA-Z]*"
+        const val FIRST_NAME_REGEX = "[A-ZñÑ][a-zA-Z]*"
 
-        const val LAST_NAME_REGEX = "[a-zA-z]+([ '-][a-zA-Z]+)*"
+        const val LAST_NAME_REGEX = "[a-zA-zñÑ]+([ '-][a-zA-ZñÑ]+)*"
 
         const val EMAIL_REGEX = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
     }
