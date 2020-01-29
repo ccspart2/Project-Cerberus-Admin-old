@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -17,9 +18,7 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
     SeeEmployeesDetailsContract.SeeEmployeesDetailsView {
 
     private lateinit var presenter: SeeEmployeesDetailsPresenter
-
     private lateinit var imageView: ImageView
-
 
     companion object {
         const val RC_PHOTO_PICKER = 2
@@ -88,6 +87,14 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
 
     override fun showToastMessages(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+    }
+
+    override fun showLoading(state: Boolean) {
+        if (state) {
+            see_employee_details_loading_widget.visibility = View.VISIBLE
+        } else {
+            see_employee_details_loading_widget.visibility = View.GONE
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -46,7 +46,9 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
         view.populateFields(currentEmployee)
 
         if (currentEmployee.photoId != "") {
+            view.showLoading(true)
             view.downloadPic(currentEmployee.photoId)
+            view.showLoading(false)
         }
     }
 
@@ -54,9 +56,7 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
         if (!this.currentEmployee.adminRights) {
             deleteProfilePic()
             deleteEmployeeDBEntry()
-        }
-        else
-        {
+        } else {
             view.showToastMessages("The employee is an administrator. Please confirm with leadership for approval.")
         }
     }
@@ -66,7 +66,6 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
     }
 
     override fun createIntentForProfilePic(): Intent {
-
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "image/jpeg"
         intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true)
@@ -74,6 +73,7 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
     }
 
     override fun retrieveProfilePic(data: Intent?) {
+        view.showLoading(true)
 
         val selectedImageUri = data!!.data
 
@@ -95,6 +95,7 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
             if (task.isSuccessful) {
                 updateUrlInEmployeeRecord(task.result!!.toString())
                 view.showToastMessages("The Profile Picture was Successfully Uploaded.")
+                view.showLoading(false)
             } else {
                 view.showToastMessages("An Error occurred trying to upload. Please try later.")
             }

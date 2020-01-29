@@ -37,8 +37,7 @@ class AddNewEmployeeView : AppCompatActivity(), AddNewEmployeeContract.AddNewEmp
             "The employee was successfully created.",
             Toast.LENGTH_LONG
         ).show()
-        val navIntent = Intent(this, SeeAllEmployeesView::class.java)
-        startActivity(navIntent)
+        finish()
     }
 
     override fun showFailMessage() {

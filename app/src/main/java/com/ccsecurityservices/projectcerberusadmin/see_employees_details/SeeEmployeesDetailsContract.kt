@@ -12,6 +12,7 @@ interface SeeEmployeesDetailsContract {
         fun updateProfilePicFromPicker(uri: Uri?)
         fun downloadPic(imageUrl: String)
         fun showToastMessages(msg: String)
+        fun showLoading(state : Boolean)
     }
 
     interface SeeEmployeesDetailsPresenter {

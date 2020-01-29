@@ -2,6 +2,7 @@ package com.ccsecurityservices.projectcerberusadmin.See_All_Employees
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ccsecurityservices.projectcerberusadmin.Add_New_Employee.AddNewEmployeeView
@@ -44,6 +45,14 @@ class SeeAllEmployeesView : AppCompatActivity(), SeeAllEmployeesContract.SeeAllE
         val navIntent = Intent(this, SeeEmployeesDetailsView::class.java)
         navIntent.putExtra("employee_details", emp as Serializable)
         startActivity(navIntent)
+    }
+
+    override fun showLoading(state: Boolean) {
+        if (state) {
+            see_all_employees_loading_widget.visibility = View.VISIBLE
+        } else {
+            see_all_employees_loading_widget.visibility = View.GONE
+        }
     }
 
     override fun onDestroy() {

@@ -8,7 +8,7 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesContract.SeeAllE
 
     private val items: MutableList<Employee> = mutableListOf()
 
-    private lateinit var mFireBaseDatabase: FirebaseDatabase
+    private var mFireBaseDatabase = FirebaseDatabase.getInstance()
     private lateinit var employeesReference: DatabaseReference
     private lateinit var mChildEventListener: ChildEventListener
 
@@ -49,6 +49,7 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesContract.SeeAllE
                 items.add(changedEMP!!)
                 sortItems()
                 view.updateList()
+                view.showLoading(false)
             }
 
             override fun onChildAdded(data: DataSnapshot, p1: String?) {
@@ -56,6 +57,7 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesContract.SeeAllE
                 items.add(emp!!)
                 sortItems()
                 view.updateList()
+                view.showLoading(false)
             }
 
             override fun onChildRemoved(data: DataSnapshot) {
@@ -63,6 +65,7 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesContract.SeeAllE
                 val item = items.find { it.id == deletedId }
                 items.remove(item)
                 view.updateList()
+                view.showLoading(false)
             }
         }
 
