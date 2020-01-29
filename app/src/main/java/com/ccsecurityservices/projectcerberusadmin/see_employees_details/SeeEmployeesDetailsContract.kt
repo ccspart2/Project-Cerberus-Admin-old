@@ -16,7 +16,7 @@ interface SeeEmployeesDetailsContract {
 
     interface SeeEmployeesDetailsPresenter {
         fun retrieveEmployeeObject(EMP: Employee)
-        fun deleteEmployee(): Boolean
+        fun deleteEmployee()
         fun prepareForEdit(): Employee
         fun createIntentForProfilePic() : Intent
         fun retrieveProfilePic(data: Intent?)

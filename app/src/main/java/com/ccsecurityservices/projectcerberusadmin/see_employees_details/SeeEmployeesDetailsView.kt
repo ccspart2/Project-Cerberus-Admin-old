@@ -39,10 +39,13 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
             startActivityForResult(
                 Intent.createChooser(intent, "Complete action using"),
                 RC_PHOTO_PICKER
-            );
+            )
+        }
+
+        see_employee_details_eraseEmployeeBTN.setOnClickListener {
+            presenter.deleteEmployee()
         }
     }
-
 
     override fun populateFields(EMP: Employee) {
         see_employee_details_name_text_view.text =
@@ -70,7 +73,9 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
     }
 
     override fun deleteResult(result: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if (result) {
+            finish()
+        }
     }
 
     override fun updateProfilePicFromPicker(uri: Uri?) {
@@ -82,13 +87,15 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
     }
 
     override fun showProfilePicMsg(msgCode: Boolean) {
-        if(msgCode)
-        {
-            Toast.makeText(this,"The Profile Picture was Successfully Uploaded",Toast.LENGTH_LONG).show()
-        }
-        else
-        {
-            Toast.makeText(this,"An Error occurred trying to upload. Please try later.",Toast.LENGTH_LONG).show()
+        if (msgCode) {
+            Toast.makeText(this, "The Profile Picture was Successfully Uploaded", Toast.LENGTH_LONG)
+                .show()
+        } else {
+            Toast.makeText(
+                this,
+                "An Error occurred trying to upload. Please try later.",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 

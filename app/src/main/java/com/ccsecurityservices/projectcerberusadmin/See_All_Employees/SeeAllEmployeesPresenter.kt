@@ -1,8 +1,6 @@
 package com.ccsecurityservices.projectcerberusadmin.See_All_Employees
 
 import com.ccsecurityservices.projectcerberusadmin.Data_Items.Employee
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.database.*
 
 class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesContract.SeeAllEmployeesView) :
@@ -10,9 +8,10 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesContract.SeeAllE
 
     private val items: MutableList<Employee> = mutableListOf()
 
-    private lateinit var mFireBaseDatabase : FirebaseDatabase
-    private lateinit var employeesReference : DatabaseReference
+    private lateinit var mFireBaseDatabase: FirebaseDatabase
+    private lateinit var employeesReference: DatabaseReference
     private lateinit var mChildEventListener: ChildEventListener
+
     fun numberOfItems(): Int {
         return items.size
     }
@@ -21,12 +20,20 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesContract.SeeAllE
         return items[position]
     }
 
+    private fun sortItems() {
+        items.sortBy { it.firstName + it.lastName }
+    }
+
+    fun setupNavToEmployeeDetails(currentEmployee: Employee?) {
+        view.navToEmployeeDetails(currentEmployee!!)
+    }
+
     override fun getEmployeeList() {
 
         mFireBaseDatabase = FirebaseDatabase.getInstance()
         employeesReference = mFireBaseDatabase.reference.child("employees")
 
-        mChildEventListener = object : ChildEventListener{
+        mChildEventListener = object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 p0.message
             }
@@ -51,8 +58,11 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesContract.SeeAllE
                 view.updateList()
             }
 
-            override fun onChildRemoved(p0: DataSnapshot) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            override fun onChildRemoved(data: DataSnapshot) {
+                val deletedId = data.getValue(Employee::class.java)!!.id
+                val item = items.find { it.id == deletedId }
+                items.remove(item)
+                view.updateList()
             }
         }
 
@@ -61,13 +71,5 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesContract.SeeAllE
 
     override fun detachListener() {
         employeesReference.removeEventListener(mChildEventListener)
-    }
-
-    private fun sortItems() {
-        items.sortBy { it.firstName + it.lastName }
-    }
-
-    fun setupNavToEmployeeDetails(currentEmployee: Employee?) {
-        view.navToEmployeeDetails(currentEmployee!!)
     }
 }

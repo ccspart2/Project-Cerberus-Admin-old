@@ -13,11 +13,24 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
 
     private lateinit var currentEmployee: Employee
 
-    private lateinit var mFireBaseStorage: FirebaseStorage
+    private var mFireBaseStorage: FirebaseStorage = FirebaseStorage.getInstance()
     private lateinit var employeeProfilePhotoStorageReference: StorageReference
 
-    private lateinit var mFireBaseDatabase: FirebaseDatabase
+    private var mFireBaseDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
     private lateinit var currentEmployeeReference: DatabaseReference
+
+    private fun deleteProfilePic() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    private fun updateUrlInEmployeeRecord(photoURL: String) {
+        currentEmployeeReference = mFireBaseDatabase.reference
+            .child("employees")
+            .child(currentEmployee.id)
+            .child("photoId")
+
+        currentEmployeeReference.setValue(photoURL)
+    }
 
     override fun retrieveEmployeeObject(EMP: Employee) {
         this.currentEmployee = EMP
@@ -26,11 +39,17 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
         if (currentEmployee.photoId != "") {
             view.downloadPic(currentEmployee.photoId)
         }
-
     }
 
-    override fun deleteEmployee(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun deleteEmployee() {
+
+        //deleteProfilePic()
+
+        currentEmployeeReference =
+            mFireBaseDatabase.reference.child("employees").child(currentEmployee.id)
+        currentEmployeeReference.removeValue().addOnSuccessListener(view) {
+            view.deleteResult(true)
+        }
     }
 
     override fun prepareForEdit(): Employee {
@@ -40,7 +59,6 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
     override fun createIntentForProfilePic(): Intent {
 
         val intent = Intent(Intent.ACTION_GET_CONTENT)
-        mFireBaseStorage = FirebaseStorage.getInstance()
         employeeProfilePhotoStorageReference =
             mFireBaseStorage.reference.child("employees_profile_pictures")
 
@@ -57,7 +75,7 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
         val photoRef =
             employeeProfilePhotoStorageReference.child(selectedImageUri!!.lastPathSegment!!)
 
-        var uploadTask = photoRef.putFile(selectedImageUri)
+        val uploadTask = photoRef.putFile(selectedImageUri)
 
         uploadTask.continueWithTask { task ->
             if (!task.isSuccessful) {
@@ -66,7 +84,7 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
                 }
             }
             photoRef.downloadUrl
-        }.addOnCompleteListener (view) { task ->
+        }.addOnCompleteListener(view) { task ->
             if (task.isSuccessful) {
                 updateUrlInEmployeeRecord(task.result!!.toString())
                 view.showProfilePicMsg(true)
@@ -75,14 +93,5 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
             }
         }
         view.updateProfilePicFromPicker(selectedImageUri)
-    }
-
-    private fun updateUrlInEmployeeRecord(photoURL: String) {
-        mFireBaseDatabase = FirebaseDatabase.getInstance()
-        currentEmployeeReference = mFireBaseDatabase.reference
-            .child("employees")
-            .child(this.currentEmployee.id)
-            .child("photoId")
-        currentEmployeeReference.setValue(photoURL)
     }
 }
