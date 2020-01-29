@@ -20,4 +20,5 @@
     <string name="see_employee_details_email_text_placeholder">Email: </string>
     <string name="see_employee_details_admin_text_placeholder">Employee Status: </string>
     <string name="see_employee_details_hasApp_text_placeholder">Registered: </string>
+    <string name="edit_employee_label_text">Edit Employee</string>
 </resources>
