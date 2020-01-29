@@ -11,7 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.ccsecurityservices.projectcerberusadmin.Data_Items.Employee
 import com.ccsecurityservices.projectcerberusadmin.R
+import com.ccsecurityservices.projectcerberusadmin.edit_employee.EditEmployeeView
 import kotlinx.android.synthetic.main.see_employees_details.*
+import java.io.Serializable
 
 
 class SeeEmployeesDetailsView : AppCompatActivity(),
@@ -43,6 +45,10 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
 
         see_employee_details_eraseEmployeeBTN.setOnClickListener {
             presenter.deleteEmployee()
+        }
+
+        see_employee_details_editEmployeeBTN.setOnClickListener {
+            presenter.prepareForEdit()
         }
     }
 
@@ -95,6 +101,13 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
         } else {
             see_employee_details_loading_widget.visibility = View.GONE
         }
+    }
+
+    override fun navToEditEmployee(EMP: Employee) {
+        val navIntent = Intent(this, EditEmployeeView::class.java)
+        navIntent.putExtra("employee_edit", EMP as Serializable)
+        startActivity(navIntent)
+        finish()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

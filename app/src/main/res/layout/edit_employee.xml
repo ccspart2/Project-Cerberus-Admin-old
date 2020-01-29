@@ -129,7 +129,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:background="#ffffff"
-        android:text="@string/add_employee_BTN_text"
+        android:text="@string/edit_employee_BTN_text"
         android:textColor="@color/Default_text_color"
         android:textSize="@dimen/standard_text_view_font_size"
         app:layout_constraintEnd_toEndOf="parent"

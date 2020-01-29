@@ -4,11 +4,14 @@ import com.ccsecurityservices.projectcerberusadmin.Data_Items.Employee
 
 class EditEmployeePresenter (private val view : EditEmployeeView) : EditEmployeeContract.EditEmployeePresenter
 {
-    override fun retreiveExtra(extra: Employee) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    private lateinit var currentEmployee : Employee
+
+    override fun retrieveExtra(extra: Employee) {
+        this.currentEmployee = extra
+        view.populateView(this.currentEmployee)
     }
 
-    override fun UpdateEmployee(
+    override fun updateEmployee(
         firstName: String,
         lastName: String,
         email: String,

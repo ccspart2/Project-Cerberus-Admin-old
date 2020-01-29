@@ -6,12 +6,12 @@ interface EditEmployeeContract {
 
     interface EditEmployeeView {
         fun populateView(EMP: Employee)
-        fun NavOut()
+        fun navOut()
     }
 
     interface EditEmployeePresenter {
-        fun retreiveExtra(extra: Employee)
-        fun UpdateEmployee(
+        fun retrieveExtra(extra: Employee)
+        fun updateEmployee(
             firstName: String,
             lastName: String,
             email: String,

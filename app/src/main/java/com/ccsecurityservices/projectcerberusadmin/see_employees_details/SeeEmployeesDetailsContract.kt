@@ -13,12 +13,14 @@ interface SeeEmployeesDetailsContract {
         fun downloadPic(imageUrl: String)
         fun showToastMessages(msg: String)
         fun showLoading(state : Boolean)
+        fun navToEditEmployee(EMP: Employee)
+
     }
 
     interface SeeEmployeesDetailsPresenter {
         fun retrieveEmployeeObject(EMP: Employee)
         fun deleteEmployee()
-        fun prepareForEdit(): Employee
+        fun prepareForEdit()
         fun createIntentForProfilePic(): Intent
         fun retrieveProfilePic(data: Intent?)
     }

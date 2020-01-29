@@ -61,8 +61,8 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
         }
     }
 
-    override fun prepareForEdit(): Employee {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun prepareForEdit() {
+        view.navToEditEmployee(this.currentEmployee)
     }
 
     override fun createIntentForProfilePic(): Intent {
