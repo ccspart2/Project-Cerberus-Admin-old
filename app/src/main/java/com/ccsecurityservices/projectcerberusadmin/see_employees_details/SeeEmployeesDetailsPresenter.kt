@@ -7,7 +7,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
-class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsContract.SeeEmployeesDetailsView) :
+
+class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
     SeeEmployeesDetailsContract.SeeEmployeesDetailsPresenter {
 
     private lateinit var currentEmployee: Employee
@@ -22,8 +23,7 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsContract
         this.currentEmployee = EMP
         view.populateFields(currentEmployee)
 
-        if(currentEmployee.photoId != "")
-        {
+        if (currentEmployee.photoId != "") {
             view.downloadPic(currentEmployee.photoId)
         }
 
@@ -66,12 +66,14 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsContract
                 }
             }
             photoRef.downloadUrl
-        }.addOnCompleteListener { task ->
+        }.addOnCompleteListener (view) { task ->
             if (task.isSuccessful) {
                 updateUrlInEmployeeRecord(task.result!!.toString())
+                view.showProfilePicMsg(true)
+            } else {
+                view.showProfilePicMsg(false)
             }
         }
-
         view.updateProfilePicFromPicker(selectedImageUri)
     }
 

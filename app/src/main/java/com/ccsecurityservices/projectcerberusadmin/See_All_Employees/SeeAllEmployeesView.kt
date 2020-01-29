@@ -14,7 +14,7 @@ import java.io.Serializable
 class SeeAllEmployeesView : AppCompatActivity(), SeeAllEmployeesContract.SeeAllEmployeesView {
 
     private lateinit var seeAllEmployeesPresenter: SeeAllEmployeesPresenter
-    private lateinit var adapter : SeeAllEmployeesAdapter
+    private lateinit var adapter: SeeAllEmployeesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +33,7 @@ class SeeAllEmployeesView : AppCompatActivity(), SeeAllEmployeesContract.SeeAllE
             val navIntent = Intent(this, AddNewEmployeeView::class.java)
             startActivity(navIntent)
         }
-         seeAllEmployeesPresenter.getEmployeeList()
+        seeAllEmployeesPresenter.getEmployeeList()
     }
 
     override fun updateList() {
@@ -44,5 +44,10 @@ class SeeAllEmployeesView : AppCompatActivity(), SeeAllEmployeesContract.SeeAllE
         val navIntent = Intent(this, SeeEmployeesDetailsView::class.java)
         navIntent.putExtra("employee_details", emp as Serializable)
         startActivity(navIntent)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        seeAllEmployeesPresenter.detachListener()
     }
 }

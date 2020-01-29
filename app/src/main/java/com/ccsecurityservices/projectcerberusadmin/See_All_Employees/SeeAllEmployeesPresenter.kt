@@ -1,6 +1,8 @@
 package com.ccsecurityservices.projectcerberusadmin.See_All_Employees
 
 import com.ccsecurityservices.projectcerberusadmin.Data_Items.Employee
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.database.*
 
 class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesContract.SeeAllEmployeesView) :
@@ -11,8 +13,6 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesContract.SeeAllE
     private lateinit var mFireBaseDatabase : FirebaseDatabase
     private lateinit var employeesReference : DatabaseReference
     private lateinit var mChildEventListener: ChildEventListener
-
-
     fun numberOfItems(): Int {
         return items.size
     }
@@ -36,13 +36,18 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesContract.SeeAllE
             }
 
             override fun onChildChanged(data: DataSnapshot, p1: String?) {
-
+                val changedEMP = data.getValue(Employee::class.java)
+                val oldEMP = items.find { it.id == changedEMP!!.id }
+                items.remove(oldEMP)
+                items.add(changedEMP!!)
+                sortItems()
+                view.updateList()
             }
 
             override fun onChildAdded(data: DataSnapshot, p1: String?) {
                 val emp = data.getValue(Employee::class.java)
                 items.add(emp!!)
-                sortEmps()
+                sortItems()
                 view.updateList()
             }
 
@@ -54,7 +59,11 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesContract.SeeAllE
         employeesReference.addChildEventListener(mChildEventListener)
     }
 
-    private fun sortEmps() {
+    override fun detachListener() {
+        employeesReference.removeEventListener(mChildEventListener)
+    }
+
+    private fun sortItems() {
         items.sortBy { it.firstName + it.lastName }
     }
 

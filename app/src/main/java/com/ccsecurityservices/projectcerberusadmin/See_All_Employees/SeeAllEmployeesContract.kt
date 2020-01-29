@@ -10,5 +10,6 @@ interface SeeAllEmployeesContract {
     }
     interface SeeAllEmployeesPresenter {
         fun getEmployeeList()
+        fun detachListener()
     }
 }

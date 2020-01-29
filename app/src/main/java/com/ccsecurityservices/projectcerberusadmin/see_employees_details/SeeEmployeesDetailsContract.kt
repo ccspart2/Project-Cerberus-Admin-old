@@ -11,6 +11,7 @@ interface SeeEmployeesDetailsContract {
         fun deleteResult(result : Boolean)
         fun updateProfilePicFromPicker(uri: Uri?)
         fun downloadPic(imageUrl : String)
+        fun showProfilePicMsg(msgCode : Boolean)
     }
 
     interface SeeEmployeesDetailsPresenter {
