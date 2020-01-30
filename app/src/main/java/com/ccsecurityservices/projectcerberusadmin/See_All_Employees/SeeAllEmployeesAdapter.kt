@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ccsecurityservices.projectcerberusadmin.Data_Items.Employee
 import com.ccsecurityservices.projectcerberusadmin.R
-import kotlinx.android.synthetic.main.see_all_employees_list_item.view.*
+import kotlinx.android.synthetic.main.see_all_generic_list_item.view.*
 
 class SeeAllEmployeesAdapter(private val seeAllEmployeesPresenter: SeeAllEmployeesPresenter) :
     RecyclerView.Adapter<SeeAllEmployeesAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.see_all_employees_list_item, parent, false)
+            .inflate(R.layout.see_all_generic_list_item, parent, false)
         return MyViewHolder(view)
     }
 
@@ -40,7 +40,7 @@ class SeeAllEmployeesAdapter(private val seeAllEmployeesPresenter: SeeAllEmploye
         fun setData(employee: Employee?, position: Int) {
             if (employee != null) {
                 val fullName = "${employee.firstName} ${employee.lastName}"
-                itemView.see_all_employees_item_name_label.text = fullName
+                itemView.see_all_generics_item_name_label.text = fullName
             }
             this.currentEmployee = employee
             this.currentPosition = position

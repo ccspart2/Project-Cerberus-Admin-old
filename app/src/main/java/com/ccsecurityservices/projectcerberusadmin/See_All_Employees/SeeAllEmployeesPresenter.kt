@@ -30,7 +30,6 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesView) :
 
     override fun getEmployeeList() {
 
-        mFireBaseDatabase = FirebaseDatabase.getInstance()
         employeesReference = mFireBaseDatabase.reference.child("employees")
 
         mChildEventListener = object : ChildEventListener {

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Project Cerberus Admin</string>
     <string name="employees_label">Employees</string>
-    <string name="see_all_employees_item_name_placeholder">Employee Name</string>
+    <string name="see_all_generics_item_name_placeholder">Name</string>
     <string name="add_employee_label">New Employee</string>
     <string name="Add_Employee_first_name_label_text">First Name:</string>
     <string name="add_employee_first_name_placeholder">Juan</string>
