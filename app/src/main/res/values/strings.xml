@@ -22,4 +22,5 @@
     <string name="see_employee_details_hasApp_text_placeholder">Registered: </string>
     <string name="edit_employee_label_text">Edit Employee</string>
     <string name="edit_employee_BTN_text">Edit Employee</string>
+    <string name="see_all_locations_label_text">Locations</string>
 </resources>
