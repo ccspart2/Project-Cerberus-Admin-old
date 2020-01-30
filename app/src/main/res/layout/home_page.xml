@@ -38,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@id/profile_pic" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/employees_btn"
+        android:id="@+id/home_page_employees_btn"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="150dp"
@@ -54,12 +54,12 @@
         android:text="Employees"
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@id/employees_btn"
-        app:layout_constraintStart_toStartOf="@id/employees_btn"
-        app:layout_constraintTop_toBottomOf="@id/employees_btn" />
+        app:layout_constraintEnd_toEndOf="@id/home_page_employees_btn"
+        app:layout_constraintStart_toStartOf="@id/home_page_employees_btn"
+        app:layout_constraintTop_toBottomOf="@id/home_page_employees_btn" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/locations_btn"
+        android:id="@+id/home_page_locations_btn"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="50dp"
@@ -76,8 +76,8 @@
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@id/employees_label"
-        app:layout_constraintEnd_toEndOf="@id/locations_btn"
-        app:layout_constraintStart_toStartOf="@id/locations_btn"
+        app:layout_constraintEnd_toEndOf="@id/home_page_locations_btn"
+        app:layout_constraintStart_toStartOf="@id/home_page_locations_btn"
         app:layout_constraintTop_toTopOf="@id/employees_label" />
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -85,9 +85,9 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:src="@drawable/calendar"
-        app:layout_constraintEnd_toStartOf="@id/locations_btn"
-        app:layout_constraintStart_toEndOf="@id/employees_btn"
-        app:layout_constraintTop_toTopOf="@id/employees_btn" />
+        app:layout_constraintEnd_toStartOf="@id/home_page_locations_btn"
+        app:layout_constraintStart_toEndOf="@id/home_page_employees_btn"
+        app:layout_constraintTop_toTopOf="@id/home_page_employees_btn" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/calendar_label"

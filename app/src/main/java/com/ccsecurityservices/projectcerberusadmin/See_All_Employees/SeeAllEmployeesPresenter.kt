@@ -3,7 +3,7 @@ package com.ccsecurityservices.projectcerberusadmin.See_All_Employees
 import com.ccsecurityservices.projectcerberusadmin.Data_Items.Employee
 import com.google.firebase.database.*
 
-class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesContract.SeeAllEmployeesView) :
+class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesView) :
     SeeAllEmployeesContract.SeeAllEmployeesPresenter {
 
     private val items: MutableList<Employee> = mutableListOf()

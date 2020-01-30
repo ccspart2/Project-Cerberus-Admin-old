@@ -12,6 +12,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".see_all_locations.SeeAllLocationsView"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".edit_employee.EditEmployeeView"
             android:screenOrientation="landscape" />
         <activity

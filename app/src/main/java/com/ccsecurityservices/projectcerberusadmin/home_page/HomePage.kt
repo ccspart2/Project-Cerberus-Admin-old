@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.ccsecurityservices.projectcerberusadmin.Data_Items.User
 import com.ccsecurityservices.projectcerberusadmin.R
 import com.ccsecurityservices.projectcerberusadmin.See_All_Employees.SeeAllEmployeesView
+import com.ccsecurityservices.projectcerberusadmin.see_all_locations.SeeAllLocationsView
 import kotlinx.android.synthetic.main.home_page.*
 
 class HomePage : AppCompatActivity(), HomePageContract.HomePageView {
@@ -18,22 +19,27 @@ class HomePage : AppCompatActivity(), HomePageContract.HomePageView {
 
         homePagePresenter = HomePagePresenter(this)
 
-        employees_btn.setOnClickListener {
+        home_page_employees_btn.setOnClickListener {
             navigateOutHomePage(it.id)
         }
+        home_page_locations_btn.setOnClickListener {
+            navigateOutHomePage(it.id)
+        }
+
     }
 
     private fun navigateOutHomePage(viewID: Int) {
         when (viewID) {
-            R.id.employees_btn -> {
+            R.id.home_page_employees_btn -> {
                 val navIntent = Intent(this, SeeAllEmployeesView::class.java)
                 startActivity(navIntent)
             }
             R.id.events_btn -> {
                 TODO("not implemented")
             }
-            R.id.locations_btn -> {
-                TODO("not implemented")
+            R.id.home_page_locations_btn -> {
+                val navIntent = Intent(this, SeeAllLocationsView::class.java)
+                startActivity(navIntent)
             }
         }
     }
