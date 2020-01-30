@@ -1,5 +1,6 @@
 package com.ccsecurityservices.projectcerberusadmin.helper_classes
 
+import android.telephony.PhoneNumberUtils
 import java.util.regex.Pattern
 
 class EmployeeInputValidation {
@@ -21,6 +22,14 @@ class EmployeeInputValidation {
         ): Boolean {
             return validateFirstName(firstName) && validateLastName(lastName)
                     && validatePhone(phone) && validateEmail(email)
+        }
+
+        fun formatPhone(phone: String): String {
+            return if (phone.contains('(') || phone.contains('-')) {
+                PhoneNumberUtils.formatNumber(phone)
+            } else {
+                phone
+            }
         }
 
         private fun validateFirstName(name: String): Boolean {

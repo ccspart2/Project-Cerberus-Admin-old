@@ -1,10 +1,18 @@
 package com.ccsecurityservices.projectcerberusadmin.edit_employee
 
 import com.ccsecurityservices.projectcerberusadmin.Data_Items.Employee
+import com.ccsecurityservices.projectcerberusadmin.helper_classes.EmployeeInputValidation
+import com.google.firebase.database.FirebaseDatabase
 
-class EditEmployeePresenter (private val view : EditEmployeeView) : EditEmployeeContract.EditEmployeePresenter
-{
-    private lateinit var currentEmployee : Employee
+class EditEmployeePresenter(private val view: EditEmployeeView) :
+    EditEmployeeContract.EditEmployeePresenter {
+    private lateinit var currentEmployee: Employee
+    private val mFirebaseDatabase = FirebaseDatabase.getInstance()
+
+    private lateinit var firstName: String
+    private lateinit var lastName: String
+    private lateinit var email: String
+    private lateinit var phone: String
 
     override fun retrieveExtra(extra: Employee) {
         this.currentEmployee = extra
@@ -18,7 +26,43 @@ class EditEmployeePresenter (private val view : EditEmployeeView) : EditEmployee
         phone: String,
         Admin: Boolean
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        this.firstName = firstName.trim()
+        this.lastName = lastName.trim()
+        this.email = email.trim()
+        this.phone = phone.trim()
+
+        if (EmployeeInputValidation.inputValidation(
+                this.firstName,
+                this.lastName,
+                this.phone,
+                this.email
+            )
+        ) {
+            val employee = Employee(
+                this.currentEmployee.id,
+                this.firstName,
+                this.lastName,
+                this.email,
+                Admin,
+                EmployeeInputValidation.formatPhone(this.phone),
+                this.currentEmployee.photoId,
+                0,
+                false
+            )
+            uploadEmployeeToFireBase(employee)
+        } else {
+            view.displayInvalidParameters()
+        }
+
     }
 
+    private fun uploadEmployeeToFireBase(employee: Employee) {
+        val dbReference = mFirebaseDatabase.reference
+            .child("employees")
+            .child(this.currentEmployee.id)
+
+        dbReference.setValue(employee).addOnCompleteListener(view) {
+            view.navOut()
+        }
+    }
 }

@@ -62,7 +62,11 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
     }
 
     override fun prepareForEdit() {
-        view.navToEditEmployee(this.currentEmployee)
+        if (!this.currentEmployee.adminRights) {
+            view.navToEditEmployee(this.currentEmployee)
+        } else {
+            view.showToastMessages("The employee is an administrator. Please confirm with leadership for approval.")
+        }
     }
 
     override fun createIntentForProfilePic(): Intent {

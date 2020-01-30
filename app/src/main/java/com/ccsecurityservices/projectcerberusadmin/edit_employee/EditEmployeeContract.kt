@@ -7,6 +7,7 @@ interface EditEmployeeContract {
     interface EditEmployeeView {
         fun populateView(EMP: Employee)
         fun navOut()
+        fun displayInvalidParameters()
     }
 
     interface EditEmployeePresenter {

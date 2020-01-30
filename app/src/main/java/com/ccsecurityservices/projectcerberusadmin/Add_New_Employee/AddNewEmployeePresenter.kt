@@ -38,24 +38,16 @@ class AddNewEmployeePresenter(private val view: AddNewEmployeeView) :
                 this.lastName,
                 this.email,
                 Admin,
-                formatPhone(),
+                EmployeeInputValidation.formatPhone(this.phone),
                 "",
                 0,
                 false
             )
 
             uploadEmployeeToFireBase(employee)
-            
+
         } else {
             view.showFailMessage()
-        }
-    }
-
-    private fun formatPhone(): String {
-        return if (!this.phone.contains('(') || !this.phone.contains('-')) {
-            PhoneNumberUtils.formatNumber(this.phone)
-        } else {
-            this.phone
         }
     }
 
