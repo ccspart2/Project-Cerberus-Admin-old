@@ -2,23 +2,11 @@ package com.ccsecurityservices.projectcerberusadmin.Add_New_Employee
 
 import android.telephony.PhoneNumberUtils
 import com.ccsecurityservices.projectcerberusadmin.Data_Items.Employee
+import com.ccsecurityservices.projectcerberusadmin.helper_classes.EmployeeInputValidation
 import com.google.firebase.database.FirebaseDatabase
-import java.util.regex.Pattern
 
-class AddNewEmployeePresenter(private val view: AddNewEmployeeContract.AddNewEmployeeView) :
+class AddNewEmployeePresenter(private val view: AddNewEmployeeView) :
     AddNewEmployeeContract.AddNewEmployeePresenter {
-
-    companion object {
-
-        const val PHONE_REGEX =
-            "^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$"
-
-        const val FIRST_NAME_REGEX = "[A-ZñÑ][a-zA-Z]*"
-
-        const val LAST_NAME_REGEX = "[a-zA-zñÑ]+([ '-][a-zA-ZñÑ]+)*"
-
-        const val EMAIL_REGEX = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
-    }
 
     private lateinit var firstName: String
     private lateinit var lastName: String
@@ -37,7 +25,13 @@ class AddNewEmployeePresenter(private val view: AddNewEmployeeContract.AddNewEmp
         this.email = email.trim()
         this.phone = phone.trim()
 
-        if (validateFields()) {
+        if (EmployeeInputValidation.inputValidation(
+                this.firstName,
+                this.lastName,
+                this.phone,
+                this.email
+            )
+        ) {
             val employee = Employee(
                 "",
                 this.firstName,
@@ -51,8 +45,7 @@ class AddNewEmployeePresenter(private val view: AddNewEmployeeContract.AddNewEmp
             )
 
             uploadEmployeeToFireBase(employee)
-            view.navBacktoSeeAllEmployees()
-
+            
         } else {
             view.showFailMessage()
         }
@@ -70,36 +63,8 @@ class AddNewEmployeePresenter(private val view: AddNewEmployeeContract.AddNewEmp
         val db = FirebaseDatabase.getInstance().reference
         val id = db.push().key
         employee.id = id!!
-        db.child("employees").child(id).setValue(employee)
-    }
-
-    private fun validateFields(): Boolean {
-
-        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || phone.isEmpty()) {
-            return false
+        db.child("employees").child(id).setValue(employee).addOnCompleteListener(view) {
+            view.navBacktoSeeAllEmployees()
         }
-
-        if (!isFirstNameValid() || !isLastNameValid() || !isEmailValid() || !isPhoneNumberValid()) {
-            return false
-        }
-        return true
-    }
-
-    private fun isEmailValid(): Boolean {
-        return this.email.matches(EMAIL_REGEX.toRegex())
-    }
-
-    private fun isLastNameValid(): Boolean {
-        return this.lastName.matches(LAST_NAME_REGEX.toRegex())
-    }
-
-    private fun isFirstNameValid(): Boolean {
-        return this.firstName.matches(FIRST_NAME_REGEX.toRegex())
-    }
-
-    private fun isPhoneNumberValid(): Boolean {
-        val pattern = Pattern.compile(PHONE_REGEX)
-        val matcher = pattern.matcher(this.phone.trim())
-        return matcher.find()
     }
 }
