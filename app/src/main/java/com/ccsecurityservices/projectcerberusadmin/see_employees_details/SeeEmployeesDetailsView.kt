@@ -1,12 +1,14 @@
 package com.ccsecurityservices.projectcerberusadmin.see_employees_details
 
 import android.app.Activity
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.ccsecurityservices.projectcerberusadmin.Data_Items.Employee
@@ -44,12 +46,23 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
         }
 
         see_employee_details_eraseEmployeeBTN.setOnClickListener {
-            presenter.deleteEmployee()
+            testingDialog()
         }
 
         see_employee_details_editEmployeeBTN.setOnClickListener {
             presenter.prepareForEdit()
         }
+    }
+
+    private fun testingDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Erase Employee")
+        builder.setMessage("Are you sure you want to erase this employee from the system?")
+        builder.setPositiveButton("Yes") { _: DialogInterface?, _: Int ->
+            presenter.deleteEmployee()
+        }
+        builder.setNegativeButton("No") { _: DialogInterface?, _: Int -> }
+        builder.show()
     }
 
     override fun populateFields(EMP: Employee) {
