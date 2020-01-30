@@ -67,7 +67,6 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesView) :
                 view.showLoading(false)
             }
         }
-
         employeesReference.addChildEventListener(mChildEventListener)
     }
 

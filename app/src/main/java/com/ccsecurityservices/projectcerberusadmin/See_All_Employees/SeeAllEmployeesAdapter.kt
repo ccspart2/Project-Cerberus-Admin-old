@@ -28,8 +28,8 @@ class SeeAllEmployeesAdapter(private val seeAllEmployeesPresenter: SeeAllEmploye
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var currentEmployee: Employee? = null
-        var currentPosition: Int = 0
+        private var currentEmployee: Employee? = null
+        private var currentPosition: Int = 0
 
         init {
             itemView.setOnClickListener {

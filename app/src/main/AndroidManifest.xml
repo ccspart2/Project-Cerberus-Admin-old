@@ -11,6 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".see_location_details.SeeLocationDetailsView"></activity>
+        <activity
+            android:name=".add_new_location.AddNewLocationView"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".see_all_locations.SeeAllLocationsView"
             android:screenOrientation="landscape" />
