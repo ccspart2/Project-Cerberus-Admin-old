@@ -43,6 +43,7 @@ class AddNewLocationPresenter(private val view: AddNewLocationView) :
                 this.locSuggested,
                 this.locPhotoId
             )
+            view.showLoading(true)
             if (this.photoIntent != null) {
                 uploadLocationPhotoToStorage(loc)
             } else {
@@ -98,6 +99,7 @@ class AddNewLocationPresenter(private val view: AddNewLocationView) :
         val locId = dbReference.push().key
         loc.id = locId!!
         dbReference.child("locations").child(locId).setValue(loc).addOnCompleteListener(view) {
+            view.showLoading(false)
             view.navBackSeeAllLocations()
         }
     }

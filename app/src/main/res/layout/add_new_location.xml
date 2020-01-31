@@ -119,10 +119,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/upload_icon"
-        app:layout_constraintStart_toStartOf="@id/add_location_suggested_count_edit_text"
+        app:layout_constraintBottom_toBottomOf="@id/add_location_photo_label"
         app:layout_constraintEnd_toEndOf="@id/add_location_suggested_count_edit_text"
-        app:layout_constraintTop_toTopOf="@id/add_location_photo_label"
-        app:layout_constraintBottom_toBottomOf="@id/add_location_photo_label"/>
+        app:layout_constraintStart_toStartOf="@id/add_location_suggested_count_edit_text"
+        app:layout_constraintTop_toTopOf="@id/add_location_photo_label" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/add_location_BTN"
@@ -137,4 +137,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/add_location_photo_BTN" />
 
+    <ProgressBar
+        android:id="@+id/add_location_loading_widget"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

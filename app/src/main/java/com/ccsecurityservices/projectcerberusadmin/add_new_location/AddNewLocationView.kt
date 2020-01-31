@@ -2,9 +2,10 @@ package com.ccsecurityservices.projectcerberusadmin.add_new_location
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.ccsecurityservices.projectcerberusadmin.R
 import com.ccsecurityservices.projectcerberusadmin.see_employees_details.SeeEmployeesDetailsView
 import kotlinx.android.synthetic.main.add_new_location.*
@@ -51,6 +52,14 @@ class AddNewLocationView : AppCompatActivity(), AddNewLocationContract.AddNewLoc
             "msg",
             Toast.LENGTH_LONG
         ).show()
+    }
+
+    override fun showLoading(state: Boolean) {
+        if (state) {
+            add_location_loading_widget.visibility = View.VISIBLE
+        } else {
+            add_location_loading_widget.visibility = View.GONE
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

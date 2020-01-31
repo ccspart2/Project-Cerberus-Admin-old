@@ -6,6 +6,7 @@ interface AddNewLocationContract {
     interface AddNewLocationView {
         fun navBackSeeAllLocations()
         fun showFailMessage(msg : String)
+        fun showLoading(state : Boolean)
     }
 
     interface AddNewLocationPresenter {
