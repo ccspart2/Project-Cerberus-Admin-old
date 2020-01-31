@@ -6,4 +6,135 @@
     android:layout_height="match_parent"
     tools:context=".add_new_location.AddNewLocationView">
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@id/cerberus_logo"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="50dp"
+        android:src="@drawable/cerberus_logo_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/add_location_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_location_label_text"
+        android:textSize="@dimen/standard_view_label_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/cerberus_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/cerberus_logo" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/add_location_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/add_location_name_label_text"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/add_location_label" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/add_location_name_edit_text"
+        android:layout_width="@dimen/edit_text_default_width"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:inputType="textPersonName"
+        app:layout_constraintBaseline_toBaselineOf="@id/add_location_name_label"
+        app:layout_constraintStart_toEndOf="@id/add_location_name_label" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/add_location_entrances_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/add_location_entrances_label_text"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintStart_toStartOf="@id/add_location_name_label"
+        app:layout_constraintTop_toBottomOf="@id/add_location_name_label" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/add_location_entrances_edit_text"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        app:layout_constraintBaseline_toBaselineOf="@id/add_location_entrances_label"
+        app:layout_constraintEnd_toEndOf="@id/add_location_name_edit_text"
+        app:layout_constraintStart_toStartOf="@id/add_location_name_edit_text" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/add_location_positions_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/add_location_positions_label_text"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintStart_toStartOf="@id/add_location_entrances_label"
+        app:layout_constraintTop_toBottomOf="@id/add_location_entrances_label" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/add_location_positions_edit_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        app:layout_constraintBaseline_toBaselineOf="@id/add_location_positions_label"
+        app:layout_constraintEnd_toEndOf="@id/add_location_entrances_edit_text"
+        app:layout_constraintStart_toStartOf="@id/add_location_entrances_edit_text" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/add_location_suggested_count_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/add_location_suggested_count_label_text"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintStart_toStartOf="@id/add_location_positions_label"
+        app:layout_constraintTop_toBottomOf="@id/add_location_positions_label" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/add_location_suggested_count_edit_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        app:layout_constraintBaseline_toBaselineOf="@id/add_location_suggested_count_label"
+        app:layout_constraintEnd_toEndOf="@id/add_location_positions_edit_text"
+        app:layout_constraintStart_toStartOf="@id/add_location_positions_edit_text" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/add_location_photo_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/add_location_photo_label_text"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintStart_toStartOf="@id/add_location_suggested_count_label"
+        app:layout_constraintTop_toBottomOf="@id/add_location_suggested_count_label" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/add_location_photo_BTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/upload_icon"
+        app:layout_constraintStart_toStartOf="@id/add_location_suggested_count_edit_text"
+        app:layout_constraintEnd_toEndOf="@id/add_location_suggested_count_edit_text"
+        app:layout_constraintTop_toTopOf="@id/add_location_photo_label"
+        app:layout_constraintBottom_toBottomOf="@id/add_location_photo_label"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/add_location_BTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#ffffff"
+        android:text="@string/add_location_BTN_text"
+        android:textColor="@color/Default_text_color"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/add_location_photo_BTN" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

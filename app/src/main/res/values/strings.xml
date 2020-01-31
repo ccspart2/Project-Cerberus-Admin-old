@@ -23,4 +23,11 @@
     <string name="edit_employee_label_text">Edit Employee</string>
     <string name="edit_employee_BTN_text">Edit Employee</string>
     <string name="see_all_locations_label_text">Locations</string>
+    <string name="add_location_label_text">Add Location</string>
+    <string name="add_location_name_label_text">Name:</string>
+    <string name="add_location_entrances_label_text">Entrances:</string>
+    <string name="add_location_positions_label_text">Positions:</string>
+    <string name="add_location_suggested_count_label_text">Suggested Count:</string>
+    <string name="add_location_BTN_text">Add location</string>
+    <string name="add_location_photo_label_text">Upload Location Picture:</string>
 </resources>
