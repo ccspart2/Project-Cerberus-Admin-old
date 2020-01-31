@@ -3,7 +3,7 @@ package com.ccsecurityservices.projectcerberusadmin.helper_classes
 import android.telephony.PhoneNumberUtils
 import java.util.regex.Pattern
 
-class EmployeeInputValidation {
+class InputValidation {
     companion object {
         private const val PHONE_REGEX =
             "^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$"
@@ -13,6 +13,8 @@ class EmployeeInputValidation {
         private const val LAST_NAME_REGEX = "[a-zA-zñÑ]+([ '-][a-zA-ZñÑ]+)*"
 
         private const val EMAIL_REGEX = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+
+        private const val LOCATION_NAME_REGEX = "[A-Za-z0-9]+"
 
         fun inputValidation(
             firstName: String,
@@ -30,6 +32,13 @@ class EmployeeInputValidation {
             } else {
                 phone
             }
+        }
+
+        fun eventAndLocInputValidation(name: String) : Boolean
+        {
+            val temp = name.replace("\\s".toRegex(), "")
+
+            return temp.matches(LOCATION_NAME_REGEX.toRegex())
         }
 
         private fun validateFirstName(name: String): Boolean {

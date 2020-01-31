@@ -1,7 +1,7 @@
 package com.ccsecurityservices.projectcerberusadmin.add_new_employee
 
 import com.ccsecurityservices.projectcerberusadmin.data_items.Employee
-import com.ccsecurityservices.projectcerberusadmin.helper_classes.EmployeeInputValidation
+import com.ccsecurityservices.projectcerberusadmin.helper_classes.InputValidation
 import com.google.firebase.database.FirebaseDatabase
 
 class AddNewEmployeePresenter(private val view: AddNewEmployeeView) :
@@ -24,7 +24,7 @@ class AddNewEmployeePresenter(private val view: AddNewEmployeeView) :
         this.email = email.trim()
         this.phone = phone.trim()
 
-        if (EmployeeInputValidation.inputValidation(
+        if (InputValidation.inputValidation(
                 this.firstName,
                 this.lastName,
                 this.phone,
@@ -37,7 +37,7 @@ class AddNewEmployeePresenter(private val view: AddNewEmployeeView) :
                 this.lastName,
                 this.email,
                 Admin,
-                EmployeeInputValidation.formatPhone(this.phone),
+                InputValidation.formatPhone(this.phone),
                 "",
                 0,
                 false

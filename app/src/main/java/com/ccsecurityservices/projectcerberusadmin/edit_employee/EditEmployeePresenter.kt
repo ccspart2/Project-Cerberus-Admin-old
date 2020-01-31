@@ -1,7 +1,7 @@
 package com.ccsecurityservices.projectcerberusadmin.edit_employee
 
 import com.ccsecurityservices.projectcerberusadmin.data_items.Employee
-import com.ccsecurityservices.projectcerberusadmin.helper_classes.EmployeeInputValidation
+import com.ccsecurityservices.projectcerberusadmin.helper_classes.InputValidation
 import com.google.firebase.database.FirebaseDatabase
 
 class EditEmployeePresenter(private val view: EditEmployeeView) :
@@ -31,7 +31,7 @@ class EditEmployeePresenter(private val view: EditEmployeeView) :
         this.email = email.trim()
         this.phone = phone.trim()
 
-        if (EmployeeInputValidation.inputValidation(
+        if (InputValidation.inputValidation(
                 this.firstName,
                 this.lastName,
                 this.phone,
@@ -44,7 +44,7 @@ class EditEmployeePresenter(private val view: EditEmployeeView) :
                 this.lastName,
                 this.email,
                 Admin,
-                EmployeeInputValidation.formatPhone(this.phone),
+                InputValidation.formatPhone(this.phone),
                 this.currentEmployee.photoId,
                 0,
                 false

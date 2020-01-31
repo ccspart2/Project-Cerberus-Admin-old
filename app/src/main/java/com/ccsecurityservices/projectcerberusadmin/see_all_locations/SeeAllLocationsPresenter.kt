@@ -1,6 +1,5 @@
 package com.ccsecurityservices.projectcerberusadmin.see_all_locations
 
-import com.ccsecurityservices.projectcerberusadmin.data_items.DummyLocations
 import com.ccsecurityservices.projectcerberusadmin.data_items.SecLocation
 import com.google.firebase.database.*
 
@@ -29,12 +28,6 @@ class SeeAllLocationsPresenter(private val view: SeeAllLocationsView) :
     }
 
     override fun getLocationList() {
-
-        //Dummy for testing
-        items = DummyLocations.dLocations.toMutableList()
-        view.updatedList()
-        view.showLoding(false)
-
         locationsReference = mFireBaseDatabase.reference.child("locations")
         mChildEventListener = object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {
@@ -70,7 +63,6 @@ class SeeAllLocationsPresenter(private val view: SeeAllLocationsView) :
                 view.updatedList()
                 view.showLoding(false)
             }
-
         }
         locationsReference.addChildEventListener(mChildEventListener)
     }
