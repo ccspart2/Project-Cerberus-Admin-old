@@ -67,7 +67,7 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
 
     override fun populateFields(EMP: Employee) {
         see_employee_details_name_text_view.text =
-            getString(R.string.see_employee_details_name_text_placeholder).plus(" ${EMP.firstName} ${EMP.lastName}")
+            getString(R.string.see_generics_details_name_text_placeholder).plus(" ${EMP.firstName} ${EMP.lastName}")
         see_employee_details_phone_text_view.text =
             getString(R.string.see_employee_details_phone_text_placeholder).plus(" ${EMP.phone}")
         see_employee_details_email_text_view.text =

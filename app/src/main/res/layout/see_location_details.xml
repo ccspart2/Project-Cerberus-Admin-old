@@ -6,4 +6,64 @@
     android:layout_height="match_parent"
     tools:context=".see_location_details.SeeLocationDetailsView">
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@id/cerberus_logo"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="50dp"
+        android:src="@drawable/cerberus_logo_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/see_location_details_image_view"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="600dp"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/arena_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/see_locations_details_name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/see_generics_details_name_text_placeholder"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintEnd_toStartOf="@id/see_location_details_image_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/see_location_details_image_view" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/see_locations_details_entrances_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/see_location_details_entrances_textView_text"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintBottom_toTopOf="@id/see_locations_details_positions_text_view"
+        app:layout_constraintStart_toStartOf="@id/see_locations_details_name_text_view"
+        app:layout_constraintTop_toBottomOf="@id/see_locations_details_name_text_view" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/see_locations_details_positions_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/see_location_details_positions_textView_text"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintBottom_toTopOf="@id/see_locations_details_suggestedCount_text_view"
+        app:layout_constraintStart_toStartOf="@id/see_locations_details_name_text_view"
+        app:layout_constraintTop_toBottomOf="@id/see_locations_details_entrances_text_view" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/see_locations_details_suggestedCount_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/see_location_details_suggestedCount_textView_text"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintBottom_toBottomOf="@id/see_location_details_image_view"
+        app:layout_constraintStart_toStartOf="@id/see_locations_details_name_text_view" />
 </androidx.constraintlayout.widget.ConstraintLayout>

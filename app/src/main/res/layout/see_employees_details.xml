@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="@string/see_employee_details_name_text_placeholder"
+        android:text="@string/see_generics_details_name_text_placeholder"
         android:textSize="@dimen/standard_text_view_font_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
