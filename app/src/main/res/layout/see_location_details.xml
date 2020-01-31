@@ -16,6 +16,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/see_locations_details_name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/see_generics_details_name_text_placeholder"
+        android:textSize="@dimen/standard_view_label_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/cerberus_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/cerberus_logo" />
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/see_location_details_image_view"
         android:layout_width="300dp"
@@ -29,24 +40,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/see_locations_details_name_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/see_generics_details_name_text_placeholder"
-        android:textSize="@dimen/standard_text_view_font_size"
-        app:layout_constraintEnd_toStartOf="@id/see_location_details_image_view"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/see_location_details_image_view" />
-
-    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/see_locations_details_entrances_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/see_location_details_entrances_textView_text"
         android:textSize="@dimen/standard_text_view_font_size"
-        app:layout_constraintBottom_toTopOf="@id/see_locations_details_positions_text_view"
-        app:layout_constraintStart_toStartOf="@id/see_locations_details_name_text_view"
-        app:layout_constraintTop_toBottomOf="@id/see_locations_details_name_text_view" />
+        app:layout_constraintEnd_toStartOf="@id/see_location_details_image_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/see_location_details_image_view" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/see_locations_details_positions_text_view"
@@ -55,7 +56,7 @@
         android:text="@string/see_location_details_positions_textView_text"
         android:textSize="@dimen/standard_text_view_font_size"
         app:layout_constraintBottom_toTopOf="@id/see_locations_details_suggestedCount_text_view"
-        app:layout_constraintStart_toStartOf="@id/see_locations_details_name_text_view"
+        app:layout_constraintStart_toStartOf="@id/see_locations_details_entrances_text_view"
         app:layout_constraintTop_toBottomOf="@id/see_locations_details_entrances_text_view" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -65,5 +66,28 @@
         android:text="@string/see_location_details_suggestedCount_textView_text"
         android:textSize="@dimen/standard_text_view_font_size"
         app:layout_constraintBottom_toBottomOf="@id/see_location_details_image_view"
-        app:layout_constraintStart_toStartOf="@id/see_locations_details_name_text_view" />
+        app:layout_constraintStart_toStartOf="@id/see_locations_details_entrances_text_view" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/see_location_details_erase_BTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:text="@string/see_location_details_erase_BTN_text"
+        android:textColor="@color/standard_red"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/see_location_details_loading_widget"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

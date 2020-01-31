@@ -54,7 +54,10 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
 
     override fun deleteEmployee() {
         if (!this.currentEmployee.adminRights) {
-            deleteProfilePic()
+
+            if (this.currentEmployee.photoId.isNotEmpty()) {
+                deleteProfilePic()
+            }
             deleteEmployeeDBEntry()
         } else {
             view.showToastMessages("The employee is an administrator. Please confirm with leadership for approval.")

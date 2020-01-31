@@ -33,4 +33,5 @@
     <string name="see_location_details_entrances_textView_text">Entrances:</string>
     <string name="see_location_details_suggestedCount_textView_text">Suggested Count:</string>
     <string name="see_location_details_positions_textView_text">Positions:</string>
+    <string name="see_location_details_erase_BTN_text">Erase Location</string>
 </resources>

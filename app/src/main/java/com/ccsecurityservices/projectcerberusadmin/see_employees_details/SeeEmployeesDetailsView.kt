@@ -46,7 +46,7 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
         }
 
         see_employee_details_eraseEmployeeBTN.setOnClickListener {
-            testingDialog()
+            eraseWarningDialog()
         }
 
         see_employee_details_editEmployeeBTN.setOnClickListener {
@@ -54,7 +54,7 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
         }
     }
 
-    private fun testingDialog() {
+    private fun eraseWarningDialog() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Erase Employee")
         builder.setMessage("Are you sure you want to erase this employee from the system?")
@@ -101,7 +101,7 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
     }
 
     override fun downloadPic(imageUrl: String) {
-        Glide.with(this).load(imageUrl).into(imageView);
+        Glide.with(this).load(imageUrl).into(imageView)
     }
 
     override fun showToastMessages(msg: String) {
