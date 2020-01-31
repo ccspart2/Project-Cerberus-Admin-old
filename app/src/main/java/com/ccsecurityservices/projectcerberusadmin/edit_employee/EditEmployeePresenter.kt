@@ -6,8 +6,9 @@ import com.google.firebase.database.FirebaseDatabase
 
 class EditEmployeePresenter(private val view: EditEmployeeView) :
     EditEmployeeContract.EditEmployeePresenter {
+
     private lateinit var currentEmployee: Employee
-    private val mFirebaseDatabase = FirebaseDatabase.getInstance()
+    private val mFireBaseDatabase = FirebaseDatabase.getInstance()
 
     private lateinit var firstName: String
     private lateinit var lastName: String
@@ -57,7 +58,7 @@ class EditEmployeePresenter(private val view: EditEmployeeView) :
     }
 
     private fun uploadEmployeeToFireBase(employee: Employee) {
-        val dbReference = mFirebaseDatabase.reference
+        val dbReference = mFireBaseDatabase.reference
             .child("employees")
             .child(this.currentEmployee.id)
 

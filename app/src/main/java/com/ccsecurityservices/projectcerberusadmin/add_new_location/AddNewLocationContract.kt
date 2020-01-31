@@ -1,9 +1,11 @@
 package com.ccsecurityservices.projectcerberusadmin.add_new_location
 
+import android.content.Intent
+
 interface AddNewLocationContract {
     interface AddNewLocationView {
         fun navBackSeeAllLocations()
-        fun showFailMessage()
+        fun showFailMessage(msg : String)
     }
 
     interface AddNewLocationPresenter {
@@ -13,5 +15,7 @@ interface AddNewLocationContract {
             positions: String,
             suggestedCount: String
         )
+        fun savePhotoIntent(data: Intent?)
+        fun prepareIntentForProfilePic(): Intent
     }
 }

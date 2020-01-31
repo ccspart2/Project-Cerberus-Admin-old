@@ -1,9 +1,12 @@
 package com.ccsecurityservices.projectcerberusadmin.add_new_location
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.ccsecurityservices.projectcerberusadmin.R
+import com.ccsecurityservices.projectcerberusadmin.see_employees_details.SeeEmployeesDetailsView
 import kotlinx.android.synthetic.main.add_new_location.*
 
 class AddNewLocationView : AppCompatActivity(), AddNewLocationContract.AddNewLocationView {
@@ -24,6 +27,13 @@ class AddNewLocationView : AppCompatActivity(), AddNewLocationContract.AddNewLoc
                 add_location_suggested_count_edit_text.text.toString()
             )
         }
+        add_location_photo_BTN.setOnClickListener {
+            val intent = presenter.prepareIntentForProfilePic()
+            startActivityForResult(
+                Intent.createChooser(intent, "Complete action using"),
+                SeeEmployeesDetailsView.RC_PHOTO_PICKER
+            )
+        }
     }
 
     override fun navBackSeeAllLocations() {
@@ -35,11 +45,18 @@ class AddNewLocationView : AppCompatActivity(), AddNewLocationContract.AddNewLoc
         finish()
     }
 
-    override fun showFailMessage() {
+    override fun showFailMessage(msg: String) {
         Toast.makeText(
             this,
-            "Some of the credentials are not valid. Please verify and try again",
+            "msg",
             Toast.LENGTH_LONG
         ).show()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == SeeEmployeesDetailsView.RC_PHOTO_PICKER && resultCode == Activity.RESULT_OK) {
+            presenter.savePhotoIntent(data)
+        }
     }
 }
