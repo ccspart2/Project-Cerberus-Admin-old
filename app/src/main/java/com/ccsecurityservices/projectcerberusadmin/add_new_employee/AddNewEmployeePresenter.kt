@@ -55,7 +55,7 @@ class AddNewEmployeePresenter(private val view: AddNewEmployeeView) :
         val id = db.push().key
         employee.id = id!!
         db.child("employees").child(id).setValue(employee).addOnCompleteListener(view) {
-            view.navBacktoSeeAllEmployees()
+            view.navBackSeeAllEmployees()
         }
     }
 }

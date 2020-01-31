@@ -27,7 +27,7 @@ class AddNewEmployeeView : AppCompatActivity(), AddNewEmployeeContract.AddNewEmp
         }
     }
 
-    override fun navBacktoSeeAllEmployees() {
+    override fun navBackSeeAllEmployees() {
         Toast.makeText(
             this,
             "The employee was successfully created.",

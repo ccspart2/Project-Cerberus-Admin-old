@@ -3,7 +3,7 @@ package com.ccsecurityservices.projectcerberusadmin.add_new_employee
 interface AddNewEmployeeContract {
 
     interface AddNewEmployeeView {
-        fun navBacktoSeeAllEmployees()
+        fun navBackSeeAllEmployees()
         fun showFailMessage()
     }
 
