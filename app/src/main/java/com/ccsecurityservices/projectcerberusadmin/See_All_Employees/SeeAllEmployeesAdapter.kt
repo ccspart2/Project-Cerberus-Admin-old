@@ -1,10 +1,10 @@
-package com.ccsecurityservices.projectcerberusadmin.See_All_Employees
+package com.ccsecurityservices.projectcerberusadmin.see_all_employees
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.ccsecurityservices.projectcerberusadmin.Data_Items.Employee
+import com.ccsecurityservices.projectcerberusadmin.data_items.Employee
 import com.ccsecurityservices.projectcerberusadmin.R
 import kotlinx.android.synthetic.main.see_all_generic_list_item.view.*
 

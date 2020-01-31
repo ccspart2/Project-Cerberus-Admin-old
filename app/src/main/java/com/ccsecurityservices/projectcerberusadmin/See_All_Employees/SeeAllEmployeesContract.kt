@@ -1,6 +1,6 @@
-package com.ccsecurityservices.projectcerberusadmin.See_All_Employees
+package com.ccsecurityservices.projectcerberusadmin.see_all_employees
 
-import com.ccsecurityservices.projectcerberusadmin.Data_Items.Employee
+import com.ccsecurityservices.projectcerberusadmin.data_items.Employee
 
 interface SeeAllEmployeesContract {
 

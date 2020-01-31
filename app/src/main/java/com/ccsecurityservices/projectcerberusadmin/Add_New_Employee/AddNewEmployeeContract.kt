@@ -1,4 +1,4 @@
-package com.ccsecurityservices.projectcerberusadmin.Add_New_Employee
+package com.ccsecurityservices.projectcerberusadmin.add_new_employee
 
 interface AddNewEmployeeContract {
 

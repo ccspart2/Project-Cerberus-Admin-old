@@ -1,12 +1,12 @@
-package com.ccsecurityservices.projectcerberusadmin.See_All_Employees
+package com.ccsecurityservices.projectcerberusadmin.see_all_employees
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ccsecurityservices.projectcerberusadmin.Add_New_Employee.AddNewEmployeeView
-import com.ccsecurityservices.projectcerberusadmin.Data_Items.Employee
+import com.ccsecurityservices.projectcerberusadmin.add_new_employee.AddNewEmployeeView
+import com.ccsecurityservices.projectcerberusadmin.data_items.Employee
 import com.ccsecurityservices.projectcerberusadmin.R
 import com.ccsecurityservices.projectcerberusadmin.see_employees_details.SeeEmployeesDetailsView
 import kotlinx.android.synthetic.main.see_all_employees.*

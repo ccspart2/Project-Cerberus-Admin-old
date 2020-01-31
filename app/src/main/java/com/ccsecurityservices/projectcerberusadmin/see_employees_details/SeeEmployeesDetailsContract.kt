@@ -2,7 +2,7 @@ package com.ccsecurityservices.projectcerberusadmin.see_employees_details
 
 import android.content.Intent
 import android.net.Uri
-import com.ccsecurityservices.projectcerberusadmin.Data_Items.Employee
+import com.ccsecurityservices.projectcerberusadmin.data_items.Employee
 
 interface SeeEmployeesDetailsContract {
 

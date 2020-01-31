@@ -1,14 +1,10 @@
-package com.ccsecurityservices.projectcerberusadmin.Add_New_Employee
+package com.ccsecurityservices.projectcerberusadmin.add_new_employee
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.Toast
 import com.ccsecurityservices.projectcerberusadmin.R
-import com.ccsecurityservices.projectcerberusadmin.See_All_Employees.SeeAllEmployeesView
 import kotlinx.android.synthetic.main.add_new_employee.*
-import kotlinx.android.synthetic.main.see_all_employees.*
 
 class AddNewEmployeeView : AppCompatActivity(), AddNewEmployeeContract.AddNewEmployeeView {
 

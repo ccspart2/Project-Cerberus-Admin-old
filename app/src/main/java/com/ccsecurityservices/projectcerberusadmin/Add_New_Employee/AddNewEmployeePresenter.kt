@@ -1,7 +1,6 @@
-package com.ccsecurityservices.projectcerberusadmin.Add_New_Employee
+package com.ccsecurityservices.projectcerberusadmin.add_new_employee
 
-import android.telephony.PhoneNumberUtils
-import com.ccsecurityservices.projectcerberusadmin.Data_Items.Employee
+import com.ccsecurityservices.projectcerberusadmin.data_items.Employee
 import com.ccsecurityservices.projectcerberusadmin.helper_classes.EmployeeInputValidation
 import com.google.firebase.database.FirebaseDatabase
 

@@ -5,12 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ccsecurityservices.projectcerberusadmin.Data_Items.SecLocation
+import com.ccsecurityservices.projectcerberusadmin.data_items.SecLocation
 import com.ccsecurityservices.projectcerberusadmin.R
 import com.ccsecurityservices.projectcerberusadmin.add_new_location.AddNewLocationView
-import com.ccsecurityservices.projectcerberusadmin.see_employees_details.SeeEmployeesDetailsView
 import com.ccsecurityservices.projectcerberusadmin.see_location_details.SeeLocationDetailsView
-import kotlinx.android.synthetic.main.see_all_employees.*
 import kotlinx.android.synthetic.main.see_all_locations.*
 import java.io.Serializable
 

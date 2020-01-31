@@ -3,9 +3,9 @@ package com.ccsecurityservices.projectcerberusadmin.home_page
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.ccsecurityservices.projectcerberusadmin.Data_Items.User
 import com.ccsecurityservices.projectcerberusadmin.R
-import com.ccsecurityservices.projectcerberusadmin.See_All_Employees.SeeAllEmployeesView
+import com.ccsecurityservices.projectcerberusadmin.see_all_employees.SeeAllEmployeesView
+import com.ccsecurityservices.projectcerberusadmin.data_items.Employee
 import com.ccsecurityservices.projectcerberusadmin.see_all_locations.SeeAllLocationsView
 import kotlinx.android.synthetic.main.home_page.*
 
@@ -44,7 +44,7 @@ class HomePage : AppCompatActivity(), HomePageContract.HomePageView {
         }
     }
 
-    override fun populateUser(): User {
+    override fun populateUser(): Employee{
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

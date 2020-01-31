@@ -1,6 +1,6 @@
 package com.ccsecurityservices.projectcerberusadmin.edit_employee
 
-import com.ccsecurityservices.projectcerberusadmin.Data_Items.Employee
+import com.ccsecurityservices.projectcerberusadmin.data_items.Employee
 import com.ccsecurityservices.projectcerberusadmin.helper_classes.EmployeeInputValidation
 import com.google.firebase.database.FirebaseDatabase
 

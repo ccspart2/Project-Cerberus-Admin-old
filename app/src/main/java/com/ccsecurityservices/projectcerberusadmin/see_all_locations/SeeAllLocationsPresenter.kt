@@ -1,7 +1,7 @@
 package com.ccsecurityservices.projectcerberusadmin.see_all_locations
 
-import com.ccsecurityservices.projectcerberusadmin.Data_Items.DummyLocations
-import com.ccsecurityservices.projectcerberusadmin.Data_Items.SecLocation
+import com.ccsecurityservices.projectcerberusadmin.data_items.DummyLocations
+import com.ccsecurityservices.projectcerberusadmin.data_items.SecLocation
 import com.google.firebase.database.*
 
 class SeeAllLocationsPresenter(private val view: SeeAllLocationsView) :

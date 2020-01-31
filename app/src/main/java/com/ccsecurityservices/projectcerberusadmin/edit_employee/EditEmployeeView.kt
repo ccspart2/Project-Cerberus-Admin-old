@@ -3,7 +3,7 @@ package com.ccsecurityservices.projectcerberusadmin.edit_employee
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.ccsecurityservices.projectcerberusadmin.Data_Items.Employee
+import com.ccsecurityservices.projectcerberusadmin.data_items.Employee
 import com.ccsecurityservices.projectcerberusadmin.R
 import kotlinx.android.synthetic.main.edit_employee.*
 
