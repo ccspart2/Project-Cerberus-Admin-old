@@ -12,6 +12,10 @@ class SeeAllLocationsPresenter(private val view: SeeAllLocationsView) :
     private lateinit var mChildEventListener: ChildEventListener
 
     fun numberOfItems(): Int {
+        if(items.size == 0)
+        {
+            view.showLoding(false)
+        }
         return items.size
     }
 

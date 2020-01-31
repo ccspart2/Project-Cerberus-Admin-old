@@ -13,6 +13,10 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesView) :
     private lateinit var mChildEventListener: ChildEventListener
 
     fun numberOfItems(): Int {
+        if(items.size == 0)
+        {
+            view.showLoading(false)
+        }
         return items.size
     }
 
