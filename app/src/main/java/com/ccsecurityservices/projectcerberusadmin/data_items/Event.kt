@@ -8,5 +8,9 @@ data class Event(
     var locationId: String = "",
     var eventTime: String = "",
     var photoId: String = "",
-    var duration: String = ""
+    var duration: String = "",
+    var state: String = "",
+    var filled: Boolean = false,
+    var headcount: Int = 0,
+    var attendanceList: MutableList<Attendance> = mutableListOf()
 ) : Serializable
