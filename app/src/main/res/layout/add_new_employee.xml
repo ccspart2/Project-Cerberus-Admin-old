@@ -131,7 +131,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:background="#ffffff"
+        android:background="@android:color/transparent"
         android:text="@string/add_employee_BTN_text"
         android:textColor="@color/Default_text_color"
         android:textSize="@dimen/standard_text_view_font_size"

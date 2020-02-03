@@ -42,4 +42,6 @@
     <string name="add_event_location_label_text">Event Location:</string>
     <string name="add_event_duration_label_text">Event Duration:</string>
     <string name="add_event_headcount_label_text">Employee Headcount:</string>
+    <string name="add_event_inviteEmployee_BTN_text">Add Employees</string>
+    <string name="add_event_BTN_text">Add Event</string>
 </resources>

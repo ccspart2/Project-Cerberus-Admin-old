@@ -49,7 +49,7 @@ class AddNewLocationView : AppCompatActivity(), AddNewLocationContract.AddNewLoc
     override fun showFailMessage(msg: String) {
         Toast.makeText(
             this,
-            "msg",
+            msg,
             Toast.LENGTH_LONG
         ).show()
     }
