@@ -4,4 +4,5 @@
     <dimen name="standard_list_item_height">100dp</dimen>
     <dimen name="edit_text_default_width">400dp</dimen>
     <dimen name="standard_text_view_font_size">25sp</dimen>
+    <dimen name="standard_numeric_edit_text_width">150dp</dimen>
 </resources>

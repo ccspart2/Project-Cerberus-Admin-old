@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home_page.HomePage">
+    tools:context=".home_page.HomePageView">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/cerberus_logo"
@@ -81,7 +81,7 @@
         app:layout_constraintTop_toTopOf="@id/employees_label" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/events_btn"
+        android:id="@+id/home_page_events_btn"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:src="@drawable/calendar"
@@ -97,8 +97,8 @@
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@id/employees_label"
-        app:layout_constraintEnd_toEndOf="@id/events_btn"
-        app:layout_constraintStart_toStartOf="@id/events_btn"
+        app:layout_constraintEnd_toEndOf="@id/home_page_events_btn"
+        app:layout_constraintStart_toStartOf="@id/home_page_events_btn"
         app:layout_constraintTop_toTopOf="@id/employees_label" />
 
     <androidx.appcompat.widget.AppCompatImageView

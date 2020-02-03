@@ -59,7 +59,7 @@
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/add_location_entrances_edit_text"
-        android:layout_width="150dp"
+        android:layout_width="@dimen/standard_numeric_edit_text_width"
         android:layout_height="wrap_content"
         android:inputType="number"
         app:layout_constraintBaseline_toBaselineOf="@id/add_location_entrances_label"
@@ -78,7 +78,7 @@
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/add_location_positions_edit_text"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/standard_numeric_edit_text_width"
         android:layout_height="wrap_content"
         android:inputType="number"
         app:layout_constraintBaseline_toBaselineOf="@id/add_location_positions_label"
@@ -97,7 +97,7 @@
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/add_location_suggested_count_edit_text"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/standard_numeric_edit_text_width"
         android:layout_height="wrap_content"
         android:inputType="number"
         app:layout_constraintBaseline_toBaselineOf="@id/add_location_suggested_count_label"
