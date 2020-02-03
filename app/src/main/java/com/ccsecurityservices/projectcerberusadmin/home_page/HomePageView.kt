@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.ccsecurityservices.projectcerberusadmin.R
-import com.ccsecurityservices.projectcerberusadmin.add_new_event.AddNewEvent
+import com.ccsecurityservices.projectcerberusadmin.add_new_event.AddNewEventView
 import com.ccsecurityservices.projectcerberusadmin.see_all_employees.SeeAllEmployeesView
 import com.ccsecurityservices.projectcerberusadmin.data_items.Employee
 import com.ccsecurityservices.projectcerberusadmin.see_all_locations.SeeAllLocationsView
@@ -40,7 +40,7 @@ class HomePageView : AppCompatActivity(), HomePageContract.HomePageView {
             R.id.home_page_events_btn -> {
 
                 //TODO Remember to change to SeeAllEvents
-                val navIntent = Intent(this, AddNewEvent::class.java)
+                val navIntent = Intent(this, AddNewEventView::class.java)
                 startActivity(navIntent)
             }
             R.id.home_page_locations_btn -> {
