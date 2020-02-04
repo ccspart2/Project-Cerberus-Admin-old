@@ -5,11 +5,11 @@ import com.ccsecurityservices.projectcerberusadmin.data_items.SecLocation
 interface AddNewEventContract {
     interface AddNewEventView {
         fun populateLocationSpinner(locationNames: List<String>)
-
+        fun showLoading(state: Boolean)
     }
 
     interface AddNewEventPresenter {
         fun getLocationsFromFireBase()
-        fun getLocationItem(position : Int): SecLocation
+        fun setSelectedLocation(position: Int)
     }
 }

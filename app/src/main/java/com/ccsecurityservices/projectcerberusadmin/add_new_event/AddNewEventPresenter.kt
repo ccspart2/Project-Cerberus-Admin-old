@@ -14,6 +14,7 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
     private lateinit var eventname: String
     private lateinit var eventDate: LocalDate
     private lateinit var eventTime: LocalTime
+    private lateinit var selectedLocation: SecLocation
     private lateinit var locationList: MutableList<SecLocation>
     private lateinit var eventDuration: String
     private var eventHeadcount: Int = 0
@@ -22,6 +23,7 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
 
     override fun getLocationsFromFireBase() {
 
+        view.showLoading(true)
         val locationsReference = fireBaseDatabase.reference.child("locations")
 
         this.locationList = mutableListOf()
@@ -36,14 +38,20 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
                     val loc = dataSnapshot1.getValue(SecLocation::class.java)!!
                     locationList.add(loc)
                 }
-                view.populateLocationSpinner(locationList.map { it.name })
+                view.showLoading(false)
+                view.populateLocationSpinner(prepareListForSpinner())
             }
         }
         locationsReference.addListenerForSingleValueEvent(locationListener)
     }
 
-    override fun getLocationItem(position: Int): SecLocation {
-        return this.locationList[position]
+    private fun prepareListForSpinner(): List<String> {
+        val result = this.locationList.map { it.name }.toMutableList()
+        result.add(0, "--Select a Location--")
+        return result.toList()
     }
 
+    override fun setSelectedLocation(position: Int) {
+        this.selectedLocation = locationList[position]
+    }
 }
