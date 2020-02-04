@@ -1,6 +1,8 @@
 package com.ccsecurityservices.projectcerberusadmin.add_new_event
 
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -13,37 +15,61 @@ import androidx.appcompat.widget.AppCompatSeekBar
 import androidx.appcompat.widget.AppCompatSpinner
 import com.ccsecurityservices.projectcerberusadmin.R
 import kotlinx.android.synthetic.main.add_new_event.*
-
+import java.util.*
 
 class AddNewEventView : AppCompatActivity(), AddNewEventContract.AddNewEventView {
 
-    private lateinit var pickDateBTN: AppCompatButton
     private lateinit var pickTimeBTN: AppCompatButton
     private lateinit var locationSpinner: AppCompatSpinner
     private lateinit var durationSeekBar: AppCompatSeekBar
     private lateinit var headcountTextView: AppCompatEditText
     private lateinit var addEmployeesBTN: AppCompatButton
     private lateinit var addEventBTN: AppCompatButton
-
     private lateinit var descriptionEditText: AppCompatEditText
-
     private lateinit var presenter: AddNewEventPresenter
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_new_event)
 
-
         presenter = AddNewEventPresenter(this)
         setWidgets()
         presenter.getLocationsFromFireBase()
-
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun setWidgets() {
 
+        //Setting up Date and Time Pickers
+        val calendarReference = Calendar.getInstance()
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+            add_event_dateTime_date_BTN.text = presenter.setDate(year, month + 1, dayOfMonth)
+        }
+        val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+            add_event_dateTime_time_BTN.text = presenter.setTime(hourOfDay, minute)
+        }
+
+        add_event_dateTime_date_BTN.setOnClickListener {
+            DatePickerDialog(
+                this,
+                dateSetListener,
+                calendarReference.get(Calendar.YEAR),
+                calendarReference.get(Calendar.MONTH),
+                calendarReference.get(Calendar.DAY_OF_MONTH)
+            ).show()
+        }
+
+        add_event_dateTime_time_BTN.setOnClickListener {
+            TimePickerDialog(
+                this,
+                timeSetListener,
+                calendarReference.get(Calendar.HOUR_OF_DAY),
+                calendarReference.get(Calendar.MINUTE),
+                false
+            ).show()
+        }
+
+        //Setting up Duration SeekBar
         val seek = findViewById<SeekBar>(R.id.add_event_duration_seekBar)
         seek?.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
@@ -77,7 +103,6 @@ class AddNewEventView : AppCompatActivity(), AddNewEventContract.AddNewEventView
                     presenter.setSelectedLocation(position - 1)
                 }
             }
-
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
     }

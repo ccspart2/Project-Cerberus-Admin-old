@@ -7,6 +7,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.time.LocalDate
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class AddNewEventPresenter(private val view: AddNewEventView) :
     AddNewEventContract.AddNewEventPresenter {
@@ -53,5 +54,17 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
 
     override fun setSelectedLocation(position: Int) {
         this.selectedLocation = locationList[position]
+    }
+
+    override fun setDate(year: Int, month: Int, day: Int): String {
+        val date = LocalDate.parse("$month/$day/$year", DateTimeFormatter.ofPattern("M/d/y"))
+        this.eventDate = date
+        return date.format(DateTimeFormatter.ofPattern("dd MMM, yyyy"))
+    }
+
+    override fun setTime(hour: Int, minute: Int): String {
+        val time = LocalTime.parse("$hour:$minute:00", DateTimeFormatter.ofPattern("H:m:ss"))
+        this.eventTime = time
+        return time.format(DateTimeFormatter.ofPattern("hh:mm a"))
     }
 }
