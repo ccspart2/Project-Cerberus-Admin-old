@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
+import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
@@ -36,7 +36,6 @@ class AddNewEventView : AppCompatActivity(), AddNewEventContract.AddNewEventView
 
 
         presenter = AddNewEventPresenter(this)
-
         setWidgets()
         presenter.getLocationsFromFireBase()
 
@@ -45,6 +44,18 @@ class AddNewEventView : AppCompatActivity(), AddNewEventContract.AddNewEventView
     @SuppressLint("ClickableViewAccessibility")
     private fun setWidgets() {
 
+        val seek = findViewById<SeekBar>(R.id.add_event_duration_seekBar)
+        seek?.setOnSeekBarChangeListener(object :
+            SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seek: SeekBar, progress: Int, fromUser: Boolean) {}
+
+            override fun onStartTrackingTouch(seek: SeekBar) {}
+
+            override fun onStopTrackingTouch(seek: SeekBar) {
+                add_event_duration_seekBar_indicator_label.text = seek.progress.toString()
+            }
+        })
+
         //Setting up the Description text EditText Scroll feature.
         descriptionEditText = findViewById(R.id.add_event_description_edit_text)
         descriptionEditText.setOnTouchListener { _, _ ->
@@ -52,25 +63,22 @@ class AddNewEventView : AppCompatActivity(), AddNewEventContract.AddNewEventView
             false
         }
 
-
-        //TODO: Modify the Spinner onClickListener,
-        // we have to make a default choice and add it to the list
-
+        //Setting up Location Spinner Widget
         locationSpinner = findViewById(R.id.add_event_location_spinner)
         locationSpinner.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
-                view: View, position: Int, id: Long
+                view: View,
+                position: Int,
+                id: Long
             ) {
                 if (position != 0) {
                     presenter.setSelectedLocation(position - 1)
                 }
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // write code to perform some action
-            }
+            override fun onNothingSelected(parent: AdapterView<*>) {}
         }
     }
 
