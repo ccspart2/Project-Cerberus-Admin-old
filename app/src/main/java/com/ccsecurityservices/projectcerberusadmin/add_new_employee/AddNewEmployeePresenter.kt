@@ -40,7 +40,8 @@ class AddNewEmployeePresenter(private val view: AddNewEmployeeView) :
                 InputValidation.formatPhone(this.phone),
                 "",
                 0,
-                false
+                false,
+                mutableListOf()
             )
 
             uploadEmployeeToFireBase(employee)

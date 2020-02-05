@@ -12,7 +12,8 @@ data class Employee(
     var phone: String = "",
     var photoId: String = "",
     var ranking: Int = 0,
-    var hasApp: Boolean = false
+    var hasApp: Boolean = false,
+    var attendanceList: MutableList<Attendance> = mutableListOf()
 ) : Serializable
 
 
