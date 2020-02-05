@@ -16,7 +16,6 @@ import androidx.appcompat.widget.AppCompatSpinner
 import com.ccsecurityservices.projectcerberusadmin.R
 import com.ccsecurityservices.projectcerberusadmin.data_items.Event
 import com.ccsecurityservices.projectcerberusadmin.invite_employee_to_event.InviteEmployeesToEventView
-import com.ccsecurityservices.projectcerberusadmin.see_employees_details.SeeEmployeesDetailsView
 import kotlinx.android.synthetic.main.add_new_event.*
 import java.io.Serializable
 import java.util.*
