@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".invite_employee_to_event.InviteEmployeesToEventView"></activity>
         <activity
             android:name=".add_new_event.AddNewEventView"
             android:screenOrientation="landscape" />

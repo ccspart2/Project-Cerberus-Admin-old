@@ -3,42 +3,42 @@ package com.ccsecurityservices.projectcerberusadmin.add_new_event
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
-import androidx.appcompat.widget.AppCompatSeekBar
 import androidx.appcompat.widget.AppCompatSpinner
 import com.ccsecurityservices.projectcerberusadmin.R
+import com.ccsecurityservices.projectcerberusadmin.data_items.Event
+import com.ccsecurityservices.projectcerberusadmin.invite_employee_to_event.InviteEmployeesToEventView
+import com.ccsecurityservices.projectcerberusadmin.see_employees_details.SeeEmployeesDetailsView
 import kotlinx.android.synthetic.main.add_new_event.*
+import java.io.Serializable
 import java.util.*
 
 class AddNewEventView : AppCompatActivity(), AddNewEventContract.AddNewEventView {
 
-    private lateinit var pickTimeBTN: AppCompatButton
     private lateinit var locationSpinner: AppCompatSpinner
-    private lateinit var durationSeekBar: AppCompatSeekBar
-    private lateinit var headcountTextView: AppCompatEditText
-    private lateinit var addEmployeesBTN: AppCompatButton
-    private lateinit var addEventBTN: AppCompatButton
     private lateinit var descriptionEditText: AppCompatEditText
     private lateinit var presenter: AddNewEventPresenter
+    private var employeesInvited = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_new_event)
 
         presenter = AddNewEventPresenter(this)
-        setWidgets()
+        setWidgetsAndButtons()
         presenter.getLocationsFromFireBase()
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private fun setWidgets() {
+    private fun setWidgetsAndButtons() {
 
         //Setting up Date and Time Pickers
         val calendarReference = Calendar.getInstance()
@@ -79,6 +79,7 @@ class AddNewEventView : AppCompatActivity(), AddNewEventContract.AddNewEventView
 
             override fun onStopTrackingTouch(seek: SeekBar) {
                 add_event_duration_seekBar_indicator_label.text = seek.progress.toString()
+                presenter.setDuration(seek.progress)
             }
         })
 
@@ -103,7 +104,21 @@ class AddNewEventView : AppCompatActivity(), AddNewEventContract.AddNewEventView
                     presenter.setSelectedLocation(position - 1)
                 }
             }
+
             override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+
+        add_event_inviteEmployee_BTN.setOnClickListener {
+            if (add_event_name_Edit_Text.text.isNullOrEmpty() || add_event_headcount_edit_text.text.isNullOrEmpty()) {
+                displayToast("Please fill Event Name and Headcount in order to invite employees ")
+
+            } else {
+                presenter.createEventObjectForInvitations(
+                    add_event_name_Edit_Text.text.toString(),
+                    add_event_headcount_edit_text.text.toString().toInt(),
+                    add_event_description_edit_text.text.toString()
+                )
+            }
         }
     }
 
@@ -120,5 +135,19 @@ class AddNewEventView : AppCompatActivity(), AddNewEventContract.AddNewEventView
         } else {
             add_event_loading_widget.visibility = View.GONE
         }
+    }
+
+    override fun navToInviteEmployee(event: Event) {
+        val navIntent = Intent(this, InviteEmployeesToEventView::class.java)
+        navIntent.putExtra("initial_event", event as Serializable)
+        startActivity(navIntent)
+    }
+
+    override fun displayToast(msg: String) {
+        Toast.makeText(
+            this,
+            msg,
+            Toast.LENGTH_LONG
+        ).show()
     }
 }

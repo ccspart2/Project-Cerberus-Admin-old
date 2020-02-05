@@ -42,7 +42,7 @@
     <string name="add_event_location_label_text">Location:</string>
     <string name="add_event_duration_label_text">Duration:</string>
     <string name="add_event_headcount_label_text">Headcount:</string>
-    <string name="add_event_inviteEmployee_BTN_text">Add Employees</string>
+    <string name="add_event_inviteEmployee_BTN_text">Invite Employees</string>
     <string name="add_event_BTN_text">Add Event</string>
     <string name="add_event_duration_seekBar_indicator_label_text">0</string>
     <string name="add_event_description_label_text">Description:</string>

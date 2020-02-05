@@ -150,6 +150,7 @@
             android:id="@+id/add_event_headcount_edit_text"
             android:layout_width="@dimen/standard_numeric_edit_text_width"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:inputType="number"
             app:layout_constraintBottom_toBottomOf="@id/add_event_headcount_label"
             app:layout_constraintEnd_toEndOf="@id/add_event_name_Edit_Text"

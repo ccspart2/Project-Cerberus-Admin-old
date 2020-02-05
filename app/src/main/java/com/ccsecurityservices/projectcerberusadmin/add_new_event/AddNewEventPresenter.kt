@@ -1,5 +1,6 @@
 package com.ccsecurityservices.projectcerberusadmin.add_new_event
 
+import com.ccsecurityservices.projectcerberusadmin.data_items.Event
 import com.ccsecurityservices.projectcerberusadmin.data_items.SecLocation
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -12,13 +13,9 @@ import java.time.format.DateTimeFormatter
 class AddNewEventPresenter(private val view: AddNewEventView) :
     AddNewEventContract.AddNewEventPresenter {
 
-    private lateinit var eventname: String
-    private lateinit var eventDate: LocalDate
-    private lateinit var eventTime: LocalTime
-    private lateinit var selectedLocation: SecLocation
     private lateinit var locationList: MutableList<SecLocation>
-    private lateinit var eventDuration: String
-    private var eventHeadcount: Int = 0
+
+    private var currentEvent = Event()
 
     private val fireBaseDatabase = FirebaseDatabase.getInstance()
 
@@ -53,18 +50,45 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
     }
 
     override fun setSelectedLocation(position: Int) {
-        this.selectedLocation = locationList[position]
+        this.currentEvent.locationId = locationList[position].id
     }
 
     override fun setDate(year: Int, month: Int, day: Int): String {
         val date = LocalDate.parse("$month/$day/$year", DateTimeFormatter.ofPattern("M/d/y"))
-        this.eventDate = date
-        return date.format(DateTimeFormatter.ofPattern("dd MMM, yyyy"))
+        this.currentEvent.eventDate = date.format(DateTimeFormatter.ofPattern("dd MMM, yyyy"))
+        return this.currentEvent.eventDate
     }
 
     override fun setTime(hour: Int, minute: Int): String {
         val time = LocalTime.parse("$hour:$minute:00", DateTimeFormatter.ofPattern("H:m:ss"))
-        this.eventTime = time
-        return time.format(DateTimeFormatter.ofPattern("hh:mm a"))
+        this.currentEvent.eventTime = time.format(DateTimeFormatter.ofPattern("hh:mm a"))
+        return this.currentEvent.eventTime
+    }
+
+    override fun setDuration(duration: Int) {
+        this.currentEvent.duration = duration
+    }
+
+    override fun createEventObjectForInvitations(
+        name: String,
+        headCount: Int,
+        description: String
+    ) {
+
+        when {
+            headCount <= 0 -> {
+                view.displayToast("Headcount Cannot be zero.")
+
+            }
+            name.trim().isEmpty() -> {
+                view.displayToast("Name Cannot be Empty or just spaces.")
+            }
+            else -> {
+                this.currentEvent.name = name.trim()
+                this.currentEvent.headcount = headCount
+                this.currentEvent.description = description
+                view.navToInviteEmployee(currentEvent)
+            }
+        }
     }
 }
