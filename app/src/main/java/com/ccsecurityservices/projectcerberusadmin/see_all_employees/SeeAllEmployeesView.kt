@@ -25,10 +25,10 @@ class SeeAllEmployeesView : AppCompatActivity(), SeeAllEmployeesContract.SeeAllE
 
         val layoutManager = LinearLayoutManager(this)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
-        allEmployeesRV.layoutManager = layoutManager
+        see_all_employee_recycler_view.layoutManager = layoutManager
 
         adapter = SeeAllEmployeesAdapter(seeAllEmployeesPresenter)
-        allEmployeesRV.adapter = adapter
+        see_all_employee_recycler_view.adapter = adapter
 
         addEmployeesNAV_BTN.setOnClickListener {
             val navIntent = Intent(this, AddNewEmployeeView::class.java)

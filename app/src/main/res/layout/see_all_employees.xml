@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="@id/cerberus_logo" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/allEmployeesRV"
+        android:id="@+id/see_all_employee_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
