@@ -110,6 +110,7 @@ class AddNewEventView : AppCompatActivity(), AddNewEventContract.AddNewEventView
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
+        //Setting up Add Employees BTN
         add_event_inviteEmployee_BTN.setOnClickListener {
             if (add_event_name_Edit_Text.text.isNullOrEmpty() || add_event_headcount_edit_text.text.isNullOrEmpty()) {
                 displayToast("Please fill Event Name and Headcount in order to invite employees ")
@@ -120,6 +121,18 @@ class AddNewEventView : AppCompatActivity(), AddNewEventContract.AddNewEventView
                     add_event_headcount_edit_text.text.toString().toInt(),
                     add_event_description_edit_text.text.toString()
                 )
+            }
+        }
+
+        add_event_BTN.setOnClickListener {
+            if (add_event_headcount_edit_text.text.toString().trim().isNotEmpty()) {
+                presenter.checkCompleteEvent(
+                    add_event_name_Edit_Text.text.toString(),
+                    add_event_headcount_edit_text.text.toString().toInt(),
+                    add_event_description_edit_text.text.toString()
+                )
+            } else {
+                displayToast("There are empty fields for this event or employees have not been invited.")
             }
         }
     }

@@ -20,5 +20,6 @@ interface AddNewEventContract {
         fun setDuration(duration: Int)
         fun createEventObjectForInvitations(name: String, headCount: Int, description: String)
         fun getAttendanceListFromIntent(intent : Intent)
+        fun checkCompleteEvent(name: String, headCount: Int, description: String)
     }
 }

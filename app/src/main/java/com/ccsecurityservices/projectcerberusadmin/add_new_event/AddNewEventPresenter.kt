@@ -18,10 +18,9 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
     AddNewEventContract.AddNewEventPresenter {
 
     private lateinit var locationList: MutableList<SecLocation>
-    private lateinit var attendanceList: MutableList<Attendance>
-
     private var currentEvent = Event()
     private val fireBaseDatabase = FirebaseDatabase.getInstance()
+    private val dateNow = LocalDate.now()
 
     override fun getLocationsFromFireBase() {
 
@@ -59,8 +58,13 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
 
     override fun setDate(year: Int, month: Int, day: Int): String {
         val date = LocalDate.parse("$month/$day/$year", DateTimeFormatter.ofPattern("M/d/y"))
-        this.currentEvent.eventDate = date.format(DateTimeFormatter.ofPattern("dd MMM, yyyy"))
-        return this.currentEvent.eventDate
+        return if (date.isAfter(this.dateNow)) {
+            this.currentEvent.eventDate = date.format(DateTimeFormatter.ofPattern("dd MMM, yyyy"))
+            this.currentEvent.eventDate
+        } else {
+            view.displayToast("Event has to be in the future.")
+            "Pick Date"
+        }
     }
 
     override fun setTime(hour: Int, minute: Int): String {
@@ -78,7 +82,6 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
         headCount: Int,
         description: String
     ) {
-
         when {
             headCount <= 0 -> {
                 view.displayToast("Headcount Cannot be zero.")
@@ -98,8 +101,56 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
 
     @Suppress("UNCHECKED_CAST")
     override fun getAttendanceListFromIntent(intent: Intent) {
-        this.attendanceList =
+        this.currentEvent.attendanceList =
             intent.extras!!.get("event_invitation_complete") as MutableList<Attendance>
         view.displayCheckBox()
+    }
+
+    override fun checkCompleteEvent(name: String, headCount: Int, description: String) {
+
+        this.currentEvent.name = name.trim()
+        this.currentEvent.headcount = headCount
+        this.currentEvent.description = description
+
+        if (checkFields()) {
+            addEventToFireBase()
+
+        } else {
+            view.displayToast("There are Empty fields for this event or Employees have not been invited.")
+        }
+    }
+
+    private fun addEventToFireBase() {
+        view.displayToast("Se puede!")
+    }
+
+    private fun checkFields(): Boolean {
+        var result = true
+
+        if (this.currentEvent.name.trim().isEmpty()) {
+            result = false
+        }
+        if (this.currentEvent.locationId.trim().isEmpty()) {
+            result = false
+        }
+        if (this.currentEvent.eventDate.trim().isEmpty()) {
+            result = false
+        }
+        if (this.currentEvent.eventTime.trim().isEmpty()) {
+            result = false
+        }
+        if (this.currentEvent.duration == 0) {
+            result = false
+        }
+        if (this.currentEvent.headcount == 0) {
+            result = false
+        }
+        if (this.currentEvent.description.trim().isEmpty()) {
+            result = false
+        }
+        if (this.currentEvent.attendanceList.size == 0) {
+            result = false
+        }
+        return result
     }
 }
