@@ -30,6 +30,7 @@ class AddNewEventView : AppCompatActivity(), AddNewEventContract.AddNewEventView
     private lateinit var locationSpinner: AppCompatSpinner
     private lateinit var descriptionEditText: AppCompatEditText
     private lateinit var presenter: AddNewEventPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_new_event)
@@ -178,5 +179,10 @@ class AddNewEventView : AppCompatActivity(), AddNewEventContract.AddNewEventView
 
     override fun displayCheckBox() {
         add_event_inviteEmployee_BTN_check_mark_image_view.visibility = View.VISIBLE
+    }
+
+    override fun navToSeeAllEvents() {
+        displayToast("Event successfully created.")
+        finish()
     }
 }

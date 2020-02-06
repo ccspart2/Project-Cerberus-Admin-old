@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ccsecurityservices.projectcerberusadmin.R
 import com.ccsecurityservices.projectcerberusadmin.add_new_event.AddNewEventView
 import com.ccsecurityservices.projectcerberusadmin.data_items.Attendance
+import com.ccsecurityservices.projectcerberusadmin.data_items.Employee
 import com.ccsecurityservices.projectcerberusadmin.edit_employee.EditEmployeeView
 import kotlinx.android.synthetic.main.invite_employees_to_event.*
 import kotlinx.android.synthetic.main.see_all_employees.*
@@ -84,16 +85,17 @@ class InviteEmployeesToEventView : AppCompatActivity(),
         }
     }
 
-    override fun returnToAddEvent(attendanceList: MutableList<Attendance>) {
+    override fun returnToAddEvent(invitedEmployees: MutableList<Employee>) {
         val intent = Intent().apply {
             putExtra(
                 "event_invitation_complete",
-                attendanceList as Serializable
+                invitedEmployees as Serializable
             )
         }
         setResult(Activity.RESULT_OK, intent)
         finish()
     }
+
 
     override fun showLoading(state: Boolean) {
         if (state) {

@@ -1,7 +1,7 @@
 package com.ccsecurityservices.projectcerberusadmin.invite_employee_to_event
 
 import android.content.Intent
-import com.ccsecurityservices.projectcerberusadmin.data_items.Attendance
+import com.ccsecurityservices.projectcerberusadmin.data_items.Employee
 
 interface InviteEmployeesToEventContract {
 
@@ -11,7 +11,7 @@ interface InviteEmployeesToEventContract {
         fun populateFinishBTN(listSize: Int, headcount: Int)
         fun popUpMessage(title: String, msg: String)
         fun changeBTNColor(completed: Boolean)
-        fun returnToAddEvent(attendanceList: MutableList<Attendance>)
+        fun returnToAddEvent(invitedEmployees: MutableList<Employee>)
         fun showLoading(state: Boolean)
     }
 

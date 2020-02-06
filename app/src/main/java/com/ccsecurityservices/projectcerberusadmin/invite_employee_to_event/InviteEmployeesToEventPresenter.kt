@@ -3,15 +3,12 @@ package com.ccsecurityservices.projectcerberusadmin.invite_employee_to_event
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.util.Log
-import com.ccsecurityservices.projectcerberusadmin.data_items.Attendance
 import com.ccsecurityservices.projectcerberusadmin.data_items.Employee
 import com.ccsecurityservices.projectcerberusadmin.data_items.Event
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import java.time.Instant
-import java.time.format.DateTimeFormatter
 
 class InviteEmployeesToEventPresenter(private val view: InviteEmployeesToEventView) :
     InviteEmployeesToEventContract.InviteEmployeesToEventPresenter {
@@ -23,7 +20,6 @@ class InviteEmployeesToEventPresenter(private val view: InviteEmployeesToEventVi
 
     private val invitedEmployeeList: MutableList<Employee> = mutableListOf()
     private val allEmployees: MutableList<Employee> = mutableListOf()
-    private val attendanceList: MutableList<Attendance> = mutableListOf()
 
     fun numberOfItems(): Int {
         return allEmployees.size
@@ -72,16 +68,7 @@ class InviteEmployeesToEventPresenter(private val view: InviteEmployeesToEventVi
     }
 
     private fun createAttendanceList() {
-        for (emp in this.invitedEmployeeList) {
-            attendanceList.add(
-                Attendance(
-                    "", emp.id, "Invited", DateTimeFormatter.ISO_INSTANT.format(
-                        Instant.now()
-                    ), "", ""
-                )
-            )
-        }
-        view.returnToAddEvent(this.attendanceList)
+        view.returnToAddEvent(this.invitedEmployeeList)
     }
 
     fun addEmployeeToInvitationList(currentEmployee: Employee): Boolean {

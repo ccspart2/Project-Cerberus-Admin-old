@@ -4,6 +4,7 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.util.Log
 import com.ccsecurityservices.projectcerberusadmin.data_items.Attendance
+import com.ccsecurityservices.projectcerberusadmin.data_items.Employee
 import com.ccsecurityservices.projectcerberusadmin.data_items.Event
 import com.ccsecurityservices.projectcerberusadmin.data_items.SecLocation
 import com.google.firebase.database.DataSnapshot
@@ -11,6 +12,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
@@ -18,6 +20,8 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
     AddNewEventContract.AddNewEventPresenter {
 
     private lateinit var locationList: MutableList<SecLocation>
+    private lateinit var invitedEmployeeList: MutableList<Employee>
+
     private var currentEvent = Event()
     private val fireBaseDatabase = FirebaseDatabase.getInstance()
     private val dateNow = LocalDate.now()
@@ -101,8 +105,8 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
 
     @Suppress("UNCHECKED_CAST")
     override fun getAttendanceListFromIntent(intent: Intent) {
-        this.currentEvent.attendanceList =
-            intent.extras!!.get("event_invitation_complete") as MutableList<Attendance>
+        this.invitedEmployeeList =
+            intent.extras!!.get("event_invitation_complete") as MutableList<Employee>
         view.displayCheckBox()
     }
 
@@ -113,6 +117,7 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
         this.currentEvent.description = description
 
         if (checkFields()) {
+            createAttendances()
             addEventToFireBase()
 
         } else {
@@ -120,8 +125,34 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
         }
     }
 
+    private fun createAttendances() {
+        for (emp in this.invitedEmployeeList) {
+            this.currentEvent.attendanceList.add(
+                Attendance(
+                    "", emp.id, "Invited", LocalDateTime.now().toString()
+                    , "", ""
+                )
+            )
+        }
+    }
+
     private fun addEventToFireBase() {
-        view.displayToast("Se puede!")
+        val eventReference = fireBaseDatabase.reference.child("events")
+        val id = eventReference.push().key
+        this.currentEvent.id = id!!
+        eventReference.child(id).setValue(this.currentEvent).addOnCompleteListener(view) {
+            //addAttendanceToAllEmployeesInvited()
+            view.navToSeeAllEvents()
+        }
+    }
+
+    private fun addAttendanceToAllEmployeesInvited() {
+        val employeeReference = fireBaseDatabase.reference.child("employees")
+
+        for (emp in this.invitedEmployeeList) {
+            employeeReference.child(emp.id).setValue(emp)
+        }
+        view.navToSeeAllEvents()
     }
 
     private fun checkFields(): Boolean {
@@ -146,9 +177,6 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
             result = false
         }
         if (this.currentEvent.description.trim().isEmpty()) {
-            result = false
-        }
-        if (this.currentEvent.attendanceList.size == 0) {
             result = false
         }
         return result

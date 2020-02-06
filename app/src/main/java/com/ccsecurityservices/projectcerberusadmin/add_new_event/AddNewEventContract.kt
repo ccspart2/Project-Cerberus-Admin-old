@@ -10,6 +10,7 @@ interface AddNewEventContract {
         fun navToInviteEmployee(event: Event)
         fun displayToast(msg : String)
         fun displayCheckBox()
+        fun navToSeeAllEvents()
     }
 
     interface AddNewEventPresenter {
