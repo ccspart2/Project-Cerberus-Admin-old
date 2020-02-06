@@ -1,6 +1,7 @@
 package com.ccsecurityservices.projectcerberusadmin.add_new_event
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
@@ -22,11 +23,13 @@ import java.util.*
 
 class AddNewEventView : AppCompatActivity(), AddNewEventContract.AddNewEventView {
 
+    companion object {
+        const val START_ACTIVITY_3_REQUEST_CODE = 0
+    }
+
     private lateinit var locationSpinner: AppCompatSpinner
     private lateinit var descriptionEditText: AppCompatEditText
     private lateinit var presenter: AddNewEventPresenter
-    private var employeesInvited = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_new_event)
@@ -139,7 +142,17 @@ class AddNewEventView : AppCompatActivity(), AddNewEventContract.AddNewEventView
     override fun navToInviteEmployee(event: Event) {
         val navIntent = Intent(this, InviteEmployeesToEventView::class.java)
         navIntent.putExtra("initial_event", event as Serializable)
-        startActivity(navIntent)
+        startActivityForResult(navIntent, START_ACTIVITY_3_REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == START_ACTIVITY_3_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                presenter.getAttendanceListFromIntent(data!!)
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
     }
 
     override fun displayToast(msg: String) {
@@ -148,5 +161,9 @@ class AddNewEventView : AppCompatActivity(), AddNewEventContract.AddNewEventView
             msg,
             Toast.LENGTH_LONG
         ).show()
+    }
+
+    override fun displayCheckBox() {
+        add_event_inviteEmployee_BTN_check_mark_image_view.visibility = View.VISIBLE
     }
 }

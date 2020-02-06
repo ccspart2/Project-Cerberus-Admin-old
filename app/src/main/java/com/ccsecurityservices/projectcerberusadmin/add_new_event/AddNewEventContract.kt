@@ -1,7 +1,7 @@
 package com.ccsecurityservices.projectcerberusadmin.add_new_event
 
+import android.content.Intent
 import com.ccsecurityservices.projectcerberusadmin.data_items.Event
-import java.time.LocalDate
 
 interface AddNewEventContract {
     interface AddNewEventView {
@@ -9,6 +9,7 @@ interface AddNewEventContract {
         fun showLoading(state: Boolean)
         fun navToInviteEmployee(event: Event)
         fun displayToast(msg : String)
+        fun displayCheckBox()
     }
 
     interface AddNewEventPresenter {
@@ -18,5 +19,6 @@ interface AddNewEventContract {
         fun setTime(hour: Int, minute: Int): String
         fun setDuration(duration: Int)
         fun createEventObjectForInvitations(name: String, headCount: Int, description: String)
+        fun getAttendanceListFromIntent(intent : Intent)
     }
 }

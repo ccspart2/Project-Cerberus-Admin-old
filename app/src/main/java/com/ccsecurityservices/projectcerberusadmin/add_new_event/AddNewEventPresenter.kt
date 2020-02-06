@@ -1,5 +1,9 @@
 package com.ccsecurityservices.projectcerberusadmin.add_new_event
 
+import android.content.ContentValues.TAG
+import android.content.Intent
+import android.util.Log
+import com.ccsecurityservices.projectcerberusadmin.data_items.Attendance
 import com.ccsecurityservices.projectcerberusadmin.data_items.Event
 import com.ccsecurityservices.projectcerberusadmin.data_items.SecLocation
 import com.google.firebase.database.DataSnapshot
@@ -14,9 +18,9 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
     AddNewEventContract.AddNewEventPresenter {
 
     private lateinit var locationList: MutableList<SecLocation>
+    private lateinit var attendanceList: MutableList<Attendance>
 
     private var currentEvent = Event()
-
     private val fireBaseDatabase = FirebaseDatabase.getInstance()
 
     override fun getLocationsFromFireBase() {
@@ -28,7 +32,7 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
 
         val locationListener = object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                Log.d(TAG, p0.message)
             }
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -90,5 +94,12 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
                 view.navToInviteEmployee(currentEvent)
             }
         }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    override fun getAttendanceListFromIntent(intent: Intent) {
+        this.attendanceList =
+            intent.extras!!.get("event_invitation_complete") as MutableList<Attendance>
+        view.displayCheckBox()
     }
 }

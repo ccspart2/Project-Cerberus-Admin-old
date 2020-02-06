@@ -27,11 +27,27 @@ class InviteEmployeesToEventAdapter(private val presenter: InviteEmployeesToEven
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        private lateinit var currentEmployee: Employee
+
+        init {
+            itemView.invite_employee_item_checkBox_BTN.setOnClickListener {
+                if (!itemView.invite_employee_item_checkBox_BTN.isChecked) {
+                    presenter.removeEmployeeFromInvitationList(this.currentEmployee)
+                } else {
+                    if(!presenter.addEmployeeToInvitationList(this.currentEmployee))
+                    {
+                        itemView.invite_employee_item_checkBox_BTN.isChecked = false
+                    }
+                }
+            }
+        }
+
         fun setData(EMP: Employee?) {
             if (EMP != null) {
                 val fullName = "${EMP.firstName} ${EMP.lastName}"
                 itemView.invite_employee_item_name_label.text = fullName
             }
+            this.currentEmployee = EMP!!
         }
     }
 }
