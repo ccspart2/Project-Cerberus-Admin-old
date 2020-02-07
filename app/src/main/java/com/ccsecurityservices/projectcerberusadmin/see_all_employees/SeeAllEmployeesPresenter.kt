@@ -41,9 +41,7 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesView) :
                 p0.message
             }
 
-            override fun onChildMoved(p0: DataSnapshot, p1: String?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
+            override fun onChildMoved(p0: DataSnapshot, p1: String?) {}
 
             override fun onChildChanged(data: DataSnapshot, p1: String?) {
                 val changedEMP = data.getValue(Employee::class.java)

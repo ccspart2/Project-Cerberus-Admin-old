@@ -52,6 +52,8 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
         }
     }
 
+    //TODO: Recuerda que tienes que verificar si este empleado
+    // esta siendo usado en un evento antes de Borrar.
     override fun deleteEmployee() {
         if (!this.currentEmployee.adminRights) {
 
