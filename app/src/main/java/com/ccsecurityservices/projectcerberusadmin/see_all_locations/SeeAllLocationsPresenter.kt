@@ -1,5 +1,7 @@
 package com.ccsecurityservices.projectcerberusadmin.see_all_locations
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import com.ccsecurityservices.projectcerberusadmin.data_items.SecLocation
 import com.google.firebase.database.*
 
@@ -14,7 +16,7 @@ class SeeAllLocationsPresenter(private val view: SeeAllLocationsView) :
     fun numberOfItems(): Int {
         if(items.size == 0)
         {
-            view.showLoding(false)
+            view.displayLoading(false)
         }
         return items.size
     }
@@ -23,49 +25,47 @@ class SeeAllLocationsPresenter(private val view: SeeAllLocationsView) :
         return items[position]
     }
 
-    private fun sortItems() {
-        items.sortBy { it.name }
-    }
-
     fun setupNavToLocationDetails(currentLocation: SecLocation?) {
         view.navToLocationDetails(currentLocation!!)
+    }
+
+    private fun sortItems() {
+        items.sortBy { it.name }
     }
 
     override fun getLocationList() {
         locationsReference = mFireBaseDatabase.reference.child("locations")
         mChildEventListener = object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                Log.d(TAG, p0.message)
             }
 
-            override fun onChildMoved(p0: DataSnapshot, p1: String?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
+            override fun onChildMoved(p0: DataSnapshot, p1: String?) {}
 
             override fun onChildChanged(p0: DataSnapshot, p1: String?) {
                 val changedLoc = p0.getValue(SecLocation::class.java)
-                val oldEMP = items.find { it.id == changedLoc!!.id }
-                items.remove(oldEMP)
+                val oldLoc = items.find { it.id == changedLoc!!.id }
+                items.remove(oldLoc)
                 items.add(changedLoc!!)
                 sortItems()
-                view.updatedList()
-                view.showLoding(false)
+                view.updateList()
+                view.displayLoading(false)
             }
 
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
                 val loc = p0.getValue(SecLocation::class.java)
                 items.add(loc!!)
                 sortItems()
-                view.updatedList()
-                view.showLoding(false)
+                view.updateList()
+                view.displayLoading(false)
             }
 
             override fun onChildRemoved(p0: DataSnapshot) {
                 val deletedId = p0.getValue(SecLocation::class.java)!!.id
                 val item = items.find { it.id == deletedId }
                 items.remove(item)
-                view.updatedList()
-                view.showLoding(false)
+                view.updateList()
+                view.displayLoading(false)
             }
         }
         locationsReference.addChildEventListener(mChildEventListener)

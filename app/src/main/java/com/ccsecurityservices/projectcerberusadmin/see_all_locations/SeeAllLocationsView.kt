@@ -14,23 +14,23 @@ import java.io.Serializable
 
 class SeeAllLocationsView : AppCompatActivity(), SeeAllLocationsContract.SeeAllLocationsView {
 
-    private lateinit var seeAllLocationsPresenter: SeeAllLocationsPresenter
+    private lateinit var presenter: SeeAllLocationsPresenter
     private lateinit var adapter: SeeAllLocationsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.see_all_locations)
 
-        seeAllLocationsPresenter = SeeAllLocationsPresenter(this)
+        presenter = SeeAllLocationsPresenter(this)
 
         val layoutManager = LinearLayoutManager(this)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         see_all_locations_RV.layoutManager = layoutManager
 
-        adapter = SeeAllLocationsAdapter(seeAllLocationsPresenter)
+        adapter = SeeAllLocationsAdapter(presenter)
         see_all_locations_RV.adapter = adapter
 
-        seeAllLocationsPresenter.getLocationList()
+        presenter.getLocationList()
 
         see_all_locations_add_BTN.setOnClickListener {
             val navIntent = Intent(this, AddNewLocationView::class.java)
@@ -38,7 +38,7 @@ class SeeAllLocationsView : AppCompatActivity(), SeeAllLocationsContract.SeeAllL
         }
     }
 
-    override fun updatedList() {
+    override fun updateList() {
         adapter.notifyDataSetChanged()
     }
 
@@ -48,7 +48,7 @@ class SeeAllLocationsView : AppCompatActivity(), SeeAllLocationsContract.SeeAllL
         startActivity(navIntent)
     }
 
-    override fun showLoding(state: Boolean) {
+    override fun displayLoading(state: Boolean) {
         if (state) {
             see_all_locations_loading_widget.visibility = View.VISIBLE
         } else {
@@ -57,6 +57,6 @@ class SeeAllLocationsView : AppCompatActivity(), SeeAllLocationsContract.SeeAllL
     }
     override fun onDestroy() {
         super.onDestroy()
-        seeAllLocationsPresenter.detachListener()
+        presenter.detachListener()
     }
 }

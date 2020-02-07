@@ -5,9 +5,9 @@ import com.ccsecurityservices.projectcerberusadmin.data_items.SecLocation
 interface SeeAllLocationsContract {
 
     interface SeeAllLocationsView {
-        fun updatedList()
+        fun updateList()
         fun navToLocationDetails(loc: SecLocation)
-        fun showLoding(state: Boolean)
+        fun displayLoading(state: Boolean)
     }
 
     interface SeeAllLocationsPresenter {
