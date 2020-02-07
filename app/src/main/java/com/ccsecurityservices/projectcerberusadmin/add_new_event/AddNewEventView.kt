@@ -17,6 +17,7 @@ import androidx.appcompat.widget.AppCompatSpinner
 import com.ccsecurityservices.projectcerberusadmin.R
 import com.ccsecurityservices.projectcerberusadmin.data_items.Event
 import com.ccsecurityservices.projectcerberusadmin.invite_employee_to_event.InviteEmployeesToEventView
+import com.ccsecurityservices.projectcerberusadmin.see_employees_details.SeeEmployeesDetailsView
 import kotlinx.android.synthetic.main.add_new_event.*
 import java.io.Serializable
 import java.util.*
@@ -42,6 +43,15 @@ class AddNewEventView : AppCompatActivity(), AddNewEventContract.AddNewEventView
 
     @SuppressLint("ClickableViewAccessibility")
     private fun setWidgetsAndButtons() {
+
+        //Setting Up Promotion Picture
+        add_event_photo_BTN.setOnClickListener {
+            val intent = presenter.prepareIntentForPromoPic()
+            startActivityForResult(
+                Intent.createChooser(intent, "Complete action using"),
+                SeeEmployeesDetailsView.RC_PHOTO_PICKER
+            )
+        }
 
         //Setting up Date and Time Pickers
         val calendarReference = Calendar.getInstance()
@@ -127,7 +137,7 @@ class AddNewEventView : AppCompatActivity(), AddNewEventContract.AddNewEventView
 
         add_event_BTN.setOnClickListener {
             if (add_event_headcount_edit_text.text.toString().trim().isNotEmpty()) {
-                presenter.checkCompleteEvent(
+                presenter.UploadEvent(
                     add_event_name_Edit_Text.text.toString(),
                     add_event_headcount_edit_text.text.toString().toInt(),
                     add_event_description_edit_text.text.toString()
@@ -164,6 +174,8 @@ class AddNewEventView : AppCompatActivity(), AddNewEventContract.AddNewEventView
             if (resultCode == Activity.RESULT_OK) {
                 presenter.getAttendanceListFromIntent(data!!)
             }
+        } else if (requestCode == SeeEmployeesDetailsView.RC_PHOTO_PICKER && resultCode == Activity.RESULT_OK) {
+            presenter.savePromoIntent(data!!)
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }

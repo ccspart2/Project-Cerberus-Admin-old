@@ -8,7 +8,7 @@ interface AddNewEventContract {
         fun populateLocationSpinner(locationNames: List<String>)
         fun showLoading(state: Boolean)
         fun navToInviteEmployee(event: Event)
-        fun displayToast(msg : String)
+        fun displayToast(msg: String)
         fun displayCheckBox()
         fun navToSeeAllEvents()
     }
@@ -20,7 +20,9 @@ interface AddNewEventContract {
         fun setTime(hour: Int, minute: Int): String
         fun setDuration(duration: Int)
         fun createEventObjectForInvitations(name: String, headCount: Int, description: String)
-        fun getAttendanceListFromIntent(intent : Intent)
-        fun checkCompleteEvent(name: String, headCount: Int, description: String)
+        fun getAttendanceListFromIntent(intent: Intent)
+        fun UploadEvent(name: String, headCount: Int, description: String)
+        fun prepareIntentForPromoPic(): Intent
+        fun savePromoIntent(intent: Intent)
     }
 }

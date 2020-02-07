@@ -11,6 +11,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -25,7 +26,10 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
     private var currentEvent = Event()
     private val fireBaseDatabase = FirebaseDatabase.getInstance()
     private val eventReference = fireBaseDatabase.reference.child("events")
+    private var mStorage: FirebaseStorage = FirebaseStorage.getInstance()
+
     private val dateNow = LocalDate.now()
+    private var promoIntent: Intent? = null
 
     override fun getLocationsFromFireBase() {
 
@@ -111,19 +115,58 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
         view.displayCheckBox()
     }
 
-    override fun checkCompleteEvent(name: String, headCount: Int, description: String) {
-
+    override fun UploadEvent(name: String, headCount: Int, description: String) {
         this.currentEvent.name = name.trim()
         this.currentEvent.headcount = headCount
         this.currentEvent.description = description
 
         if (checkFields()) {
+            view.showLoading(true)
             createAttendances()
-            addEventToFireBase()
-
+            if (this.promoIntent != null) {
+                uploadPromoToStorage()
+            } else {
+                addEventToFireBase()
+            }
         } else {
             view.displayToast("There are Empty fields for this event or Employees have not been invited.")
         }
+    }
+
+    private fun uploadPromoToStorage() {
+        val selectedImageUri = this.promoIntent!!.data
+        val photoRef = mStorage.reference
+            .child("event_promos")
+            .child(this.currentEvent.name)
+        val uploadTask = photoRef.putFile(selectedImageUri!!)
+
+        uploadTask.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let {
+                    throw it
+                }
+            }
+            photoRef.downloadUrl
+        }.addOnCompleteListener(view) { task ->
+            if (task.isSuccessful) {
+                this.currentEvent.photoId = task.result!!.toString()
+                addEventToFireBase()
+
+            } else {
+                view.displayToast("An Error occurred trying to upload. Please try later.")
+            }
+        }
+    }
+
+    override fun prepareIntentForPromoPic(): Intent {
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "image/jpeg"
+        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true)
+        return intent
+    }
+
+    override fun savePromoIntent(intent: Intent) {
+        this.promoIntent = intent
     }
 
     private fun createAttendances() {
@@ -154,6 +197,7 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
         for (emp in this.invitedEmployeeList) {
             employeeReference.child(emp.id).setValue(emp)
         }
+        view.showLoading(false      )
         view.navToSeeAllEvents()
     }
 

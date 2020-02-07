@@ -186,6 +186,26 @@
             app:layout_constraintStart_toStartOf="@id/add_event_name_Edit_Text"
             app:layout_constraintTop_toTopOf="@id/add_event_description_label" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/add_event_photo_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="@string/add_event_photo_label_text"
+            android:textSize="@dimen/standard_text_view_font_size"
+            app:layout_constraintStart_toStartOf="@id/add_event_description_label"
+            app:layout_constraintTop_toBottomOf="@id/add_event_description_edit_text"/>
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/add_event_photo_BTN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/upload_icon"
+            app:layout_constraintStart_toStartOf="@id/add_event_description_edit_text"
+            app:layout_constraintEnd_toEndOf="@id/add_event_description_edit_text"
+            app:layout_constraintTop_toTopOf="@id/add_event_photo_label"
+            app:layout_constraintBottom_toBottomOf="@id/add_event_photo_label"/>
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/add_event_inviteEmployee_BTN"
             android:layout_width="wrap_content"
@@ -198,7 +218,7 @@
             android:textSize="@dimen/standard_text_view_font_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_event_description_edit_text" />
+            app:layout_constraintTop_toBottomOf="@id/add_event_photo_BTN" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/add_event_inviteEmployee_BTN_check_mark_image_view"

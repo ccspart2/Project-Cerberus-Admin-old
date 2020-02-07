@@ -48,4 +48,5 @@
     <string name="add_event_description_label_text">Description:</string>
     <string name="invite_employee_activity_label_text">Invitations for:</string>
     <string name="invite_employee_finish_BTN_text">Employee Invited: 0/0</string>
+    <string name="add_event_photo_label_text">Add Event Promotion:</string>
 </resources>
