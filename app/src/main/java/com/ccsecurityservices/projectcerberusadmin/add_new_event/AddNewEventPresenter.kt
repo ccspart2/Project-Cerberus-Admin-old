@@ -24,6 +24,7 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
 
     private var currentEvent = Event()
     private val fireBaseDatabase = FirebaseDatabase.getInstance()
+    private val eventReference = fireBaseDatabase.reference.child("events")
     private val dateNow = LocalDate.now()
 
     override fun getLocationsFromFireBase() {
@@ -126,23 +127,24 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
     }
 
     private fun createAttendances() {
+        var tempAttendance: Attendance
+        var tempId: String
+
         for (emp in this.invitedEmployeeList) {
-            this.currentEvent.attendanceList.add(
-                Attendance(
-                    "", emp.id, "Invited", LocalDateTime.now().toString()
-                    , "", ""
-                )
-            )
+            tempAttendance =
+                Attendance("", emp.id, "Invited", LocalDateTime.now().toString(), "", "")
+            tempId = this.eventReference.push().key!!
+            tempAttendance.id = tempId
+            this.currentEvent.attendanceList[tempId] = tempAttendance
+            emp.attendanceList[tempId] = tempAttendance
         }
     }
 
     private fun addEventToFireBase() {
-        val eventReference = fireBaseDatabase.reference.child("events")
         val id = eventReference.push().key
         this.currentEvent.id = id!!
         eventReference.child(id).setValue(this.currentEvent).addOnCompleteListener(view) {
-            //addAttendanceToAllEmployeesInvited()
-            view.navToSeeAllEvents()
+            addAttendanceToAllEmployeesInvited()
         }
     }
 

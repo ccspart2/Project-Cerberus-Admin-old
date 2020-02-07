@@ -1,5 +1,6 @@
 package com.ccsecurityservices.projectcerberusadmin.add_new_employee
 
+import com.ccsecurityservices.projectcerberusadmin.data_items.Attendance
 import com.ccsecurityservices.projectcerberusadmin.data_items.Employee
 import com.ccsecurityservices.projectcerberusadmin.helper_classes.InputValidation
 import com.google.firebase.database.FirebaseDatabase
@@ -39,13 +40,10 @@ class AddNewEmployeePresenter(private val view: AddNewEmployeeView) :
                 Admin,
                 InputValidation.formatPhone(this.phone),
                 "",
-                0,
                 false,
-                mutableListOf()
+                mutableMapOf()
             )
-
             uploadEmployeeToFireBase(employee)
-
         } else {
             view.showFailMessage()
         }

@@ -47,8 +47,8 @@ class EditEmployeePresenter(private val view: EditEmployeeView) :
                 Admin,
                 InputValidation.formatPhone(this.phone),
                 this.currentEmployee.photoId,
-                0,
-                false
+                false,
+                this.currentEmployee.attendanceList
             )
             uploadEmployeeToFireBase(employee)
         } else {

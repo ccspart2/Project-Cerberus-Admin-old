@@ -11,17 +11,7 @@ data class Employee(
     var adminRights: Boolean = false,
     var phone: String = "",
     var photoId: String = "",
-    var ranking: Int = 0,
     var hasApp: Boolean = false,
-    var attendanceList: MutableList<Attendance> = mutableListOf()
+    var attendanceList: MutableMap<String, Attendance> = mutableMapOf()
 ) : Serializable
 
-
-//object DummyEmployees {
-//
-//    val dEmployees = listOf(
-//        Employees("1","Charlie1", "Castro",
-//            "ccspart2@gmail.com", true,"787-509-1818", null,
-//            null,false)
-//    )
-//}
