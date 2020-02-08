@@ -32,6 +32,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -43,21 +44,31 @@
         android:id="@+id/see_all_events_add_event_BTN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
         android:src="@drawable/add_event"
         app:layout_constraintBottom_toBottomOf="@id/cerberus_logo"
+        app:layout_constraintEnd_toStartOf="@id/see_all_events_refresh_BTN"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/cerberus_logo" />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/see_all_events_refresh_BTN"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:src="@drawable/refresh_2"
+        app:layout_constraintBottom_toBottomOf="@id/see_all_events_add_event_BTN"
+        app:layout_constraintEnd_toStartOf="@id/see_all_events_activity_label"
+        app:layout_constraintStart_toEndOf="@id/see_all_events_add_event_BTN"
+        app:layout_constraintTop_toTopOf="@id/see_all_events_add_event_BTN" />
+    
     <ProgressBar
         android:id="@+id/see_all_events_loading_widget"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:visibility="visible"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

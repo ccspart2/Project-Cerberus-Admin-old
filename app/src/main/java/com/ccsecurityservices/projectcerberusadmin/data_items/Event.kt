@@ -13,5 +13,7 @@ data class Event(
     var filled: Boolean = false,
     var headcount: Int = 0,
     var description: String = "",
-    var attendanceList: MutableMap<String, Attendance> = mutableMapOf()
+    var attendanceList: MutableMap<String, Attendance> = mutableMapOf(),
+    var eventPassed: Boolean = false
+
 ) : Serializable
