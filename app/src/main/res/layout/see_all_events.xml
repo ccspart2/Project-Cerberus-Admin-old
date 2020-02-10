@@ -35,6 +35,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
+        android:background="@drawable/recycler_view_border_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +60,7 @@
         app:layout_constraintEnd_toStartOf="@id/see_all_events_activity_label"
         app:layout_constraintStart_toEndOf="@id/see_all_events_add_event_BTN"
         app:layout_constraintTop_toTopOf="@id/see_all_events_add_event_BTN" />
-    
+
     <ProgressBar
         android:id="@+id/see_all_events_loading_widget"
         style="?android:attr/progressBarStyleLarge"

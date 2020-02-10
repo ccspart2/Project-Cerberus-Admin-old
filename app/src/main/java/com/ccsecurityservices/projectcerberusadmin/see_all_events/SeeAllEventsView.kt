@@ -31,7 +31,7 @@ class SeeAllEventsView : AppCompatActivity(), SeeAllEventsContract.SeeAllEventsV
 
         adapter = SeeAllEventsAdapter(presenter)
         see_all_events_recycler_view.adapter = adapter
-        
+
         see_all_events_add_event_BTN.setOnClickListener {
             val navIntent = Intent(this, AddNewEventView::class.java)
             startActivity(navIntent)
