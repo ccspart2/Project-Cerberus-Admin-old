@@ -1,6 +1,7 @@
 package com.ccsecurityservices.projectcerberusadmin.see_event_details
 
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -38,8 +39,20 @@ class SeeEventDetailsView : AppCompatActivity(), SeeEventDetailsContract.SeeEven
             .plus(" ${ev.duration} hours")
         see_event_details_headcount_label.text = getString(see_event_details_headcount_label_text)
             .plus(" ${ev.headcount} employees")
+
         if (ev.photoId.trim().isNotEmpty()) {
             Glide.with(this).load(ev.photoId).into(imageView)
+            showLoading(false)
+        } else {
+            showLoading(false)
+        }
+    }
+
+    override fun showLoading(state: Boolean) {
+        if (state) {
+            see_event_details_loading_widget.visibility = View.VISIBLE
+        } else {
+            see_event_details_loading_widget.visibility = View.GONE
         }
     }
 }

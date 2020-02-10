@@ -6,6 +6,7 @@ import com.ccsecurityservices.projectcerberusadmin.data_items.Event
 interface SeeEventDetailsContract {
     interface SeeEventDetailsView {
         fun populateFields(ev: Event, locName: String)
+        fun showLoading(state : Boolean)
     }
 
     interface SeeEventDetailsPresenter {
