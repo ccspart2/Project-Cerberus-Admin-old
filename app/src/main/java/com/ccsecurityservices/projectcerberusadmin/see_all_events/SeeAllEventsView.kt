@@ -11,7 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ccsecurityservices.projectcerberusadmin.R
 import com.ccsecurityservices.projectcerberusadmin.add_new_event.AddNewEventView
 import com.ccsecurityservices.projectcerberusadmin.data_items.Event
+import com.ccsecurityservices.projectcerberusadmin.see_event_details.SeeEventDetailsView
+import com.ccsecurityservices.projectcerberusadmin.see_location_details.SeeLocationDetailsView
 import kotlinx.android.synthetic.main.see_all_events.*
+import java.io.Serializable
 
 class SeeAllEventsView : AppCompatActivity(), SeeAllEventsContract.SeeAllEventsView {
 
@@ -49,7 +52,9 @@ class SeeAllEventsView : AppCompatActivity(), SeeAllEventsContract.SeeAllEventsV
     }
 
     override fun navToEventDetails(event: Event) {
-        Toast.makeText(this, event.name, Toast.LENGTH_LONG).show()
+        val navIntent = Intent(this, SeeEventDetailsView::class.java)
+        navIntent.putExtra("event_details", event as Serializable)
+        startActivity(navIntent)
     }
 
     override fun displayLoading(state: Boolean) {

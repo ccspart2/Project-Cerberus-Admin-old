@@ -50,4 +50,12 @@
     <string name="invite_employee_finish_BTN_text">Employee Invited: 0/0</string>
     <string name="add_event_photo_label_text">Add Event Promotion:</string>
     <string name="see_all_events_activity_label_text">Events</string>
+    <string name="see_event_details_activity_label_text">Event Details:</string>
+    <string name="see_event_details_delete_event_BTN_text">Cancel Event</string>
+    <string name="see_event_details_event_status_BTN_text">Event Status</string>
+    <string name="see_event_details_date_label_text">Event Date:</string>
+    <string name="see_event_details_time_label_text">Event Time:</string>
+    <string name="see_event_details_location_name_label_text">Location Name:</string>
+    <string name="see_event_details_duration_label_text">Duration:</string>
+    <string name="see_event_details_headcount_label_text">Headcount:</string>
 </resources>

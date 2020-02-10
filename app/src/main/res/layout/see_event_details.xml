@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".see_event_details.SeeEventDetailsView">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@id/cerberus_logo"
+        android:layout_width="@dimen/cerberus_logo_default_width"
+        android:layout_height="@dimen/cerberus_logo_default_height"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="50dp"
+        android:src="@drawable/cerberus_logo_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/see_event_details_activity_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/see_event_details_activity_label_text"
+        android:textSize="@dimen/standard_view_label_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/cerberus_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/cerberus_logo" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/see_event_details_pic"
+        android:layout_width="300dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="100dp"
+        android:src="@drawable/calendar"
+        app:layout_constraintBottom_toTopOf="@id/see_event_details_delete_event_BTN"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cerberus_logo" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/see_event_details_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="200dp"
+        android:text="@string/see_generics_details_name_text_placeholder"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/see_event_details_activity_label" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/see_event_details_date_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/see_event_details_labels_margin_top"
+        android:text="@string/see_event_details_date_label_text"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintStart_toStartOf="@id/see_event_details_name_label"
+        app:layout_constraintTop_toBottomOf="@id/see_event_details_name_label" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/see_event_details_time_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/see_event_details_labels_margin_top"
+        android:text="@string/see_event_details_time_label_text"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintStart_toStartOf="@id/see_event_details_date_label"
+        app:layout_constraintTop_toBottomOf="@id/see_event_details_date_label" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/see_event_details_location_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/see_event_details_labels_margin_top"
+        android:text="@string/see_event_details_location_name_label_text"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintStart_toStartOf="@id/see_event_details_date_label"
+        app:layout_constraintTop_toBottomOf="@id/see_event_details_time_label" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/see_event_details_duration_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/see_event_details_labels_margin_top"
+        android:text="@string/see_event_details_duration_label_text"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintStart_toStartOf="@id/see_event_details_date_label"
+        app:layout_constraintTop_toBottomOf="@id/see_event_details_location_name_label" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/see_event_details_headcount_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/see_event_details_labels_margin_top"
+        android:text="@string/see_event_details_headcount_label_text"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintStart_toStartOf="@id/see_event_details_name_label"
+        app:layout_constraintTop_toBottomOf="@id/see_event_details_duration_label" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/see_event_details_delete_event_BTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:background="@android:color/transparent"
+        android:text="@string/see_event_details_delete_event_BTN_text"
+        android:textColor="@color/standard_red"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/see_event_details_event_status_BTN" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/see_event_details_event_status_BTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:background="@android:color/transparent"
+        android:text="@string/see_event_details_event_status_BTN_text"
+        android:textColor="@color/Default_text_color"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/see_event_details_delete_event_BTN"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

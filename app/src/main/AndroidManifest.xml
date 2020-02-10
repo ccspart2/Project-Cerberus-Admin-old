@@ -12,6 +12,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".see_event_details.SeeEventDetailsView"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".see_all_events.SeeAllEventsView"
             android:screenOrientation="landscape" />
         <activity android:name=".invite_employee_to_event.InviteEmployeesToEventView" />

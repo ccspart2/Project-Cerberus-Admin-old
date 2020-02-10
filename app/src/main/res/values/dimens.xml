@@ -9,4 +9,5 @@
     <dimen name="cerberus_logo_default_height">250dp</dimen>
     <dimen name="cerberus_logo_default_topMargin">50dp</dimen>
     <dimen name="cerberus_logo_default_endMargin">50dp</dimen>
+    <dimen name="see_event_details_labels_margin_top">25dp</dimen>
 </resources>
