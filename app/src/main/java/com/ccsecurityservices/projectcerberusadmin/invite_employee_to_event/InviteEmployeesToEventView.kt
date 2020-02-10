@@ -69,7 +69,6 @@ class InviteEmployeesToEventView : AppCompatActivity(),
         builder.setMessage(msg)
         builder.setNeutralButton("OK") { _: DialogInterface?, _: Int -> }
         builder.show()
-
     }
 
     override fun changeBTNColor(completed: Boolean) {

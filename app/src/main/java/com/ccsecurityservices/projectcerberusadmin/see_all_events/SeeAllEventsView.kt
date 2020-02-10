@@ -1,9 +1,11 @@
 package com.ccsecurityservices.projectcerberusadmin.see_all_events
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ccsecurityservices.projectcerberusadmin.R
@@ -21,6 +23,7 @@ class SeeAllEventsView : AppCompatActivity(), SeeAllEventsContract.SeeAllEventsV
         setContentView(R.layout.see_all_events)
 
         presenter = SeeAllEventsPresenter(this)
+        presenter.getEventList()
 
         val layoutManager = LinearLayoutManager(this)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -28,12 +31,16 @@ class SeeAllEventsView : AppCompatActivity(), SeeAllEventsContract.SeeAllEventsV
 
         adapter = SeeAllEventsAdapter(presenter)
         see_all_events_recycler_view.adapter = adapter
-
-        presenter.getEventList()
-
+        
         see_all_events_add_event_BTN.setOnClickListener {
             val navIntent = Intent(this, AddNewEventView::class.java)
             startActivity(navIntent)
+        }
+
+        see_all_events_refresh_BTN.setOnClickListener {
+            this.displayLoading(true)
+            presenter.refreshEvents()
+            this.displayLoading(false)
         }
     }
 
@@ -51,6 +58,14 @@ class SeeAllEventsView : AppCompatActivity(), SeeAllEventsContract.SeeAllEventsV
         } else {
             see_all_events_loading_widget.visibility = View.GONE
         }
+    }
+
+    override fun displayPopUpMessage(title: String, msg: String) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(title)
+        builder.setMessage(msg)
+        builder.setNeutralButton("OK") { _: DialogInterface?, _: Int -> }
+        builder.show()
     }
 
     override fun onDestroy() {
