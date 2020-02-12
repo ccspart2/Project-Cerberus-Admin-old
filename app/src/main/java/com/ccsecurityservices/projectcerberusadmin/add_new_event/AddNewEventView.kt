@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -11,6 +12,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.SeekBar
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatSpinner
@@ -137,11 +139,18 @@ class AddNewEventView : AppCompatActivity(), AddNewEventContract.AddNewEventView
 
         add_event_BTN.setOnClickListener {
             if (add_event_headcount_edit_text.text.toString().trim().isNotEmpty()) {
-                presenter.UploadEvent(
-                    add_event_name_Edit_Text.text.toString(),
-                    add_event_headcount_edit_text.text.toString().toInt(),
-                    add_event_description_edit_text.text.toString()
-                )
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Add Event")
+                builder.setMessage("Are you sure you want to create this event. Once is created, the details of it cannot be changed.")
+                builder.setNegativeButton("Cancel") { _, _ -> }
+                builder.setPositiveButton("Confirm") { _: DialogInterface?, _: Int ->
+                    presenter.UploadEvent(
+                        add_event_name_Edit_Text.text.toString(),
+                        add_event_headcount_edit_text.text.toString().toInt(),
+                        add_event_description_edit_text.text.toString()
+                    )
+                }
+                builder.show()
             } else {
                 displayToast("There are empty fields for this event or employees have not been invited.")
             }
