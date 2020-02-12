@@ -1,6 +1,5 @@
 package com.ccsecurityservices.projectcerberusadmin.helper_classes
 
-import android.telephony.PhoneNumberUtils
 import java.util.regex.Pattern
 
 class InputValidation {
@@ -27,15 +26,11 @@ class InputValidation {
         }
 
         fun formatPhone(phone: String): String {
-            return if (phone.contains('(') || phone.contains('-')) {
-                PhoneNumberUtils.formatNumber(phone)
-            } else {
-                phone
-            }
+            val onlyNumbers = phone.filter { it.isDigit() }
+           return "(${onlyNumbers.substring(0, 3)}) ${onlyNumbers.substring(3, 6)}-${onlyNumbers.substring(6, 10)}"
         }
 
-        fun eventAndLocInputValidation(name: String) : Boolean
-        {
+        fun eventAndLocInputValidation(name: String): Boolean {
             val temp = name.replace("\\s".toRegex(), "")
 
             return temp.matches(LOCATION_NAME_REGEX.toRegex())

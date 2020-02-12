@@ -1,6 +1,5 @@
 package com.ccsecurityservices.projectcerberusadmin.add_new_employee
 
-import com.ccsecurityservices.projectcerberusadmin.data_items.Attendance
 import com.ccsecurityservices.projectcerberusadmin.data_items.Employee
 import com.ccsecurityservices.projectcerberusadmin.helper_classes.InputValidation
 import com.google.firebase.database.FirebaseDatabase

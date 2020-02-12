@@ -55,4 +55,9 @@ class SeeEventDetailsView : AppCompatActivity(), SeeEventDetailsContract.SeeEven
             see_event_details_loading_widget.visibility = View.GONE
         }
     }
+
+    override fun disableBTNs() {
+        see_event_details_event_status_BTN.visibility = View.GONE
+        see_event_details_delete_event_BTN.visibility = View.GONE
+    }
 }

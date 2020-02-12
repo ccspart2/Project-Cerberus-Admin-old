@@ -9,6 +9,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class SeeEventDetailsPresenter(private val view: SeeEventDetailsView) :
     SeeEventDetailsContract.SeeEventDetailsPresenter {
@@ -37,8 +39,18 @@ class SeeEventDetailsPresenter(private val view: SeeEventDetailsView) :
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 currentLocation = dataSnapshot.getValue(SecLocation::class.java)!!
                 view.populateFields(currentEvent, currentLocation.name)
+                checkEventPassed()
             }
         }
         locationReference.addListenerForSingleValueEvent(locationListener)
+    }
+
+    private fun checkEventPassed() {
+        val currentDay = LocalDate.now()
+        val evDate =
+            LocalDate.parse(currentEvent.eventDate, DateTimeFormatter.ofPattern("dd MMM, yyyy"))
+        if (evDate.isBefore(currentDay)) {
+            view.disableBTNs()
+        }
     }
 }

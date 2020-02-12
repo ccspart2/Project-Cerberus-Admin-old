@@ -7,6 +7,7 @@ interface SeeEventDetailsContract {
     interface SeeEventDetailsView {
         fun populateFields(ev: Event, locName: String)
         fun showLoading(state : Boolean)
+        fun disableBTNs()
     }
 
     interface SeeEventDetailsPresenter {
