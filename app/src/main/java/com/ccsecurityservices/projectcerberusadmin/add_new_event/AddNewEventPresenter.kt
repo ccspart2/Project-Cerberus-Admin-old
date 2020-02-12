@@ -25,7 +25,7 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
 
     private var currentEvent = Event()
     private val fireBaseDatabase = FirebaseDatabase.getInstance()
-    private val eventReference = fireBaseDatabase.reference.child("events")
+    private val eventReference = fireBaseDatabase.reference.child("events").child("active")
     private var mStorage: FirebaseStorage = FirebaseStorage.getInstance()
 
     private val dateNow = LocalDate.now()
@@ -197,7 +197,7 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
         for (emp in this.invitedEmployeeList) {
             employeeReference.child(emp.id).setValue(emp)
         }
-        view.showLoading(false      )
+        view.showLoading(false)
         view.navToSeeAllEvents()
     }
 

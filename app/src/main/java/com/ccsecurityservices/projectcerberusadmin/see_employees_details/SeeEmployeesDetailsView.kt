@@ -54,12 +54,20 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
         }
     }
 
+    override fun displayActiveEmployeeDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Employee Active")
+        builder.setMessage("This employee is currently invited to an active Event. In order to erase, please un-invite from the active event")
+        builder.setNeutralButton("OK") { _, _ -> }
+        builder.show()
+    }
+
     private fun eraseWarningDialog() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Erase Employee")
         builder.setMessage("Are you sure you want to erase this employee from the system?")
         builder.setPositiveButton("Yes") { _: DialogInterface?, _: Int ->
-            presenter.deleteEmployee()
+            presenter.prepareForDelete()
         }
         builder.setNegativeButton("No") { _: DialogInterface?, _: Int -> }
         builder.show()

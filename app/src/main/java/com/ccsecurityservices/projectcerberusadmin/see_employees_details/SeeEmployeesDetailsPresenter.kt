@@ -2,8 +2,8 @@ package com.ccsecurityservices.projectcerberusadmin.see_employees_details
 
 import android.content.Intent
 import com.ccsecurityservices.projectcerberusadmin.data_items.Employee
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.ccsecurityservices.projectcerberusadmin.data_items.Event
+import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 
 
@@ -52,18 +52,44 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
         }
     }
 
-    //TODO: Recuerda que tienes que verificar si este empleado
-    // esta siendo usado en un evento antes de Borrar.
-    override fun deleteEmployee() {
-        if (!this.currentEmployee.adminRights) {
+    override fun prepareForDelete() {
 
-            if (this.currentEmployee.photoId.isNotEmpty()) {
-                deleteProfilePic()
+        val events: MutableList<Event> = mutableListOf()
+        val eventsReference = mFireBaseDatabase.reference.child("events/active")
+        val eventListener = object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
             }
-            deleteEmployeeDBEntry()
-        } else {
-            view.showToastMessages("The employee is an administrator. Please confirm with leadership for approval.")
+
+            override fun onDataChange(p0: DataSnapshot) {
+                for (ev in p0.children) {
+                    events.add(ev.getValue(Event::class.java)!!)
+                }
+                if (!checkIfActive(events)) {
+                    deleteEmployee()
+                } else {
+                    view.displayActiveEmployeeDialog()
+                }
+            }
         }
+        eventsReference.addListenerForSingleValueEvent(eventListener)
+    }
+
+    private fun deleteEmployee() {
+        if (this.currentEmployee.photoId.isNotEmpty()) {
+            deleteProfilePic()
+        }
+        deleteEmployeeDBEntry()
+    }
+
+    private fun checkIfActive(events: MutableList<Event>): Boolean {
+        events.forEach {
+            it.attendanceList.forEach { att ->
+                if (att.value.employeeId == this.currentEmployee.id) {
+                    return true
+                }
+            }
+        }
+        return false
     }
 
     override fun prepareForEdit() {

@@ -35,7 +35,7 @@ class SeeAllEventsPresenter(private val view: SeeAllEventsView) :
     }
 
     override fun getEventList() {
-        this.eventsReference = mFireBaseDatabase.reference.child("events")
+        this.eventsReference = mFireBaseDatabase.reference.child("events").child("active")
         this.mChildEventListener = object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 Log.d(TAG, p0.message)
@@ -79,11 +79,15 @@ class SeeAllEventsPresenter(private val view: SeeAllEventsView) :
     override fun refreshEvents() {
         val currentDay = LocalDate.now()
 
+        eventsReference = mFireBaseDatabase.reference.child("events").child("past")
+        val currentEventsReference = mFireBaseDatabase.reference.child("events").child("active")
+
         for (ev in this.allEvents) {
             val evDate = LocalDate.parse(ev.eventDate, DateTimeFormatter.ofPattern("dd MMM, yyyy"))
             if (evDate.isBefore(currentDay)) {
                 ev.eventPassed = true
                 eventsReference.child(ev.id).setValue(ev)
+                currentEventsReference.child(ev.id).removeValue()
             }
         }
         view.displayPopUpMessage("Your Events are Updated!",
