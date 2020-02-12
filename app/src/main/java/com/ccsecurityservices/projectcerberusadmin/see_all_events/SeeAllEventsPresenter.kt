@@ -70,8 +70,7 @@ class SeeAllEventsPresenter(private val view: SeeAllEventsView) :
                 view.displayLoading(false)
             }
         }
-        eventsReference.addChildEventListener(mChildEventListener)
-    }
+        eventsReference.addChildEventListener(mChildEventListener) }
 
     override fun detachListener() {
         this.eventsReference.removeEventListener(this.mChildEventListener)

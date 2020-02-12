@@ -6,11 +6,13 @@ import com.ccsecurityservices.projectcerberusadmin.data_items.Event
 interface SeeEventDetailsContract {
     interface SeeEventDetailsView {
         fun populateFields(ev: Event, locName: String)
-        fun showLoading(state : Boolean)
+        fun showLoading(state: Boolean)
         fun disableBTNs()
+        fun navBack()
     }
 
     interface SeeEventDetailsPresenter {
         fun retrieveEventObject(intent: Intent)
+        fun prepareDelete()
     }
 }

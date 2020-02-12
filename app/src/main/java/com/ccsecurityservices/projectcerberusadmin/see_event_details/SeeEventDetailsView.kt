@@ -1,8 +1,11 @@
 package com.ccsecurityservices.projectcerberusadmin.see_event_details
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.ccsecurityservices.projectcerberusadmin.R
@@ -23,6 +26,17 @@ class SeeEventDetailsView : AppCompatActivity(), SeeEventDetailsContract.SeeEven
 
         presenter = SeeEventDetailsPresenter(this)
         presenter.retrieveEventObject(intent)
+
+        see_event_details_delete_event_BTN.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Delete Event")
+            builder.setMessage("Are you sure you want to delete this event?")
+            builder.setNegativeButton("Cancel") { _, _ -> }
+            builder.setPositiveButton("Yes") { _: DialogInterface?, _: Int ->
+                presenter.prepareDelete()
+            }
+            builder.show()
+        }
     }
 
     override fun populateFields(ev: Event, locName: String) {
@@ -59,5 +73,10 @@ class SeeEventDetailsView : AppCompatActivity(), SeeEventDetailsContract.SeeEven
     override fun disableBTNs() {
         see_event_details_event_status_BTN.visibility = View.GONE
         see_event_details_delete_event_BTN.visibility = View.GONE
+    }
+
+    override fun navBack() {
+        Toast.makeText(this, "The event has been deleted successfully", Toast.LENGTH_LONG).show()
+        finish()
     }
 }
