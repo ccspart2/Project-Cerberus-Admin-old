@@ -84,6 +84,8 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
         if (EMP.adminRights) {
             see_employee_details_admin_text_view.text =
                 getString(R.string.see_employee_details_admin_text_placeholder).plus(" Administrator")
+            see_employee_details_eraseEmployeeBTN.visibility = View.GONE
+            see_employee_details_editEmployeeBTN.visibility = View.GONE
         } else {
             see_employee_details_admin_text_view.text =
                 getString(R.string.see_employee_details_admin_text_placeholder).plus(" Employee")
