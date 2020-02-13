@@ -35,7 +35,7 @@ class SeeAllEventsPresenter(private val view: SeeAllEventsView) :
     }
 
     override fun getEventList() {
-        this.eventsReference = mFireBaseDatabase.reference.child("events").child("active")
+        this.eventsReference = mFireBaseDatabase.reference.child("events/active")
         this.mChildEventListener = object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 Log.d(TAG, p0.message)
@@ -70,7 +70,8 @@ class SeeAllEventsPresenter(private val view: SeeAllEventsView) :
                 view.displayLoading(false)
             }
         }
-        eventsReference.addChildEventListener(mChildEventListener) }
+        eventsReference.addChildEventListener(mChildEventListener)
+    }
 
     override fun detachListener() {
         this.eventsReference.removeEventListener(this.mChildEventListener)
@@ -90,8 +91,10 @@ class SeeAllEventsPresenter(private val view: SeeAllEventsView) :
                 currentEventsReference.child(ev.id).removeValue()
             }
         }
-        view.displayPopUpMessage("Your Events are Updated!",
+        view.displayPopUpMessage(
+            "Your Events are Updated!",
             "This view will only show the currently active events. For more information " +
-                    "about passed events, you can visit the employees and see their attendance.")
+                    "about passed events, you can visit the employees and see their attendance."
+        )
     }
 }
