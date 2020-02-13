@@ -1,6 +1,5 @@
 package com.ccsecurityservices.projectcerberusadmin.see_event_details
 
-import android.content.ContentValues
 import android.content.Intent
 import android.util.Log
 import com.ccsecurityservices.projectcerberusadmin.data_items.Attendance
@@ -31,7 +30,7 @@ class SeeEventDetailsPresenter(private val view: SeeEventDetailsView) :
 
         val locationListener = object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
-                Log.d(ContentValues.TAG, p0.message)
+                Log.e("SeeEventDetailsPresenter", p0.message)
             }
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -63,7 +62,7 @@ class SeeEventDetailsPresenter(private val view: SeeEventDetailsView) :
         val eventReference = mFireBaseDatabase.reference
 
         eventReference
-            .child("events")
+            .child("events/active")
             .child(this.currentEvent.id)
             .removeValue().addOnCompleteListener(view) {
                 view.navBack()

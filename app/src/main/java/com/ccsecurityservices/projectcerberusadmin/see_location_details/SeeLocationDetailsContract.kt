@@ -10,6 +10,7 @@ interface SeeLocationDetailsContract {
         fun downloadProfilePic(imageUrl: String)
         fun deletionProcessResult(msg : String, result : Boolean)
         fun showLoading(state : Boolean)
+        fun displayActiveLocationDialog()
     }
     interface SeeLocationDetailsPresenter{
         fun retrieveLocationObject(intent: Intent)

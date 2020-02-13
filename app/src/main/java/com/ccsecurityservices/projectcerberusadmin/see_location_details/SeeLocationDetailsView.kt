@@ -1,9 +1,11 @@
 package com.ccsecurityservices.projectcerberusadmin.see_location_details
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.ccsecurityservices.projectcerberusadmin.R
@@ -26,8 +28,19 @@ class SeeLocationDetailsView : AppCompatActivity(),
         presenter.retrieveLocationObject(intent)
 
         see_location_details_erase_BTN.setOnClickListener {
+            displayEraseConfirmationDialog()
+        }
+    }
+
+    private fun displayEraseConfirmationDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Erase Location")
+        builder.setMessage("Are you sure you want to erase this location from the system?")
+        builder.setPositiveButton("Yes") { _: DialogInterface?, _: Int ->
             presenter.startDeleteLocationProcess()
         }
+        builder.setNegativeButton("No") { _: DialogInterface?, _: Int -> }
+        builder.show()
     }
 
     override fun populateFields(LOC: SecLocation) {
@@ -58,5 +71,13 @@ class SeeLocationDetailsView : AppCompatActivity(),
         } else {
             see_location_details_loading_widget.visibility = View.GONE
         }
+    }
+
+    override fun displayActiveLocationDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Active Location")
+        builder.setMessage("This Location is currently hosting an active Event.")
+        builder.setNeutralButton("OK") { _, _ -> }
+        builder.show()
     }
 }

@@ -1,8 +1,13 @@
 package com.ccsecurityservices.projectcerberusadmin.see_location_details
 
 import android.content.Intent
+import android.util.Log
+import com.ccsecurityservices.projectcerberusadmin.data_items.Event
 import com.ccsecurityservices.projectcerberusadmin.data_items.SecLocation
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 
 class SeeLocationDetailsPresenter(private val view: SeeLocationDetailsView) :
@@ -24,15 +29,44 @@ class SeeLocationDetailsPresenter(private val view: SeeLocationDetailsView) :
         }
     }
 
-    //TODO: Recordar que tenemos que verificar
-    // si este location esta siendo usado en un evento!
     override fun startDeleteLocationProcess() {
-        view.showLoading(true)
-        if (this.currentLocation.photoId!!.isNotEmpty()) {
-            deleteLocationPicture()
-        } else {
-            deleteLocationDBEntry()
+
+        val events: MutableList<Event> = mutableListOf()
+        val eventReference = mFireBaseDatabase
+            .reference
+            .child("events/active")
+
+        val eventListener = object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                Log.e("SeeLocationDetailsPresenter", p0.message)
+            }
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                dataSnapshot.children.forEach {
+                    events.add(it.getValue(Event::class.java)!!)
+                }
+                if (!checkIfActive(events)) {
+                    view.showLoading(true)
+                    if (currentLocation.photoId!!.isNotEmpty()) {
+                        deleteLocationPicture()
+                    } else {
+                        deleteLocationDBEntry()
+                    }
+                } else {
+                    view.displayActiveLocationDialog()
+                }
+            }
         }
+        eventReference.addListenerForSingleValueEvent(eventListener)
+    }
+
+    private fun checkIfActive(events: MutableList<Event>): Boolean {
+        events.forEach {
+            if (it.locationId == this.currentLocation.id) {
+                return true
+            }
+        }
+        return false
     }
 
     private fun deleteLocationDBEntry() {
@@ -67,6 +101,4 @@ class SeeLocationDetailsPresenter(private val view: SeeLocationDetailsView) :
                 )
             }
     }
-
-
 }

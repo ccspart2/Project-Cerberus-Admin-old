@@ -1,6 +1,7 @@
 package com.ccsecurityservices.projectcerberusadmin.see_employees_details
 
 import android.content.Intent
+import android.util.Log
 import com.ccsecurityservices.projectcerberusadmin.data_items.Employee
 import com.ccsecurityservices.projectcerberusadmin.data_items.Event
 import com.google.firebase.database.*
@@ -55,14 +56,17 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
     override fun prepareForDelete() {
 
         val events: MutableList<Event> = mutableListOf()
-        val eventsReference = mFireBaseDatabase.reference.child("events/active")
+        val eventsReference = mFireBaseDatabase
+            .reference
+            .child("events/active")
         val eventListener = object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
+                Log.e("SeeEmployeesDetailsPresenter", p0.message)
             }
 
-            override fun onDataChange(p0: DataSnapshot) {
-                for (ev in p0.children) {
-                    events.add(ev.getValue(Event::class.java)!!)
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                dataSnapshot.children.forEach {
+                    events.add(it.getValue(Event::class.java)!!)
                 }
                 if (!checkIfActive(events)) {
                     deleteEmployee()
