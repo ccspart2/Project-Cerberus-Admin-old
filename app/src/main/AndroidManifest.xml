@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".see_event_status.SeeEventStatus"
+            android:name=".see_event_status.SeeEventStatusView"
             android:screenOrientation="landscape" />
         <activity
             android:name=".see_event_details.SeeEventDetailsView"

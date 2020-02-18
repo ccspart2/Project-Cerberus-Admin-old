@@ -9,10 +9,12 @@ interface SeeEventDetailsContract {
         fun showLoading(state: Boolean)
         fun disableBTNs()
         fun navBack()
+        fun navToEventStatus(currentEvent: Event)
     }
 
     interface SeeEventDetailsPresenter {
         fun retrieveEventObject(intent: Intent)
         fun prepareDelete()
+        fun setupNavToEventStatus()
     }
 }

@@ -94,4 +94,8 @@ class SeeEventDetailsPresenter(private val view: SeeEventDetailsView) :
         deleteAttendance(this.currentEvent.attendanceList)
         deleteEvent()
     }
+
+    override fun setupNavToEventStatus() {
+        view.navToEventStatus(this.currentEvent)
+    }
 }

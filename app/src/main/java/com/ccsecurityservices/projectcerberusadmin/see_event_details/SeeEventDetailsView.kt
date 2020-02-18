@@ -1,6 +1,7 @@
 package com.ccsecurityservices.projectcerberusadmin.see_event_details
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -11,7 +12,9 @@ import com.bumptech.glide.Glide
 import com.ccsecurityservices.projectcerberusadmin.R
 import com.ccsecurityservices.projectcerberusadmin.R.string.*
 import com.ccsecurityservices.projectcerberusadmin.data_items.Event
+import com.ccsecurityservices.projectcerberusadmin.see_event_status.SeeEventStatusView
 import kotlinx.android.synthetic.main.see_event_details.*
+import java.io.Serializable
 
 class SeeEventDetailsView : AppCompatActivity(), SeeEventDetailsContract.SeeEventDetailsView {
 
@@ -36,6 +39,10 @@ class SeeEventDetailsView : AppCompatActivity(), SeeEventDetailsContract.SeeEven
                 presenter.prepareDelete()
             }
             builder.show()
+        }
+
+        see_event_details_event_status_BTN.setOnClickListener {
+            presenter.setupNavToEventStatus()
         }
     }
 
@@ -78,5 +85,11 @@ class SeeEventDetailsView : AppCompatActivity(), SeeEventDetailsContract.SeeEven
     override fun navBack() {
         Toast.makeText(this, "The event has been deleted successfully", Toast.LENGTH_LONG).show()
         finish()
+    }
+
+    override fun navToEventStatus(currentEvent: Event) {
+        val navIntent = Intent(this, SeeEventStatusView::class.java)
+        navIntent.putExtra("event_status", currentEvent as Serializable)
+        startActivity(navIntent)
     }
 }
