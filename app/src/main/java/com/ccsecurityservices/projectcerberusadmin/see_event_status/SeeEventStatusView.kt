@@ -7,7 +7,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ccsecurityservices.projectcerberusadmin.R
-import kotlinx.android.synthetic.main.see_all_events.*
 import kotlinx.android.synthetic.main.see_event_status.*
 
 class SeeEventStatusView : AppCompatActivity(), SeeEventStatusContract.SeeEventStatusView {
@@ -68,5 +67,11 @@ class SeeEventStatusView : AppCompatActivity(), SeeEventStatusContract.SeeEventS
         }
     }
 
-
+    override fun displayDialog(title: String, desc: String) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(title)
+        builder.setMessage(desc)
+        builder.setNeutralButton("Ok") { _: DialogInterface?, _: Int -> }
+        builder.show()
+    }
 }

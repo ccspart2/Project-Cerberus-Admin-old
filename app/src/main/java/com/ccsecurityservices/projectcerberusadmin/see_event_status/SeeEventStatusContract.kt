@@ -8,7 +8,8 @@ interface SeeEventStatusContract {
         fun updateList()
         fun populateHeadcount(eventHeadCount: Int, currentHeadcount: Int)
         fun navBack()
-        fun displayLoading(state : Boolean)
+        fun displayLoading(state: Boolean)
+        fun displayDialog(title: String, desc: String)
     }
 
     interface SeeEventStatusPresenter {

@@ -59,11 +59,24 @@ class SeeEventStatusPresenter(private val view: SeeEventStatusView) :
 
     override fun updateFireBaseDB() {
 
-        view.displayLoading(true)
-        removeAttendanceFromEmployee(this.attendanceChanges["DELETE"]!!)
-        addAttendanceFromEmployee(this.attendanceChanges["ADD"]!!)
-        updateEventOnDB()
+        if (checkIfHeadCountIsMet()) {
+            view.displayLoading(true)
+            removeAttendanceFromEmployee(this.attendanceChanges["DELETE"]!!)
+            addAttendanceFromEmployee(this.attendanceChanges["ADD"]!!)
+            updateEventOnDB()
+        } else {
+            view.displayDialog(
+                "Headcount not met",
+                "Please invite at least the amount of the headcount. You are able to invite more than the headcount but not less."
+            )
+        }
+    }
 
+    private fun checkIfHeadCountIsMet(): Boolean {
+        var count =
+            this.attendanceChanges["ADD"]!!.size + this.attendanceList.size - this.attendanceChanges["DELETE"]!!.size
+
+        return count >= this.currentEvent.headcount
     }
 
     private fun addAttendanceFromEmployee(employeeList: MutableList<Employee>) {
