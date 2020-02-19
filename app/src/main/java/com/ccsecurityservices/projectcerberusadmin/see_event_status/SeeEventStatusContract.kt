@@ -6,10 +6,13 @@ interface SeeEventStatusContract {
     interface SeeEventStatusView {
         fun populateActivityLabel(eventName: String)
         fun updateList()
+        fun populateHeadcount(eventHeadCount: Int, currentHeadcount: Int)
+        fun navBack()
     }
 
     interface SeeEventStatusPresenter {
         fun retrieveData(intent: Intent)
         fun sortByAttendance()
+        fun updateFireBaseDB()
     }
 }

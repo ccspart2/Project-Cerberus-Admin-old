@@ -25,6 +25,9 @@ class SeeEventStatusView : AppCompatActivity(), SeeEventStatusContract.SeeEventS
         adapter = SeeEventStatusAdapter(presenter)
         see_event_status_recycler_view.adapter = adapter
 
+        see_event_status_refresh_BTN.setOnClickListener {
+            presenter.updateFireBaseDB()
+        }
     }
 
     override fun populateActivityLabel(eventName: String) {
@@ -35,5 +38,14 @@ class SeeEventStatusView : AppCompatActivity(), SeeEventStatusContract.SeeEventS
     override fun updateList() {
         presenter.sortByAttendance()
         adapter.notifyDataSetChanged()
+    }
+
+    override fun populateHeadcount(eventHeadCount: Int, currentHeadcount: Int) {
+        see_event_status_headcount_label.text =
+            getString(R.string.see_event_status_headcount_label_text).plus(" $currentHeadcount/$eventHeadCount")
+    }
+
+    override fun navBack() {
+        finish()
     }
 }

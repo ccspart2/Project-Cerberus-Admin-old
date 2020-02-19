@@ -18,11 +18,11 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/see_event_status_activity_label"
-        android:gravity="center"
         android:layout_width="800dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
+        android:gravity="center"
         android:maxLines="3"
         android:text="@string/see_event_status_activity_label_text"
         android:textSize="@dimen/standard_view_label_text_size"
@@ -54,6 +54,17 @@
         app:layout_constraintBottom_toBottomOf="@id/cerberus_logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/cerberus_logo" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/see_event_status_headcount_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/see_event_status_headcount_label_text"
+        android:textSize="@dimen/standard_text_view_font_size"
+        app:layout_constraintBottom_toBottomOf="@id/cerberus_logo"
+        app:layout_constraintEnd_toStartOf="@id/cerberus_logo"
+        app:layout_constraintStart_toEndOf="@id/see_event_status_refresh_BTN"
+        app:layout_constraintTop_toBottomOf="@id/see_event_status_activity_label" />
 
     <ProgressBar
         android:id="@+id/see_event_status_loading_widget"

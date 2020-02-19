@@ -9,15 +9,19 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.time.LocalDateTime
 
 class SeeEventStatusPresenter(private val view: SeeEventStatusView) :
     SeeEventStatusContract.SeeEventStatusPresenter {
 
     private lateinit var currentEvent: Event
-    private lateinit var attendanceList: List<Attendance>
+    private lateinit var attendanceList: MutableList<Attendance>
+
+    private val attendanceChanges =
+        mutableMapOf("DELETE" to mutableListOf<Employee>(), "ADD" to mutableListOf())
+
     private var employeeItems: MutableList<Employee> = mutableListOf()
     private var mFireBaseDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
-
 
     override fun retrieveData(intent: Intent) {
         val eventId = intent.extras!!.getString("event_status")
@@ -27,19 +31,19 @@ class SeeEventStatusPresenter(private val view: SeeEventStatusView) :
 
     override fun sortByAttendance() {
         val tempList: MutableList<Employee> = mutableListOf()
-
+        val currentHeadcount = this.attendanceList.size
         employeeItems.forEach { emp ->
             if (employeeAttendanceStatus(emp.id) == "Accepted") {
                 tempList.add(emp)
             }
         }
         employeeItems.forEach { emp ->
-            if (employeeAttendanceStatus(emp.id) == "Declined") {
+            if (employeeAttendanceStatus(emp.id) == "Invited") {
                 tempList.add(emp)
             }
         }
         employeeItems.forEach { emp ->
-            if (employeeAttendanceStatus(emp.id) == "Invited") {
+            if (employeeAttendanceStatus(emp.id) == "Declined") {
                 tempList.add(emp)
             }
         }
@@ -50,6 +54,74 @@ class SeeEventStatusPresenter(private val view: SeeEventStatusView) :
         }
         this.employeeItems.clear()
         this.employeeItems = tempList
+        view.populateHeadcount(this.currentEvent.headcount, currentHeadcount)
+    }
+
+    override fun updateFireBaseDB() {
+
+        removeAttendanceFromEmployee(this.attendanceChanges["DELETE"]!!)
+        addAttendanceFromEmployee(this.attendanceChanges["ADD"]!!)
+        updateEventOnDB()
+
+    }
+
+    private fun addAttendanceFromEmployee(employeeList: MutableList<Employee>) {
+        val employeeReference = mFireBaseDatabase.reference
+        var tempAttendance: Attendance
+
+        if (employeeList.size > 0) {
+            employeeList.forEach { emp ->
+                tempAttendance = Attendance(
+                    employeeReference.push().key!!
+                    , emp.id
+                    , "Invited"
+                    , LocalDateTime.now().toString()
+                )
+                this.attendanceList.add(tempAttendance)
+                employeeReference.child("employees/${emp.id}/attendanceList/${tempAttendance.id}")
+                    .setValue(tempAttendance)
+            }
+        }
+    }
+
+    private fun updateEventOnDB() {
+
+        val tempMap: MutableMap<String, Attendance> = mutableMapOf()
+        val eventReference = mFireBaseDatabase.reference
+
+        this.attendanceList.forEach {
+            tempMap[it.id] = it
+        }
+        this.currentEvent.attendanceList = tempMap
+
+        eventReference.child("events/active/${this.currentEvent.id}").setValue(this.currentEvent)
+        view.updateList()
+        this.attendanceChanges["DELETE"] = mutableListOf()
+        this.attendanceChanges["ADD"] = mutableListOf()
+        view.navBack()
+    }
+
+    private fun removeAttendanceFromEmployee(employeeList: MutableList<Employee>) {
+
+        val attendanceReference = mFireBaseDatabase.reference
+
+        if (employeeList.size > 0) {
+            employeeList.forEach { employee ->
+
+                attendanceReference
+                    .child("employees")
+                    .child(employee.id)
+                    .child("attendanceList")
+                    .child(this.attendanceList.find {
+                        it.employeeId == employee.id
+                    }!!.id)
+                    .removeValue()
+
+                this.attendanceList.removeIf {
+                    it.employeeId == employee.id
+                }
+            }
+        }
     }
 
     private fun retrieveEventObject(eventID: String) {
@@ -64,7 +136,7 @@ class SeeEventStatusPresenter(private val view: SeeEventStatusView) :
 
             override fun onDataChange(p0: DataSnapshot) {
                 currentEvent = p0.getValue(Event::class.java)!!
-                attendanceList = currentEvent.attendanceList.values.toList()
+                attendanceList = currentEvent.attendanceList.values.toMutableList()
                 view.populateActivityLabel(currentEvent.name)
                 if (employeeItems.size > 0) {
                     view.updateList()
@@ -109,5 +181,21 @@ class SeeEventStatusPresenter(private val view: SeeEventStatusView) :
 
     fun getEmployee(position: Int): Employee {
         return this.employeeItems[position]
+    }
+
+    fun addToDeleteMap(emp: Employee) {
+        val tempList = this.attendanceChanges.getValue("DELETE")
+        if (!tempList.contains(emp)) {
+            tempList.add(emp)
+            this.attendanceChanges["DELETE"] = tempList
+        }
+    }
+
+    fun addToAddMap(emp: Employee) {
+        val tempList = this.attendanceChanges.getValue("ADD")
+        if (!tempList.contains(emp)) {
+            tempList.add(emp)
+            this.attendanceChanges["ADD"] = tempList
+        }
     }
 }

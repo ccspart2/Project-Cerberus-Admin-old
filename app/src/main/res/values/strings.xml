@@ -59,4 +59,5 @@
     <string name="see_event_details_duration_label_text">Duration:</string>
     <string name="see_event_details_headcount_label_text">Headcount:</string>
     <string name="see_event_status_activity_label_text">Status for:</string>
+    <string name="see_event_status_headcount_label_text">Headcount: </string>
 </resources>

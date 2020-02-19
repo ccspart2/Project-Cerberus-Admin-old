@@ -35,16 +35,36 @@ class SeeEventStatusAdapter(private val seeEventStatusPresenter: SeeEventStatusP
                 itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.invite_status_circle)
                 itemView.see_event_status_employee_item_add_btn.setImageResource(R.drawable.plus_icon_disabled)
                 itemView.see_event_status_employee_item_subtract_btn.setImageResource(R.drawable.minus_icon_enabled)
+                itemView.see_event_status_employee_item_subtract_btn.setOnClickListener {
+                    seeEventStatusPresenter.addToDeleteMap(emp)
+                    itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.pending_delete_status_circle)
+                    itemView.see_event_status_employee_item_subtract_btn.setImageResource(R.drawable.minus_icon_disabled)
+                }
             }
             if (status == "Accepted") {
                 itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.accepted_status_circle)
                 itemView.see_event_status_employee_item_add_btn.setImageResource(R.drawable.plus_icon_disabled)
                 itemView.see_event_status_employee_item_subtract_btn.setImageResource(R.drawable.minus_icon_enabled)
+                itemView.see_event_status_employee_item_subtract_btn.setOnClickListener {
+                    seeEventStatusPresenter.addToDeleteMap(emp)
+                    itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.pending_delete_status_circle)
+                    itemView.see_event_status_employee_item_subtract_btn.setImageResource(R.drawable.minus_icon_disabled)
+                }
             }
             if (status == "Declined") {
                 itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.declined_status_circle)
                 itemView.see_event_status_employee_item_add_btn.setImageResource(R.drawable.plus_icon_disabled)
                 itemView.see_event_status_employee_item_subtract_btn.setImageResource(R.drawable.minus_icon_disabled)
+            }
+            if (status == "not invited") {
+                itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.non_invited_status_circle)
+                itemView.see_event_status_employee_item_add_btn.setImageResource(R.drawable.plus_icon_enabled)
+                itemView.see_event_status_employee_item_add_btn.setOnClickListener {
+                    seeEventStatusPresenter.addToAddMap(emp)
+                    itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.pending_add_status_circle)
+                    itemView.see_event_status_employee_item_add_btn.setImageResource(R.drawable.plus_icon_disabled)
+                }
+
             }
         }
     }
