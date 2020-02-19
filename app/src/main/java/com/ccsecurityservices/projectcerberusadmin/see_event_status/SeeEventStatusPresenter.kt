@@ -59,6 +59,7 @@ class SeeEventStatusPresenter(private val view: SeeEventStatusView) :
 
     override fun updateFireBaseDB() {
 
+        view.displayLoading(true)
         removeAttendanceFromEmployee(this.attendanceChanges["DELETE"]!!)
         addAttendanceFromEmployee(this.attendanceChanges["ADD"]!!)
         updateEventOnDB()
@@ -98,6 +99,7 @@ class SeeEventStatusPresenter(private val view: SeeEventStatusView) :
         view.updateList()
         this.attendanceChanges["DELETE"] = mutableListOf()
         this.attendanceChanges["ADD"] = mutableListOf()
+        view.displayLoading(false)
         view.navBack()
     }
 
@@ -162,6 +164,8 @@ class SeeEventStatusPresenter(private val view: SeeEventStatusView) :
                         employeeItems.add(emp)
                     }
                 }
+                view.displayLoading(false)
+
                 view.updateList()
             }
         }

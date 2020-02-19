@@ -1,9 +1,13 @@
 package com.ccsecurityservices.projectcerberusadmin.see_event_status
 
+import android.content.DialogInterface
 import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ccsecurityservices.projectcerberusadmin.R
+import kotlinx.android.synthetic.main.see_all_events.*
 import kotlinx.android.synthetic.main.see_event_status.*
 
 class SeeEventStatusView : AppCompatActivity(), SeeEventStatusContract.SeeEventStatusView {
@@ -26,7 +30,14 @@ class SeeEventStatusView : AppCompatActivity(), SeeEventStatusContract.SeeEventS
         see_event_status_recycler_view.adapter = adapter
 
         see_event_status_refresh_BTN.setOnClickListener {
-            presenter.updateFireBaseDB()
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Refresh Invitations")
+            builder.setMessage("Are you sure you want to refresh the invitations for this event? Please be mindful of the headcount, as we do not enforce a complete headcount.")
+            builder.setNegativeButton("Cancel") { _, _ -> }
+            builder.setPositiveButton("Yes") { _: DialogInterface?, _: Int ->
+                presenter.updateFireBaseDB()
+            }
+            builder.show()
         }
     }
 
@@ -48,4 +59,14 @@ class SeeEventStatusView : AppCompatActivity(), SeeEventStatusContract.SeeEventS
     override fun navBack() {
         finish()
     }
+
+    override fun displayLoading(state: Boolean) {
+        if (state) {
+            see_event_status_loading_widget.visibility = View.VISIBLE
+        } else {
+            see_event_status_loading_widget.visibility = View.GONE
+        }
+    }
+
+
 }
