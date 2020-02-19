@@ -89,7 +89,7 @@ class SeeEventDetailsView : AppCompatActivity(), SeeEventDetailsContract.SeeEven
 
     override fun navToEventStatus(currentEvent: Event) {
         val navIntent = Intent(this, SeeEventStatusView::class.java)
-        navIntent.putExtra("event_status", currentEvent as Serializable)
+        navIntent.putExtra("event_status", currentEvent.id)
         startActivity(navIntent)
     }
 }

@@ -9,6 +9,7 @@ interface SeeEventStatusContract {
     }
 
     interface SeeEventStatusPresenter {
-        fun retrieveEventObject(intent: Intent)
+        fun retrieveData(intent: Intent)
+        fun sortByAttendance()
     }
 }

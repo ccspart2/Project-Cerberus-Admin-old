@@ -11,13 +11,12 @@ class SeeEventStatusView : AppCompatActivity(), SeeEventStatusContract.SeeEventS
     private lateinit var presenter: SeeEventStatusPresenter
     private lateinit var adapter: SeeEventStatusAdapter
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.see_event_status)
 
         presenter = SeeEventStatusPresenter(this)
-        presenter.retrieveEventObject(intent)
+        presenter.retrieveData(intent)
 
         val layoutManager = LinearLayoutManager(this)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -34,6 +33,7 @@ class SeeEventStatusView : AppCompatActivity(), SeeEventStatusContract.SeeEventS
     }
 
     override fun updateList() {
+        presenter.sortByAttendance()
         adapter.notifyDataSetChanged()
     }
 }

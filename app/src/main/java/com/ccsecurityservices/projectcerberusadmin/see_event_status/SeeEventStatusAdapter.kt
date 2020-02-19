@@ -30,6 +30,22 @@ class SeeEventStatusAdapter(private val seeEventStatusPresenter: SeeEventStatusP
         fun setData(emp: Employee) {
             itemView.see_event_status_employee_item_name_label.text =
                 emp.firstName.plus(" ").plus(emp.lastName)
+            val status = seeEventStatusPresenter.employeeAttendanceStatus(emp.id)
+            if (status == "Invited") {
+                itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.invite_status_circle)
+                itemView.see_event_status_employee_item_add_btn.setImageResource(R.drawable.plus_icon_disabled)
+                itemView.see_event_status_employee_item_subtract_btn.setImageResource(R.drawable.minus_icon_enabled)
+            }
+            if (status == "Accepted") {
+                itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.accepted_status_circle)
+                itemView.see_event_status_employee_item_add_btn.setImageResource(R.drawable.plus_icon_disabled)
+                itemView.see_event_status_employee_item_subtract_btn.setImageResource(R.drawable.minus_icon_enabled)
+            }
+            if (status == "Declined") {
+                itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.declined_status_circle)
+                itemView.see_event_status_employee_item_add_btn.setImageResource(R.drawable.plus_icon_disabled)
+                itemView.see_event_status_employee_item_subtract_btn.setImageResource(R.drawable.minus_icon_disabled)
+            }
         }
     }
 }
