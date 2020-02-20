@@ -30,41 +30,93 @@ class SeeEventStatusAdapter(private val seeEventStatusPresenter: SeeEventStatusP
         fun setData(emp: Employee) {
             itemView.see_event_status_employee_item_name_label.text =
                 emp.firstName.plus(" ").plus(emp.lastName)
-            val status = seeEventStatusPresenter.employeeAttendanceStatus(emp.id)
-            if (status == "Invited") {
-                itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.invite_status_circle)
-                itemView.see_event_status_employee_item_add_btn.setImageResource(R.drawable.plus_icon_disabled)
-                itemView.see_event_status_employee_item_subtract_btn.setImageResource(R.drawable.minus_icon_enabled)
-                itemView.see_event_status_employee_item_subtract_btn.setOnClickListener {
-                    seeEventStatusPresenter.addToDeleteMap(emp)
-                    itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.pending_delete_status_circle)
-                    itemView.see_event_status_employee_item_subtract_btn.setImageResource(R.drawable.minus_icon_disabled)
+            when (seeEventStatusPresenter.employeeAttendanceStatus(emp.id)) {
+                "Invited" -> {
+                    prepareInvited(emp)
+                }
+                "Accepted" -> {
+                    prepareAccepted(emp)
+                }
+                "Declined" -> {
+                    prepareDeclined()
+                }
+                else -> {
+                    prepareNotInvited(emp)
                 }
             }
-            if (status == "Accepted") {
-                itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.accepted_status_circle)
-                itemView.see_event_status_employee_item_add_btn.setImageResource(R.drawable.plus_icon_disabled)
-                itemView.see_event_status_employee_item_subtract_btn.setImageResource(R.drawable.minus_icon_enabled)
-                itemView.see_event_status_employee_item_subtract_btn.setOnClickListener {
-                    seeEventStatusPresenter.addToDeleteMap(emp)
-                    itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.pending_delete_status_circle)
-                    itemView.see_event_status_employee_item_subtract_btn.setImageResource(R.drawable.minus_icon_disabled)
-                }
-            }
-            if (status == "Declined") {
-                itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.declined_status_circle)
-                itemView.see_event_status_employee_item_add_btn.setImageResource(R.drawable.plus_icon_disabled)
-                itemView.see_event_status_employee_item_subtract_btn.setImageResource(R.drawable.minus_icon_disabled)
-            }
-            if (status == "not invited") {
-                itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.non_invited_status_circle)
-                itemView.see_event_status_employee_item_add_btn.setImageResource(R.drawable.plus_icon_enabled)
-                itemView.see_event_status_employee_item_add_btn.setOnClickListener {
-                    seeEventStatusPresenter.addToAddMap(emp)
-                    itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.pending_add_status_circle)
-                    itemView.see_event_status_employee_item_add_btn.setImageResource(R.drawable.plus_icon_disabled)
-                }
+        }
 
+        private fun prepareNotInvited(employee: Employee) {
+            itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.non_invited_status_circle)
+            itemView.see_event_status_employee_item_add_btn.setImageResource(R.drawable.plus_icon_enabled)
+            itemView.see_event_status_employee_item_subtract_btn.setImageResource(R.drawable.minus_icon_disabled)
+            togglePlus(true, employee)
+        }
+
+        private fun prepareDeclined() {
+            itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.declined_status_circle)
+            itemView.see_event_status_employee_item_add_btn.setImageResource(R.drawable.plus_icon_disabled)
+            itemView.see_event_status_employee_item_subtract_btn.setImageResource(R.drawable.minus_icon_disabled)
+            itemView.see_event_status_employee_item_add_btn.setOnClickListener(null)
+            itemView.see_event_status_employee_item_subtract_btn.setOnClickListener(null)
+        }
+
+        private fun prepareAccepted(employee: Employee) {
+            itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.accepted_status_circle)
+            itemView.see_event_status_employee_item_add_btn.setImageResource(R.drawable.plus_icon_disabled)
+            itemView.see_event_status_employee_item_subtract_btn.setImageResource(R.drawable.minus_icon_enabled)
+            toggleMinus(true, employee)
+        }
+
+        private fun prepareInvited(employee: Employee) {
+            itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.invite_status_circle)
+            itemView.see_event_status_employee_item_add_btn.setImageResource(R.drawable.plus_icon_disabled)
+            itemView.see_event_status_employee_item_subtract_btn.setImageResource(R.drawable.minus_icon_enabled)
+            toggleMinus(true, employee)
+        }
+
+        private fun togglePlus(state: Boolean, obj: Employee?) {
+            if (state) {
+                itemView.see_event_status_employee_item_add_btn.setOnClickListener {
+                    itemView.see_event_status_employee_item_subtract_btn.setImageResource(R.drawable.minus_icon_enabled)
+                    itemView.see_event_status_employee_item_add_btn.setImageResource(R.drawable.plus_icon_disabled)
+
+                    when (seeEventStatusPresenter.modifyChanges(obj!!)) {
+                        "TEMP_ADD" -> {
+                            itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.pending_add_status_circle)
+                        }
+                        "ACCEPTED" -> {
+                            itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.accepted_status_circle)
+                        }
+                        "PENDING" -> {
+                            itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.invite_status_circle)
+                        }
+                    }
+                    togglePlus(false, null)
+                    toggleMinus(true, obj)
+                }
+            } else {
+                itemView.see_event_status_employee_item_add_btn.setOnClickListener(null)
+            }
+        }
+
+        private fun toggleMinus(state: Boolean, obj: Employee?) {
+            if (state) {
+                itemView.see_event_status_employee_item_subtract_btn.setOnClickListener {
+                    itemView.see_event_status_employee_item_subtract_btn.setImageResource(R.drawable.minus_icon_disabled)
+                    itemView.see_event_status_employee_item_add_btn.setImageResource(R.drawable.plus_icon_enabled)
+
+                    val result = seeEventStatusPresenter.modifyChanges(obj!!)
+                    if (result == "UNINVITED") {
+                        itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.non_invited_status_circle)
+                    } else if (result == "TEMP_DELETE") {
+                        itemView.see_event_status_employee_item_semaphore_circle.setImageResource(R.drawable.pending_delete_status_circle)
+                    }
+                    toggleMinus(false, null)
+                    togglePlus(true, obj)
+                }
+            } else {
+                itemView.see_event_status_employee_item_subtract_btn.setOnClickListener(null)
             }
         }
     }

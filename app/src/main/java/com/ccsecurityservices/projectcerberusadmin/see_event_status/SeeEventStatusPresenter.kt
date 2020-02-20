@@ -73,7 +73,7 @@ class SeeEventStatusPresenter(private val view: SeeEventStatusView) :
     }
 
     private fun checkIfHeadCountIsMet(): Boolean {
-        var count =
+        val count =
             this.attendanceChanges["ADD"]!!.size + this.attendanceList.size - this.attendanceChanges["DELETE"]!!.size
 
         return count >= this.currentEvent.headcount
@@ -200,19 +200,49 @@ class SeeEventStatusPresenter(private val view: SeeEventStatusView) :
         return this.employeeItems[position]
     }
 
-    fun addToDeleteMap(emp: Employee) {
-        val tempList = this.attendanceChanges.getValue("DELETE")
-        if (!tempList.contains(emp)) {
-            tempList.add(emp)
-            this.attendanceChanges["DELETE"] = tempList
+    fun modifyChanges(emp: Employee): String {
+
+        if (checkIfInAttendance(emp.id)) {
+            return if (checkIfInChanges("DELETE", emp.id)) {
+                this.attendanceChanges["DELETE"]!!.add(emp)
+                "TEMP_DELETE"
+            } else {
+                this.attendanceChanges["DELETE"]!!.remove(emp)
+                if (checkIfAccepted(emp.id)) {
+                    "ACCEPTED"
+                } else {
+                    "PENDING"
+                }
+            }
+        } else {
+            return if (checkIfInChanges("ADD", emp.id)) {
+                this.attendanceChanges["ADD"]!!.add(emp)
+                "TEMP_ADD"
+            } else {
+                this.attendanceChanges["ADD"]!!.remove(emp)
+                "UNINVITED"
+            }
         }
     }
 
-    fun addToAddMap(emp: Employee) {
-        val tempList = this.attendanceChanges.getValue("ADD")
-        if (!tempList.contains(emp)) {
-            tempList.add(emp)
-            this.attendanceChanges["ADD"] = tempList
+    private fun checkIfAccepted(id: String): Boolean {
+        val att = this.attendanceList.find {
+            it.employeeId == id
         }
+        return att!!.status == "Accepted"
+    }
+
+    private fun checkIfInChanges(state: String, id: String): Boolean {
+        val tempEMP = this.attendanceChanges[state]!!.find {
+            it.id == id
+        }
+        return tempEMP == null
+    }
+
+    private fun checkIfInAttendance(id: String): Boolean {
+        val tempAttendance = this.attendanceList.find {
+            it.employeeId == id
+        }
+        return tempAttendance != null
     }
 }
