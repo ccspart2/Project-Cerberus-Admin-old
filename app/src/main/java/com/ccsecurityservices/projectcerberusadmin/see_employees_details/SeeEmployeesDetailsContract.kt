@@ -14,14 +14,16 @@ interface SeeEmployeesDetailsContract {
         fun showToastMessages(msg: String)
         fun showLoading(state: Boolean)
         fun navToEditEmployee(EMP: Employee)
-        fun displayActiveEmployeeDialog()
+        fun displayWarningDialog(title: String, desc: String)
+        fun navToEmployeeAttendance(emp: Employee)
     }
 
     interface SeeEmployeesDetailsPresenter {
-        fun retrieveEmployeeObject(EMP: Employee)
+        fun retrieveEmployeeObject(intent: Intent)
         fun prepareForDelete()
         fun prepareForEdit()
         fun createIntentForProfilePic(): Intent
         fun retrieveProfilePic(data: Intent?)
+        fun prepareNavToAttendanceActivity()
     }
 }

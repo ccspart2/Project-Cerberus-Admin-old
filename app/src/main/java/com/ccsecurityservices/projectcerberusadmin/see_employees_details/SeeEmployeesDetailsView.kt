@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.ccsecurityservices.projectcerberusadmin.data_items.Employee
 import com.ccsecurityservices.projectcerberusadmin.R
 import com.ccsecurityservices.projectcerberusadmin.edit_employee.EditEmployeeView
+import com.ccsecurityservices.projectcerberusadmin.see_employees_attendance.SeeEmployeeAttendanceView
 import kotlinx.android.synthetic.main.see_employees_details.*
 import java.io.Serializable
 
@@ -28,6 +29,17 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
         const val RC_PHOTO_PICKER = 2
     }
 
+    private fun eraseWarningDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Erase Employee")
+        builder.setMessage("Are you sure you want to erase this employee from the system?")
+        builder.setPositiveButton("Yes") { _: DialogInterface?, _: Int ->
+            presenter.prepareForDelete()
+        }
+        builder.setNegativeButton("No") { _: DialogInterface?, _: Int -> }
+        builder.show()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.see_employees_details)
@@ -35,7 +47,7 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
         imageView = findViewById(R.id.see_employee_details_profile_pic)
 
         presenter = SeeEmployeesDetailsPresenter(this)
-        presenter.retrieveEmployeeObject(intent.extras!!.get("employee_details") as Employee)
+        presenter.retrieveEmployeeObject(intent)
 
         see_employee_details_profile_pic.setOnClickListener {
             val intent = presenter.createIntentForProfilePic()
@@ -52,25 +64,10 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
         see_employee_details_editEmployeeBTN.setOnClickListener {
             presenter.prepareForEdit()
         }
-    }
 
-    override fun displayActiveEmployeeDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Employee Active")
-        builder.setMessage("This employee is currently invited to an active Event. In order to erase, please un-invite from the active event")
-        builder.setNeutralButton("OK") { _, _ -> }
-        builder.show()
-    }
-
-    private fun eraseWarningDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Erase Employee")
-        builder.setMessage("Are you sure you want to erase this employee from the system?")
-        builder.setPositiveButton("Yes") { _: DialogInterface?, _: Int ->
-            presenter.prepareForDelete()
+        see_employee_details_attendance_BTN.setOnClickListener {
+            presenter.prepareNavToAttendanceActivity()
         }
-        builder.setNegativeButton("No") { _: DialogInterface?, _: Int -> }
-        builder.show()
     }
 
     override fun populateFields(EMP: Employee) {
@@ -86,6 +83,7 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
                 getString(R.string.see_employee_details_admin_text_placeholder).plus(" Administrator")
             see_employee_details_eraseEmployeeBTN.visibility = View.GONE
             see_employee_details_editEmployeeBTN.visibility = View.GONE
+            see_employee_details_attendance_BTN.visibility = View.GONE
         } else {
             see_employee_details_admin_text_view.text =
                 getString(R.string.see_employee_details_admin_text_placeholder).plus(" Employee")
@@ -131,6 +129,20 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
         navIntent.putExtra("employee_edit", EMP as Serializable)
         startActivity(navIntent)
         finish()
+    }
+
+    override fun displayWarningDialog(title: String, desc: String) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(title)
+        builder.setMessage(desc)
+        builder.setNeutralButton("OK") { _, _ -> }
+        builder.show()
+    }
+
+    override fun navToEmployeeAttendance(emp: Employee) {
+        val navIntent = Intent(this, SeeEmployeeAttendanceView::class.java)
+        navIntent.putExtra("employee_event_attendance", emp as Serializable)
+        startActivity(navIntent)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

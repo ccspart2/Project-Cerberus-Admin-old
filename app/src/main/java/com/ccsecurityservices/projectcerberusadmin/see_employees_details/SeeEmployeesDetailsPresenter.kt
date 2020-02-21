@@ -42,42 +42,6 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
         }
     }
 
-    override fun retrieveEmployeeObject(EMP: Employee) {
-        this.currentEmployee = EMP
-        view.populateFields(currentEmployee)
-
-        if (currentEmployee.photoId != "") {
-            view.showLoading(true)
-            view.downloadPic(currentEmployee.photoId)
-            view.showLoading(false)
-        }
-    }
-
-    override fun prepareForDelete() {
-
-        val events: MutableList<Event> = mutableListOf()
-        val eventsReference = mFireBaseDatabase
-            .reference
-            .child("events/active")
-        val eventListener = object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-                Log.e("SeeEmployeesDetailsPresenter", p0.message)
-            }
-
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                dataSnapshot.children.forEach {
-                    events.add(it.getValue(Event::class.java)!!)
-                }
-                if (!checkIfActive(events)) {
-                    deleteEmployee()
-                } else {
-                    view.displayActiveEmployeeDialog()
-                }
-            }
-        }
-        eventsReference.addListenerForSingleValueEvent(eventListener)
-    }
-
     private fun deleteEmployee() {
         if (this.currentEmployee.photoId.isNotEmpty()) {
             deleteProfilePic()
@@ -96,12 +60,46 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
         return false
     }
 
-    override fun prepareForEdit() {
-        if (!this.currentEmployee.adminRights) {
-            view.navToEditEmployee(this.currentEmployee)
-        } else {
-            view.showToastMessages("The employee is an administrator. Please confirm with leadership for approval.")
+    override fun retrieveEmployeeObject(intent: Intent) {
+        this.currentEmployee = intent.extras!!.get("employee_details") as Employee
+        view.populateFields(currentEmployee)
+
+        if (currentEmployee.photoId != "") {
+            view.showLoading(true)
+            view.downloadPic(currentEmployee.photoId)
+            view.showLoading(false)
         }
+    }
+
+    override fun prepareForDelete() {
+        val events: MutableList<Event> = mutableListOf()
+        val eventsReference = mFireBaseDatabase
+            .reference
+            .child("events/active")
+        val eventListener = object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                Log.e("SeeEmployeesDetailsPresenter", p0.message)
+            }
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                dataSnapshot.children.forEach {
+                    events.add(it.getValue(Event::class.java)!!)
+                }
+                if (!checkIfActive(events)) {
+                    deleteEmployee()
+                } else {
+                    view.displayWarningDialog(
+                        "Employee Active",
+                        "This employee is currently invited to an active event. In order to erase, please un-invite from the active event"
+                    )
+                }
+            }
+        }
+        eventsReference.addListenerForSingleValueEvent(eventListener)
+    }
+
+    override fun prepareForEdit() {
+        view.navToEditEmployee(this.currentEmployee)
     }
 
     override fun createIntentForProfilePic(): Intent {
@@ -133,12 +131,23 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
         }.addOnCompleteListener(view) { task ->
             if (task.isSuccessful) {
                 updateUrlInEmployeeRecord(task.result!!.toString())
-                view.showToastMessages("The Profile Picture was Successfully Uploaded.")
+                view.showToastMessages("The profile picture was successfully uploaded.")
                 view.showLoading(false)
             } else {
                 view.showToastMessages("An Error occurred trying to upload. Please try later.")
             }
         }
         view.updateProfilePicFromPicker(selectedImageUri)
+    }
+
+    override fun prepareNavToAttendanceActivity() {
+        if (this.currentEmployee.attendanceList.values.isEmpty()) {
+            view.displayWarningDialog(
+                "No Attendance",
+                "This Employee has not been invited to any event."
+            )
+        } else {
+            view.navToEmployeeAttendance(this.currentEmployee)
+        }
     }
 }
