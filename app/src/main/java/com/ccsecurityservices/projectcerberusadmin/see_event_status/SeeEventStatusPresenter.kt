@@ -87,10 +87,13 @@ class SeeEventStatusPresenter(private val view: SeeEventStatusView) :
         if (employeeList.size > 0) {
             employeeList.forEach { emp ->
                 tempAttendance = Attendance(
-                    employeeReference.push().key!!
-                    , emp.id
-                    , "Invited"
-                    , LocalDateTime.now().toString()
+                    employeeReference.push().key!!,
+                    emp.id,
+                    "Invited",
+                    LocalDateTime.now().toString(),
+                    "",
+                    "",
+                    this.currentEvent.name
                 )
                 this.attendanceList.add(tempAttendance)
                 employeeReference.child("employees/${emp.id}/attendanceList/${tempAttendance.id}")

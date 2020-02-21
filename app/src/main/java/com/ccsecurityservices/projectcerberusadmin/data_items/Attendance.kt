@@ -8,5 +8,6 @@ data class Attendance(
     var status: String = "",
     var timeOfInvitation: String = "",
     var confirmationTime: String = "",
-    var rejectionTime: String = ""
+    var rejectionTime: String = "",
+    var eventName: String = ""
 ) : Serializable

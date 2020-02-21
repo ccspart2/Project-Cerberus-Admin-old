@@ -175,7 +175,13 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
 
         for (emp in this.invitedEmployeeList) {
             tempAttendance =
-                Attendance("", emp.id, "Invited", LocalDateTime.now().toString(), "", "")
+                Attendance("",
+                    emp.id,
+                    "Invited",
+                    LocalDateTime.now().toString(),
+                    "",
+                    "",
+                    this.currentEvent.name)
             tempId = this.eventReference.push().key!!
             tempAttendance.id = tempId
             this.currentEvent.attendanceList[tempId] = tempAttendance
