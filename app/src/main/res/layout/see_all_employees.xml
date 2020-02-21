@@ -7,7 +7,7 @@
     tools:context=".see_all_employees.SeeAllEmployeesView">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/cerberus_logo"
+        android:id="@id/cerberus_logo"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_marginTop="30dp"
@@ -30,9 +30,7 @@
         android:id="@+id/see_all_employee_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_margin="20dp"
         android:background="@drawable/recycler_view_border_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

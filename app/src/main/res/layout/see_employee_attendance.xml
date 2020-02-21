@@ -6,4 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".see_employees_attendance.SeeEmployeeAttendanceView">
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@id/cerberus_logo"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="50dp"
+        android:src="@drawable/cerberus_logo_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/see_employee_attendance_activity_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/see_employee_attendance_activity_label_dummy_text"
+        android:textSize="@dimen/standard_view_label_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/cerberus_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/cerberus_logo" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/see_employee_attendance_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/recycler_view_border_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cerberus_logo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

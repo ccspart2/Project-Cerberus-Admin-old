@@ -61,4 +61,5 @@
     <string name="see_event_status_activity_label_text">Status for:</string>
     <string name="see_event_status_headcount_label_text">Headcount: </string>
     <string name="see_employee_details_attendance_BTN_text">See Events Attendance</string>
+    <string name="see_employee_attendance_activity_label_dummy_text">Juan del Pueblo</string>
 </resources>
