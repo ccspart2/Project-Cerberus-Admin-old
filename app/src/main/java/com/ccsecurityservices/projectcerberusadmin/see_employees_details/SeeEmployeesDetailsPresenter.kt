@@ -2,6 +2,7 @@ package com.ccsecurityservices.projectcerberusadmin.see_employees_details
 
 import android.content.Intent
 import android.util.Log
+import com.ccsecurityservices.projectcerberusadmin.data_items.Attendance
 import com.ccsecurityservices.projectcerberusadmin.data_items.Employee
 import com.ccsecurityservices.projectcerberusadmin.data_items.Event
 import com.google.firebase.database.*
@@ -12,11 +13,20 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
     SeeEmployeesDetailsContract.SeeEmployeesDetailsPresenter {
 
     private lateinit var currentEmployee: Employee
+    private lateinit var recyclerItems: MutableList<Attendance>
 
     private var mFireBaseStorage: FirebaseStorage = FirebaseStorage.getInstance()
     private var mFireBaseDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
 
     private lateinit var currentEmployeeReference: DatabaseReference
+
+    fun numberOfItems(): Int {
+        return recyclerItems.size
+    }
+
+    fun getAttendance(position: Int): Attendance? {
+        return recyclerItems[position]
+    }
 
     private fun deleteProfilePic() {
         val profilePicsReference = mFireBaseStorage.reference
@@ -62,12 +72,12 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
 
     override fun retrieveEmployeeObject(intent: Intent) {
         this.currentEmployee = intent.extras!!.get("employee_details") as Employee
+        this.recyclerItems = this.currentEmployee.attendanceList.values.toMutableList()
+        view.updateList()
         view.populateFields(currentEmployee)
 
         if (currentEmployee.photoId != "") {
-            view.showLoading(true)
             view.downloadPic(currentEmployee.photoId)
-            view.showLoading(false)
         }
     }
 
@@ -110,8 +120,6 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
     }
 
     override fun retrieveProfilePic(data: Intent?) {
-        view.showLoading(true)
-
         val selectedImageUri = data!!.data
 
         //Get a reference to store file at employees_profile_pictures/<FILENAME>
@@ -132,22 +140,10 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
             if (task.isSuccessful) {
                 updateUrlInEmployeeRecord(task.result!!.toString())
                 view.showToastMessages("The profile picture was successfully uploaded.")
-                view.showLoading(false)
             } else {
                 view.showToastMessages("An Error occurred trying to upload. Please try later.")
             }
         }
         view.updateProfilePicFromPicker(selectedImageUri)
-    }
-
-    override fun prepareNavToAttendanceActivity() {
-        if (this.currentEmployee.attendanceList.values.isEmpty()) {
-            view.displayWarningDialog(
-                "No Attendance",
-                "This Employee has not been invited to any event."
-            )
-        } else {
-            view.navToEmployeeAttendance(this.currentEmployee)
-        }
     }
 }

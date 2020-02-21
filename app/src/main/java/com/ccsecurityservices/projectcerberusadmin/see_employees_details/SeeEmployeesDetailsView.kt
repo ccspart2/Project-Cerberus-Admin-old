@@ -10,11 +10,11 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.ccsecurityservices.projectcerberusadmin.data_items.Employee
 import com.ccsecurityservices.projectcerberusadmin.R
 import com.ccsecurityservices.projectcerberusadmin.edit_employee.EditEmployeeView
-import com.ccsecurityservices.projectcerberusadmin.see_employees_attendance.SeeEmployeeAttendanceView
 import kotlinx.android.synthetic.main.see_employees_details.*
 import java.io.Serializable
 
@@ -24,6 +24,7 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
 
     private lateinit var presenter: SeeEmployeesDetailsPresenter
     private lateinit var imageView: ImageView
+    private lateinit var adapter: SeeEmployeesDetailsAdapter
 
     companion object {
         const val RC_PHOTO_PICKER = 2
@@ -47,6 +48,14 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
         imageView = findViewById(R.id.see_employee_details_profile_pic)
 
         presenter = SeeEmployeesDetailsPresenter(this)
+
+        val layoutManager = LinearLayoutManager(this)
+        layoutManager.orientation = LinearLayoutManager.VERTICAL
+        see_employee_details_recycler_view.layoutManager = layoutManager
+
+        adapter = SeeEmployeesDetailsAdapter(presenter)
+        see_employee_details_recycler_view.adapter = adapter
+
         presenter.retrieveEmployeeObject(intent)
 
         see_employee_details_profile_pic.setOnClickListener {
@@ -64,36 +73,33 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
         see_employee_details_editEmployeeBTN.setOnClickListener {
             presenter.prepareForEdit()
         }
-
-        see_employee_details_attendance_BTN.setOnClickListener {
-            presenter.prepareNavToAttendanceActivity()
-        }
     }
 
     override fun populateFields(EMP: Employee) {
-        see_employee_details_name_text_view.text =
+        see_employee_details_name_label.text =
             getString(R.string.see_generics_details_name_text_placeholder).plus(" ${EMP.firstName} ${EMP.lastName}")
-        see_employee_details_phone_text_view.text =
+        see_employee_details_phone_label.text =
             getString(R.string.see_employee_details_phone_text_placeholder).plus(" ${EMP.phone}")
-        see_employee_details_email_text_view.text =
+        see_employee_details_email_label.text =
             getString(R.string.see_employee_details_email_text_placeholder).plus(" ${EMP.email}")
 
         if (EMP.adminRights) {
-            see_employee_details_admin_text_view.text =
+            see_employee_details_admin_label.text =
                 getString(R.string.see_employee_details_admin_text_placeholder).plus(" Administrator")
             see_employee_details_eraseEmployeeBTN.visibility = View.GONE
             see_employee_details_editEmployeeBTN.visibility = View.GONE
-            see_employee_details_attendance_BTN.visibility = View.GONE
+            see_employee_details_recycler_view.visibility = View.GONE
+            see_employee_details_hasApp_label.visibility = View.GONE
         } else {
-            see_employee_details_admin_text_view.text =
+            see_employee_details_admin_label.text =
                 getString(R.string.see_employee_details_admin_text_placeholder).plus(" Employee")
         }
 
         if (EMP.hasApp) {
-            see_employee_details_hasApp_text_view.text =
+            see_employee_details_hasApp_label.text =
                 getString(R.string.see_employee_details_hasApp_text_placeholder).plus(" YES")
         } else {
-            see_employee_details_hasApp_text_view.text =
+            see_employee_details_hasApp_label.text =
                 getString(R.string.see_employee_details_hasApp_text_placeholder).plus(" NO")
         }
     }
@@ -109,7 +115,9 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
     }
 
     override fun downloadPic(imageUrl: String) {
+        showLoading(true)
         Glide.with(this).load(imageUrl).into(imageView)
+        showLoading(false)
     }
 
     override fun showToastMessages(msg: String) {
@@ -139,10 +147,8 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
         builder.show()
     }
 
-    override fun navToEmployeeAttendance(emp: Employee) {
-        val navIntent = Intent(this, SeeEmployeeAttendanceView::class.java)
-        navIntent.putExtra("employee_event_attendance", emp as Serializable)
-        startActivity(navIntent)
+    override fun updateList() {
+        adapter.notifyDataSetChanged()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

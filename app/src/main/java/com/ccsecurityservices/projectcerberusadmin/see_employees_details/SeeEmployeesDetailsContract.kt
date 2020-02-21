@@ -15,7 +15,7 @@ interface SeeEmployeesDetailsContract {
         fun showLoading(state: Boolean)
         fun navToEditEmployee(EMP: Employee)
         fun displayWarningDialog(title: String, desc: String)
-        fun navToEmployeeAttendance(emp: Employee)
+        fun updateList()
     }
 
     interface SeeEmployeesDetailsPresenter {
@@ -24,6 +24,5 @@ interface SeeEmployeesDetailsContract {
         fun prepareForEdit()
         fun createIntentForProfilePic(): Intent
         fun retrieveProfilePic(data: Intent?)
-        fun prepareNavToAttendanceActivity()
     }
 }
