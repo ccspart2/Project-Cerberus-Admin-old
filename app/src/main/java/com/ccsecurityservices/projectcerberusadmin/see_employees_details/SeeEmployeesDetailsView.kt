@@ -58,14 +58,6 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
 
         presenter.retrieveEmployeeObject(intent)
 
-        see_employee_details_profile_pic.setOnClickListener {
-            val intent = presenter.createIntentForProfilePic()
-            startActivityForResult(
-                Intent.createChooser(intent, "Complete action using"),
-                RC_PHOTO_PICKER
-            )
-        }
-
         see_employee_details_eraseEmployeeBTN.setOnClickListener {
             eraseWarningDialog()
         }
@@ -83,6 +75,14 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
         see_employee_details_email_label.text =
             getString(R.string.see_employee_details_email_text_placeholder).plus(" ${EMP.email}")
 
+        see_employee_details_profile_pic.setOnClickListener {
+            val intent = presenter.createIntentForProfilePic()
+            startActivityForResult(
+                Intent.createChooser(intent, "Complete action using"),
+                RC_PHOTO_PICKER
+            )
+        }
+
         if (EMP.adminRights) {
             see_employee_details_admin_label.text =
                 getString(R.string.see_employee_details_admin_text_placeholder).plus(" Administrator")
@@ -90,6 +90,7 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
             see_employee_details_editEmployeeBTN.visibility = View.GONE
             see_employee_details_recycler_view.visibility = View.GONE
             see_employee_details_hasApp_label.visibility = View.GONE
+            see_employee_details_profile_pic.setOnClickListener(null)
         } else {
             see_employee_details_admin_label.text =
                 getString(R.string.see_employee_details_admin_text_placeholder).plus(" Employee")
