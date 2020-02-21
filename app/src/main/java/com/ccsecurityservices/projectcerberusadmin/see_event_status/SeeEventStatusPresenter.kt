@@ -31,7 +31,7 @@ class SeeEventStatusPresenter(private val view: SeeEventStatusView) :
 
     override fun sortByAttendance() {
         val tempList: MutableList<Employee> = mutableListOf()
-        val currentHeadcount = this.attendanceList.size
+        var currentHeadcount = this.attendanceList.size
         employeeItems.forEach { emp ->
             if (employeeAttendanceStatus(emp.id) == "Accepted") {
                 tempList.add(emp)
@@ -45,6 +45,7 @@ class SeeEventStatusPresenter(private val view: SeeEventStatusView) :
         employeeItems.forEach { emp ->
             if (employeeAttendanceStatus(emp.id) == "Declined") {
                 tempList.add(emp)
+                currentHeadcount--
             }
         }
         employeeItems.forEach { emp ->
