@@ -4,7 +4,7 @@ interface AddNewEmployeeContract {
 
     interface AddNewEmployeeView {
         fun navBackSeeAllEmployees()
-        fun showFailMessage()
+        fun showDialogMessage(title: String, desc: String, action: String)
     }
 
     interface AddNewEmployeePresenter {

@@ -54,13 +54,11 @@ class EditEmployeePresenter(private val view: EditEmployeeView) :
         } else {
             view.displayInvalidParameters()
         }
-
     }
 
     private fun uploadEmployeeToFireBase(employee: Employee) {
         val dbReference = mFireBaseDatabase.reference
-            .child("employees")
-            .child(this.currentEmployee.id)
+            .child("employees/regulars/${this.currentEmployee.id}")
 
         dbReference.setValue(employee).addOnCompleteListener(view) {
             view.navOut()

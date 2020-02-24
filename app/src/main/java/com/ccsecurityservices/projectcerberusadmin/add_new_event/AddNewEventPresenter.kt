@@ -198,7 +198,7 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
     }
 
     private fun addAttendanceToAllEmployeesInvited() {
-        val employeeReference = fireBaseDatabase.reference.child("employees")
+        val employeeReference = fireBaseDatabase.reference.child("employees/regulars")
 
         for (emp in this.invitedEmployeeList) {
             employeeReference.child(emp.id).setValue(emp)

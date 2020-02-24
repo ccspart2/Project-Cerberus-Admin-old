@@ -96,7 +96,7 @@ class SeeEventStatusPresenter(private val view: SeeEventStatusView) :
                     this.currentEvent.name
                 )
                 this.attendanceList.add(tempAttendance)
-                employeeReference.child("employees/${emp.id}/attendanceList/${tempAttendance.id}")
+                employeeReference.child("employees/regulars/${emp.id}/attendanceList/${tempAttendance.id}")
                     .setValue(tempAttendance)
             }
         }
@@ -128,7 +128,7 @@ class SeeEventStatusPresenter(private val view: SeeEventStatusView) :
             employeeList.forEach { employee ->
 
                 attendanceReference
-                    .child("employees")
+                    .child("employees/regulars")
                     .child(employee.id)
                     .child("attendanceList")
                     .child(this.attendanceList.find {
@@ -167,7 +167,7 @@ class SeeEventStatusPresenter(private val view: SeeEventStatusView) :
 
     private fun retrieveEmployeeList() {
         val employeesReference = mFireBaseDatabase.reference
-            .child("employees")
+            .child("employees/regulars")
 
         val employeesListener = object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
@@ -176,13 +176,9 @@ class SeeEventStatusPresenter(private val view: SeeEventStatusView) :
 
             override fun onDataChange(dataSet: DataSnapshot) {
                 dataSet.children.forEach {
-                    val emp = it.getValue(Employee::class.java)!!
-                    if (!emp.adminRights) {
-                        employeeItems.add(emp)
-                    }
+                    employeeItems.add(it.getValue(Employee::class.java)!!)
                 }
                 view.displayLoading(false)
-
                 view.updateList()
             }
         }

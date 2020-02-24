@@ -44,7 +44,11 @@ class AddNewEmployeePresenter(private val view: AddNewEmployeeView) :
             )
             uploadEmployeeToFireBase(employee)
         } else {
-            view.showFailMessage()
+            view.showDialogMessage(
+                "Invalid Credentials",
+                "Some of the credentials are not valid. Please verify and try again.",
+                "INVALID_CREDENTIALS"
+            )
         }
     }
 
@@ -52,8 +56,16 @@ class AddNewEmployeePresenter(private val view: AddNewEmployeeView) :
         val db = FirebaseDatabase.getInstance().reference
         val id = db.push().key
         employee.id = id!!
-        db.child("employees").child(id).setValue(employee).addOnCompleteListener(view) {
-            view.navBackSeeAllEmployees()
+
+        if (employee.adminRights) {
+            db.child("employees/admins").child(id).setValue(employee).addOnCompleteListener(view) {
+                view.navBackSeeAllEmployees()
+            }
+        } else {
+            db.child("employees/regulars").child(id).setValue(employee)
+                .addOnCompleteListener(view) {
+                    view.navBackSeeAllEmployees()
+                }
         }
     }
 }

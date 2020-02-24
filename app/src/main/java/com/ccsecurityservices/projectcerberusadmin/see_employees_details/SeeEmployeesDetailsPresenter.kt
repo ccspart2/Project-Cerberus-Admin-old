@@ -37,7 +37,7 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
 
     private fun updateUrlInEmployeeRecord(photoURL: String) {
         currentEmployeeReference = mFireBaseDatabase.reference
-            .child("employees")
+            .child("employees/regulars")
             .child(currentEmployee.id)
             .child("photoId")
 
@@ -46,7 +46,7 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
 
     private fun deleteEmployeeDBEntry() {
         currentEmployeeReference =
-            mFireBaseDatabase.reference.child("employees").child(currentEmployee.id)
+            mFireBaseDatabase.reference.child("employees/regulars").child(currentEmployee.id)
         currentEmployeeReference.removeValue().addOnSuccessListener(view) {
             view.deleteResult(true)
         }

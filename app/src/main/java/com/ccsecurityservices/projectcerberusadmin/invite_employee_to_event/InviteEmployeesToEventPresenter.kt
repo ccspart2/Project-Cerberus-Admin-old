@@ -14,7 +14,7 @@ class InviteEmployeesToEventPresenter(private val view: InviteEmployeesToEventVi
     InviteEmployeesToEventContract.InviteEmployeesToEventPresenter {
 
     private val mFireBaseDatabase = FirebaseDatabase.getInstance()
-    private val employeesReference = mFireBaseDatabase.reference.child("employees")
+    private val employeesReference = mFireBaseDatabase.reference.child("employees/regulars")
 
     private lateinit var currentEvent: Event
 
@@ -38,10 +38,7 @@ class InviteEmployeesToEventPresenter(private val view: InviteEmployeesToEventVi
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (dataSnapshot1 in dataSnapshot.children) {
-                    val emp = dataSnapshot1.getValue(Employee::class.java)!!
-                    if (!emp.adminRights) {
-                        allEmployees.add(emp)
-                    }
+                    allEmployees.add(dataSnapshot1.getValue(Employee::class.java)!!)
                 }
                 view.showLoading(false)
                 view.updateEmployeeList()

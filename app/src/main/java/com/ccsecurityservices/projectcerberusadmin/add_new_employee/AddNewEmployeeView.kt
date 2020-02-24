@@ -1,8 +1,9 @@
 package com.ccsecurityservices.projectcerberusadmin.add_new_employee
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.ccsecurityservices.projectcerberusadmin.R
 import kotlinx.android.synthetic.main.add_new_employee.*
 
@@ -17,12 +18,10 @@ class AddNewEmployeeView : AppCompatActivity(), AddNewEmployeeContract.AddNewEmp
         addNewEmployeePresenter = AddNewEmployeePresenter(this)
 
         add_employee_BTN.setOnClickListener {
-            addNewEmployeePresenter.addEmployee(
-                add_employee_first_name_Edit_Text.text.toString(),
-                add_employee_last_name_Edit_Text.text.toString(),
-                add_employee_email_Edit_Text.text.toString(),
-                add_employee_phone_Edit_Text.text.toString(),
-                add_employee_administrator_switch.isChecked
+            showDialogMessage(
+                "Create Employee",
+                "Are you sure you want to create this employee?",
+                "CREATE_EMPLOYEE"
             )
         }
     }
@@ -36,12 +35,24 @@ class AddNewEmployeeView : AppCompatActivity(), AddNewEmployeeContract.AddNewEmp
         finish()
     }
 
-    override fun showFailMessage() {
-        Toast.makeText(
-            this,
-            "Some of the credentials are not valid. Please verify and try again",
-            Toast.LENGTH_LONG
-        ).show()
+    override fun showDialogMessage(title: String, desc: String, action: String) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(title)
+        builder.setMessage(desc)
+        if (action == "INVALID_CREDENTIALS") {
+            builder.setNegativeButton("Ok") { _, _ -> }
+        } else if (action == "CREATE_EMPLOYEE") {
+            builder.setPositiveButton("Ok") { _, _ ->
+                addNewEmployeePresenter.addEmployee(
+                    add_employee_first_name_Edit_Text.text.toString(),
+                    add_employee_last_name_Edit_Text.text.toString(),
+                    add_employee_email_Edit_Text.text.toString(),
+                    add_employee_phone_Edit_Text.text.toString(),
+                    add_employee_administrator_switch.isChecked
+                )
+            }
+        }
+        builder.show()
     }
 
     override fun onResume() {

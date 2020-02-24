@@ -9,12 +9,12 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesView) :
     private val items: MutableList<Employee> = mutableListOf()
 
     private var mFireBaseDatabase = FirebaseDatabase.getInstance()
-    private lateinit var employeesReference: DatabaseReference
-    private lateinit var mChildEventListener: ChildEventListener
+    private lateinit var employeesRegularsReference: DatabaseReference
+    private lateinit var employeeAdminReference: DatabaseReference
+    private lateinit var regularEmployeesListener: ChildEventListener
 
     fun numberOfItems(): Int {
-        if(items.size == 0)
-        {
+        if (items.size == 0) {
             view.showLoading(false)
         }
         return items.size
@@ -34,9 +34,10 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesView) :
 
     override fun getEmployeeList() {
 
-        employeesReference = mFireBaseDatabase.reference.child("employees")
+        employeesRegularsReference = mFireBaseDatabase.reference.child("employees/regulars")
+        employeeAdminReference = mFireBaseDatabase.reference.child("employees/admins")
 
-        mChildEventListener = object : ChildEventListener {
+        regularEmployeesListener = object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 p0.message
             }
@@ -69,10 +70,11 @@ class SeeAllEmployeesPresenter(private val view: SeeAllEmployeesView) :
                 view.showLoading(false)
             }
         }
-        employeesReference.addChildEventListener(mChildEventListener)
+        employeesRegularsReference.addChildEventListener(regularEmployeesListener)
+        employeeAdminReference.addChildEventListener(regularEmployeesListener)
     }
 
     override fun detachListener() {
-        employeesReference.removeEventListener(mChildEventListener)
+        employeesRegularsReference.removeEventListener(regularEmployeesListener)
     }
 }
