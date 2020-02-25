@@ -12,6 +12,7 @@ data class Employee(
     var phone: String = "",
     var photoId: String = "",
     var hasApp: Boolean = false,
-    var attendanceList: MutableMap<String, Attendance> = mutableMapOf()
+    var attendanceList: MutableMap<String, Attendance> = mutableMapOf(),
+    var authId: String = ""
 ) : Serializable
 

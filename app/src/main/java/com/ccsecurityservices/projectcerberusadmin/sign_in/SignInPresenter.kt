@@ -26,7 +26,6 @@ class SignInPresenter(private val view: SignInView) : SignInContract.SignInPrese
     }
 
     override fun checkIfAdmin(currentUser: FirebaseUser) {
-
         val adminsReference = mFireBaseDatabase.reference.child("employees/admins")
 
         val adminsListener = object : ValueEventListener {
@@ -39,16 +38,26 @@ class SignInPresenter(private val view: SignInView) : SignInContract.SignInPrese
                     val admin = it.getValue(Employee::class.java)!!
                     if (admin.email == currentUser.email) {
                         validAdmin = true
+                        if (!admin.hasApp || currentUser.uid == admin.authId) {
+                            updateEmployeeRecord(admin, currentUser)
+                        }
                     }
                 }
                 if (validAdmin) {
                     view.navToHomePage()
                 } else {
-                    auth.signOut()
                     view.invalidUserDialog()
                 }
             }
         }
         adminsReference.addListenerForSingleValueEvent(adminsListener)
+        view.displayLoading(true)
+    }
+
+    private fun updateEmployeeRecord(admin: Employee, currentUser: FirebaseUser) {
+        admin.hasApp = true
+        admin.authId = currentUser.uid
+        val updateReference = mFireBaseDatabase.reference.child("employees/admins/${admin.id}")
+        updateReference.setValue(admin)
     }
 }
