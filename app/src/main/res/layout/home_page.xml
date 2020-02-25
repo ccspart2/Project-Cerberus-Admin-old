@@ -102,7 +102,7 @@
         app:layout_constraintTop_toTopOf="@id/employees_label" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/home_page_log_out_BTN"
+        android:id="@+id/home_page_logOut_BTN"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:layout_marginTop="35dp"
@@ -113,15 +113,15 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/home_page_log_out_BTN_label"
+        android:id="@+id/home_page_logOut_BTN_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Logout"
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@id/home_page_log_out_BTN"
-        app:layout_constraintStart_toStartOf="@id/home_page_log_out_BTN"
-        app:layout_constraintTop_toBottomOf="@id/home_page_log_out_BTN" />
+        app:layout_constraintEnd_toEndOf="@id/home_page_logOut_BTN"
+        app:layout_constraintStart_toStartOf="@id/home_page_logOut_BTN"
+        app:layout_constraintTop_toBottomOf="@id/home_page_logOut_BTN" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
