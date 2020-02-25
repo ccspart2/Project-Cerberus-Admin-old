@@ -6,9 +6,11 @@ interface HomePageContract {
 
     interface HomePageView {
         fun populateUser(): Employee
+        fun navToSignIn()
     }
 
     interface HomePagePresenter {
         fun retrieveUserInfo()
+        fun logOut()
     }
 }
