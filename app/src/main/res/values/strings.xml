@@ -63,4 +63,9 @@
     <string name="see_employee_details_attendance_BTN_text">See Events Attendance</string>
     <string name="see_employee_attendance_activity_label_dummy_text">Juan del Pueblo</string>
     <string name="sign_in_parent_BTN_text">Sign IN</string>
+    <string name="home_page_employee_name_label_text">Employee Full Name</string>
+    <string name="home_page_employees_btn_label_text">Employees</string>
+    <string name="home_page_locations_btn_label_text">Locations</string>
+    <string name="home_page_events_btn_label_text">Events</string>
+    <string name="home_page_logOut_BTN_label_text">Logout</string>
 </resources>

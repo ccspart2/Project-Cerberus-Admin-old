@@ -1,6 +1,5 @@
 package com.ccsecurityservices.projectcerberusadmin.sign_in
 
-import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseUser
 
 interface SignInContract {

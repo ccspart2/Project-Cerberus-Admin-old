@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.ccsecurityservices.projectcerberusadmin.R
@@ -41,12 +42,10 @@ class SignInView : AppCompatActivity(), SignInContract.SignInView {
 
     override fun startSignInFlow() {
 
-        // Choose authentication providers
         val providers = arrayListOf(
             AuthUI.IdpConfig.EmailBuilder().build()
         )
 
-        // Create and launch sign-in intent
         startActivityForResult(
             AuthUI.getInstance()
                 .createSignInIntentBuilder()
@@ -85,11 +84,8 @@ class SignInView : AppCompatActivity(), SignInContract.SignInView {
             if (resultCode == Activity.RESULT_OK) {
                 // Successfully signed in
                 presenter.checkIfAdmin(FirebaseAuth.getInstance().currentUser!!)
-            } else {
-                // Sign in failed. If response is null the user canceled the
-                // sign-in flow using the back button. Otherwise check
-                // response.getError().getErrorCode() and handle the error.
-                // ...
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(this, "Sign In Cancelled", Toast.LENGTH_LONG).show()
             }
         }
     }

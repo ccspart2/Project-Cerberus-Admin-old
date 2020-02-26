@@ -129,7 +129,7 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
         if (state) {
             see_employee_details_loading_widget.visibility = View.VISIBLE
         } else {
-            see_employee_details_loading_widget.visibility = View.GONE
+            see_employee_details_loading_widget.visibility = View.INVISIBLE
         }
     }
 

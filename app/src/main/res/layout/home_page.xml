@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/profile_pic"
+        android:id="@+id/home_page_current_employee_profile_pic"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginStart="100dp"
@@ -27,15 +27,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/profile_name"
+        android:id="@+id/home_page_current_employee_name_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Charlie Castro Soto"
+        android:text="@string/home_page_employee_name_label_text"
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@id/profile_pic"
-        app:layout_constraintStart_toStartOf="@id/profile_pic"
-        app:layout_constraintTop_toBottomOf="@id/profile_pic" />
+        app:layout_constraintEnd_toEndOf="@id/home_page_current_employee_profile_pic"
+        app:layout_constraintStart_toStartOf="@id/home_page_current_employee_profile_pic"
+        app:layout_constraintTop_toBottomOf="@id/home_page_current_employee_profile_pic" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/home_page_employees_btn"
@@ -45,13 +45,13 @@
         android:layout_marginTop="75dp"
         android:src="@drawable/people2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_name" />
+        app:layout_constraintTop_toBottomOf="@id/home_page_current_employee_name_label" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/employees_label"
+        android:id="@+id/home_page_employees_btn_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Employees"
+        android:text="@string/home_page_employees_btn_label_text"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@id/home_page_employees_btn"
@@ -66,19 +66,19 @@
         android:layout_marginEnd="150dp"
         android:src="@drawable/arena"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_name" />
+        app:layout_constraintTop_toBottomOf="@id/home_page_current_employee_name_label" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/locations_label"
+        android:id="@+id/home_page_locations_btn_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Locations"
+        android:text="@string/home_page_locations_btn_label_text"
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@id/employees_label"
+        app:layout_constraintBottom_toBottomOf="@id/home_page_employees_btn_label"
         app:layout_constraintEnd_toEndOf="@id/home_page_locations_btn"
         app:layout_constraintStart_toStartOf="@id/home_page_locations_btn"
-        app:layout_constraintTop_toTopOf="@id/employees_label" />
+        app:layout_constraintTop_toTopOf="@id/home_page_employees_btn_label" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/home_page_events_btn"
@@ -90,16 +90,16 @@
         app:layout_constraintTop_toTopOf="@id/home_page_employees_btn" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/calendar_label"
+        android:id="@+id/home_page_events_btn_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Events"
+        android:text="@string/home_page_events_btn_label_text"
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@id/employees_label"
+        app:layout_constraintBottom_toBottomOf="@id/home_page_employees_btn_label"
         app:layout_constraintEnd_toEndOf="@id/home_page_events_btn"
         app:layout_constraintStart_toStartOf="@id/home_page_events_btn"
-        app:layout_constraintTop_toTopOf="@id/employees_label" />
+        app:layout_constraintTop_toTopOf="@id/home_page_employees_btn_label" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/home_page_logOut_BTN"
@@ -116,7 +116,7 @@
         android:id="@+id/home_page_logOut_BTN_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Logout"
+        android:text="@string/home_page_logOut_BTN_label_text"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@id/home_page_logOut_BTN"
