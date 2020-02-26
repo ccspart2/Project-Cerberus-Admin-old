@@ -13,13 +13,12 @@ class SignInPresenter(private val view: SignInView) : SignInContract.SignInPrese
 
     private lateinit var auth: FirebaseAuth
     private var mFireBaseDatabase = FirebaseDatabase.getInstance()
-    private var validAdmin = false
 
     override fun checkIfSignedIn() {
         auth = FirebaseAuth.getInstance()
 
         if (auth.currentUser != null) {
-            view.navToHomePage()
+            checkIfAdmin(FirebaseAuth.getInstance().currentUser!!)
         } else {
             view.startSignInFlow()
         }
@@ -34,19 +33,20 @@ class SignInPresenter(private val view: SignInView) : SignInContract.SignInPrese
             }
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                dataSnapshot.children.forEach {
-                    val admin = it.getValue(Employee::class.java)!!
-                    if (admin.email == currentUser.email) {
-                        validAdmin = true
-                        if (!admin.hasApp || currentUser.uid == admin.authId) {
-                            updateEmployeeRecord(admin, currentUser)
-                        }
-                    }
-                }
-                if (validAdmin) {
-                    view.navToHomePage()
-                } else {
+
+                val admin = dataSnapshot.children.find {
+                    it.getValue(Employee::class.java)?.email == currentUser.email
+                }?.getValue(Employee::class.java)
+
+                if (admin == null) {
                     view.invalidUserDialog()
+                } else {
+                    //First Time Login
+                    if (!admin.hasApp || currentUser.uid != admin.authId) {
+                        updateEmployeeRecord(admin, currentUser)
+                    } else {
+                        view.navToHomePage()
+                    }
                 }
             }
         }
@@ -58,6 +58,8 @@ class SignInPresenter(private val view: SignInView) : SignInContract.SignInPrese
         admin.hasApp = true
         admin.authId = currentUser.uid
         val updateReference = mFireBaseDatabase.reference.child("employees/admins/${admin.id}")
-        updateReference.setValue(admin)
+        updateReference.setValue(admin).addOnCompleteListener(view) {
+            view.navToHomePage()
+        }
     }
 }

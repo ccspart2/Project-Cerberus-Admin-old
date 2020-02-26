@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.ccsecurityservices.projectcerberusadmin.R
 import com.ccsecurityservices.projectcerberusadmin.home_page.HomePageView
 import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.sign_in_parent_layout.*
 
@@ -63,11 +62,10 @@ class SignInView : AppCompatActivity(), SignInContract.SignInView {
         builder.setMessage("You are not enlisted to use Project Cerberus as an valid Admin. Please contact C&C Security Office in order to make the necessary arrangements.")
         builder.setNeutralButton("OK") { _: DialogInterface?, _: Int ->
             displayLoading(false)
-            startSignInFlow()
         }
 
         AuthUI.getInstance()
-            .signOut(this).addOnCompleteListener {
+            .delete(this).addOnCompleteListener {
                 builder.show()
             }
     }
