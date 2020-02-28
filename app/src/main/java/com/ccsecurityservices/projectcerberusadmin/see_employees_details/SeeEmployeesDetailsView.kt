@@ -65,6 +65,16 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
         see_employee_details_editEmployeeBTN.setOnClickListener {
             presenter.prepareForEdit()
         }
+
+        see_employee_details_profile_pic.setOnClickListener {
+            startActivityForResult(
+                Intent.createChooser(
+                    presenter.createIntentForProfilePic(),
+                    "Complete action using"
+                ),
+                RC_PHOTO_PICKER
+            )
+        }
     }
 
     override fun populateFields(EMP: Employee) {
@@ -74,14 +84,6 @@ class SeeEmployeesDetailsView : AppCompatActivity(),
             getString(R.string.see_employee_details_phone_text_placeholder).plus(" ${EMP.phone}")
         see_employee_details_email_label.text =
             getString(R.string.see_employee_details_email_text_placeholder).plus(" ${EMP.email}")
-
-        see_employee_details_profile_pic.setOnClickListener {
-            val intent = presenter.createIntentForProfilePic()
-            startActivityForResult(
-                Intent.createChooser(intent, "Complete action using"),
-                RC_PHOTO_PICKER
-            )
-        }
 
         if (EMP.adminRights) {
             see_employee_details_admin_label.text =

@@ -120,14 +120,14 @@ class SeeEmployeesDetailsPresenter(private val view: SeeEmployeesDetailsView) :
     }
 
     override fun retrieveProfilePic(data: Intent?) {
-        val selectedImageUri = data!!.data
+        val selectedImageUri = data!!.data!!
 
         //Get a reference to store file at employees_profile_pictures/<FILENAME>
         val photoRef = mFireBaseStorage.reference
             .child("employees_profile_pictures")
             .child("${this.currentEmployee.firstName}.${this.currentEmployee.lastName}")
 
-        val uploadTask = photoRef.putFile(selectedImageUri!!)
+        val uploadTask = photoRef.putFile(selectedImageUri)
 
         uploadTask.continueWithTask { task ->
             if (!task.isSuccessful) {
