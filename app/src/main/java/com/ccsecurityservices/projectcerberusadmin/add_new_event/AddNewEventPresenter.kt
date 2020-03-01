@@ -21,7 +21,7 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
     AddNewEventContract.AddNewEventPresenter {
 
     private lateinit var locationList: MutableList<SecLocation>
-    private lateinit var invitedEmployeeList: MutableList<Employee>
+    private var invitedEmployeeList: MutableList<Employee> = mutableListOf()
 
     private var currentEvent = Event()
     private val fireBaseDatabase = FirebaseDatabase.getInstance()
@@ -229,6 +229,9 @@ class AddNewEventPresenter(private val view: AddNewEventView) :
             result = false
         }
         if (this.currentEvent.description.trim().isEmpty()) {
+            result = false
+        }
+        if (this.invitedEmployeeList.isNullOrEmpty()) {
             result = false
         }
         return result
